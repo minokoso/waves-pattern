@@ -79,10 +79,232 @@ const DEFAULT_SETTINGS = {
 // Hardcode deployment presets here so they ship with static hosts like Vercel.
 const BUILT_IN_PATTERNS = [
     {
-        id: "builtin-default",
-        name: "Default",
-        settings: { ...DEFAULT_SETTINGS },
-        exportOverrideCode: ""
+        id: "builtin-1",
+        name: "1",
+        settings: {
+            resolutionPreset: "fullhd",
+            renderWidth: 1920,
+            renderHeight: 1080,
+            backgroundColor: "#000000",
+            containerPosition: "relative",
+            containerWidthValue: 100,
+            containerWidthUnit: "%",
+            containerHeightValue: 100,
+            containerHeightUnit: "%",
+            pointSize: 3.3,
+            opacityMin: 0.2,
+            opacityMax: 1,
+            twinkleSpeed: 3,
+            particleColor: "#ffffff",
+            particleShape: "rectangle",
+            cameraFov: 75,
+            cameraX: 0,
+            cameraY: 20,
+            cameraZ: 70,
+            lookAtX: 0,
+            lookAtY: -10,
+            lookAtZ: 0,
+            gridWidth: 398,
+            gridDepth: 224,
+            spacing: 0.75,
+            timeStep: 0.04,
+            focusDistance: 72,
+            focalRange: 12,
+            maxBlurScale: 2.2,
+            blurFalloff: 35,
+            edgeFadeStart: 0.45,
+            edgeFadeAmount: 1,
+            waveStart: 2,
+            waveDuration: 14,
+            waveFromX: -50,
+            waveToX: 350,
+            waveSpread: 55,
+            mountainStart: 14,
+            mountainRiseDuration: 4,
+            mountainHoldDuration: 6,
+            mountainFadeDuration: 6,
+            noiseFreq1: 0.03,
+            noiseFreq2: 0.1,
+            noiseFreq3: 0.25,
+            noiseSpeed1: 0.3,
+            noiseSpeed2: 0.4,
+            noiseSpeed3: 0.6,
+            terrainHeight: 12,
+            spikeDensity: 700,
+            spikeAmplitude: 45,
+            spikePower: 6
+        }
+    },
+    {
+        id: "builtin-2",
+        name: "2",
+        settings: {
+            resolutionPreset: "fullhd",
+            renderWidth: 1920,
+            renderHeight: 1080,
+            backgroundColor: "#000000",
+            containerPosition: "relative",
+            containerWidthValue: 100,
+            containerWidthUnit: "%",
+            containerHeightValue: 100,
+            containerHeightUnit: "%",
+            pointSize: 4,
+            opacityMin: 0.2,
+            opacityMax: 1,
+            twinkleSpeed: 1.9,
+            particleColor: "#ffffff",
+            particleShape: "rectangle",
+            cameraFov: 103,
+            cameraX: 0,
+            cameraY: 60,
+            cameraZ: 25,
+            lookAtX: 0,
+            lookAtY: -90,
+            lookAtZ: 0,
+            gridWidth: 398,
+            gridDepth: 224,
+            spacing: 0.75,
+            timeStep: 0.015,
+            focusDistance: 72,
+            focalRange: 12,
+            maxBlurScale: 2.2,
+            blurFalloff: 35,
+            edgeFadeStart: 0.45,
+            edgeFadeAmount: 1,
+            waveStart: 2,
+            waveDuration: 14,
+            waveFromX: -50,
+            waveToX: 450,
+            waveSpread: 45,
+            mountainStart: 14,
+            mountainRiseDuration: 4,
+            mountainHoldDuration: 6,
+            mountainFadeDuration: 6,
+            noiseFreq1: 0.065,
+            noiseFreq2: 0.165,
+            noiseFreq3: 0.325,
+            noiseSpeed1: 1.5,
+            noiseSpeed2: 1.74,
+            noiseSpeed3: 1.65,
+            terrainHeight: 11,
+            spikeDensity: 218,
+            spikeAmplitude: 91,
+            spikePower: 5
+        }
+    },
+    {
+        id: "builtin-3",
+        name: "3",
+        settings: {
+            resolutionPreset: "fullhd",
+            renderWidth: 1920,
+            renderHeight: 1080,
+            backgroundColor: "#000000",
+            containerPosition: "relative",
+            containerWidthValue: 100,
+            containerWidthUnit: "%",
+            containerHeightValue: 100,
+            containerHeightUnit: "%",
+            pointSize: 4,
+            opacityMin: 0.2,
+            opacityMax: 1,
+            twinkleSpeed: 5.4,
+            particleColor: "#ffffff",
+            particleShape: "rectangle",
+            cameraFov: 103,
+            cameraX: 0,
+            cameraY: 60,
+            cameraZ: 25,
+            lookAtX: 0,
+            lookAtY: -90,
+            lookAtZ: 0,
+            gridWidth: 458,
+            gridDepth: 234,
+            spacing: 0.75,
+            timeStep: 0.026,
+            focusDistance: 72,
+            focalRange: 12,
+            maxBlurScale: 2.2,
+            blurFalloff: 35,
+            edgeFadeStart: 0.45,
+            edgeFadeAmount: 1,
+            waveStart: 2,
+            waveDuration: 14,
+            waveFromX: -50,
+            waveToX: 721,
+            waveSpread: 67,
+            mountainStart: 14,
+            mountainRiseDuration: 4,
+            mountainHoldDuration: 6,
+            mountainFadeDuration: 6,
+            noiseFreq1: 0.065,
+            noiseFreq2: 0.165,
+            noiseFreq3: 0.325,
+            noiseSpeed1: 1.71,
+            noiseSpeed2: 0.4,
+            noiseSpeed3: 0.6,
+            terrainHeight: 10.5,
+            spikeDensity: 534,
+            spikeAmplitude: 133,
+            spikePower: 5
+        }
+    },
+    {
+        id: "builtin-4",
+        name: "4",
+        settings: {
+            resolutionPreset: "fullhd",
+            renderWidth: 1920,
+            renderHeight: 1080,
+            backgroundColor: "#000000",
+            containerPosition: "relative",
+            containerWidthValue: 100,
+            containerWidthUnit: "%",
+            containerHeightValue: 100,
+            containerHeightUnit: "%",
+            pointSize: 4,
+            opacityMin: 0.2,
+            opacityMax: 1,
+            twinkleSpeed: 0.8,
+            particleColor: "#ffffff",
+            particleShape: "rectangle",
+            cameraFov: 105,
+            cameraX: 0,
+            cameraY: 60,
+            cameraZ: 25,
+            lookAtX: 0,
+            lookAtY: -90,
+            lookAtZ: 0,
+            gridWidth: 378,
+            gridDepth: 179,
+            spacing: 1,
+            timeStep: 0.026,
+            focusDistance: 72,
+            focalRange: 12,
+            maxBlurScale: 2.2,
+            blurFalloff: 35,
+            edgeFadeStart: 0.45,
+            edgeFadeAmount: 1,
+            waveStart: 2,
+            waveDuration: 14,
+            waveFromX: -50,
+            waveToX: 498,
+            waveSpread: 44,
+            mountainStart: 14,
+            mountainRiseDuration: 4,
+            mountainHoldDuration: 6,
+            mountainFadeDuration: 6,
+            noiseFreq1: 0.065,
+            noiseFreq2: 0.165,
+            noiseFreq3: 0.325,
+            noiseSpeed1: 1.17,
+            noiseSpeed2: 0.4,
+            noiseSpeed3: 0.6,
+            terrainHeight: 11,
+            spikeDensity: 488,
+            spikeAmplitude: 140,
+            spikePower: 5
+        }
     }
 ];
 
@@ -636,7 +858,6 @@ document.addEventListener("DOMContentLoaded", () => {
         previewMount: document.getElementById("preview-mount"),
         resolutionLabel: document.getElementById("resolution-label"),
         loopLabel: document.getElementById("loop-label"),
-        exportOverrideInput: document.getElementById("export-override-input"),
         codeOutput: document.getElementById("code-output"),
         copyButton: document.getElementById("copy-button"),
         resetButton: document.getElementById("reset-button"),
@@ -651,7 +872,6 @@ document.addEventListener("DOMContentLoaded", () => {
         selectedPatternId: initialPattern.id,
         patternNameDraft: initialPattern.name,
         settings: sanitizeSettings({ ...DEFAULT_SETTINGS, ...initialPattern.settings }),
-        exportOverrideCode: normalizeExportOverrideCode(initialPattern.exportOverrideCode),
         isDirty: false
     };
 
@@ -682,7 +902,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     elements.resetButton.addEventListener("click", () => {
         state.settings = sanitizeSettings({ ...DEFAULT_SETTINGS });
-        state.exportOverrideCode = "";
         applyCurrentStateToView({ forceGeometry: true });
         updateDirtyState();
         refreshPatternStatus();
@@ -699,13 +918,6 @@ document.addEventListener("DOMContentLoaded", () => {
         refreshPatternStatus();
     });
 
-    elements.exportOverrideInput.addEventListener("input", () => {
-        state.exportOverrideCode = normalizeExportOverrideCode(elements.exportOverrideInput.value);
-        updateCodeOutput();
-        updateDirtyState();
-        refreshPatternStatus();
-    });
-
     elements.newPatternButton.addEventListener("click", () => {
         state.selectedPatternId = null;
         state.patternNameDraft = generatePatternDraftName(state.patterns);
@@ -717,20 +929,17 @@ document.addEventListener("DOMContentLoaded", () => {
     elements.savePatternButton.addEventListener("click", () => {
         const name = sanitizePatternName(state.patternNameDraft);
         const selectedPattern = getSelectedPattern();
-        const exportOverrideCode = normalizeExportOverrideCode(state.exportOverrideCode);
 
         if (selectedPattern && selectedPattern.source !== "builtin") {
             selectedPattern.name = name;
             selectedPattern.settings = sanitizeSettings({ ...state.settings });
-            selectedPattern.exportOverrideCode = exportOverrideCode;
         } else {
-            const newPattern = createPatternRecord(name, state.settings, exportOverrideCode);
+            const newPattern = createPatternRecord(name, state.settings);
             state.patterns = [newPattern, ...state.patterns];
             state.selectedPatternId = newPattern.id;
         }
 
         state.patternNameDraft = name;
-        state.exportOverrideCode = exportOverrideCode;
         state.isDirty = false;
         syncPatternLibraryUI();
 
@@ -753,8 +962,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     ? selectedPattern.id
                     : createBuiltInPatternId(state.patternNameDraft),
             name: sanitizePatternName(state.patternNameDraft),
-            settings: state.settings,
-            exportOverrideCode: state.exportOverrideCode
+            settings: state.settings
         });
 
         try {
@@ -793,7 +1001,6 @@ document.addEventListener("DOMContentLoaded", () => {
         state.selectedPatternId = nextPattern.id;
         state.patternNameDraft = nextPattern.name;
         state.settings = sanitizeSettings({ ...DEFAULT_SETTINGS, ...nextPattern.settings });
-        state.exportOverrideCode = normalizeExportOverrideCode(nextPattern.exportOverrideCode);
         state.isDirty = false;
 
         applyCurrentStateToView({ forceGeometry: true });
@@ -899,14 +1106,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function updateCodeOutput() {
-        elements.codeOutput.value = generateEmbedCode(state.settings, state.exportOverrideCode);
+        elements.codeOutput.value = generateEmbedCode(state.settings);
     }
 
     function applyCurrentStateToView(options = {}) {
         syncControls(controlRefs, state.settings);
-        if (elements.exportOverrideInput.value !== state.exportOverrideCode) {
-            elements.exportOverrideInput.value = state.exportOverrideCode;
-        }
         preview.applySettings(state.settings, options);
         syncUI();
         updateCodeOutput();
@@ -926,7 +1130,6 @@ document.addEventListener("DOMContentLoaded", () => {
         state.selectedPatternId = pattern.id;
         state.patternNameDraft = pattern.name;
         state.settings = sanitizeSettings({ ...DEFAULT_SETTINGS, ...pattern.settings });
-        state.exportOverrideCode = normalizeExportOverrideCode(pattern.exportOverrideCode);
         state.isDirty = false;
         applyCurrentStateToView({ forceGeometry: true });
         syncPatternLibraryUI();
@@ -945,14 +1148,10 @@ document.addEventListener("DOMContentLoaded", () => {
             ...DEFAULT_SETTINGS,
             ...selectedPattern.settings
         });
-        const storedExportOverrideCode = normalizeExportOverrideCode(
-            selectedPattern.exportOverrideCode
-        );
 
         state.isDirty =
             JSON.stringify(state.settings) !== JSON.stringify(storedSettings) ||
-            state.patternNameDraft.trim() !== selectedPattern.name ||
-            state.exportOverrideCode !== storedExportOverrideCode;
+            state.patternNameDraft.trim() !== selectedPattern.name;
     }
 
     function syncPatternLibraryUI() {
@@ -1549,11 +1748,10 @@ function setCameraDistance(settings, rawDistance) {
     };
 }
 
-function generateEmbedCode(settings, exportOverrideCode = "") {
+function generateEmbedCode(settings) {
     const color = normalizeHexColor(settings.particleColor);
     const backgroundColor = normalizeHexColor(settings.backgroundColor);
     const containerStyle = getEmbedContainerStyle(settings);
-    const exportOverrideLines = getExportOverrideLines(exportOverrideCode);
 
     return [
         "<!-- ============================================================ -->",
@@ -1614,7 +1812,6 @@ function generateEmbedCode(settings, exportOverrideCode = "") {
         `        spikeAmplitude: ${formatNumber(settings.spikeAmplitude, 1)},`,
         `        spikePower: ${formatNumber(settings.spikePower, 1)}`,
         "    };",
-        ...exportOverrideLines,
         "",
         "    const simplex = new SimplexNoise();",
         "    const container = document.getElementById('particle-landscape-container');",
@@ -1860,8 +2057,7 @@ function persistPatterns(patterns) {
             .map((pattern) => ({
                 id: pattern.id,
                 name: pattern.name,
-                settings: pattern.settings,
-                exportOverrideCode: pattern.exportOverrideCode
+                settings: pattern.settings
             }));
 
         window.localStorage.setItem(PATTERN_STORAGE_KEY, JSON.stringify(customPatterns));
@@ -1889,7 +2085,6 @@ function sanitizePatternRecord(pattern, index, source = "user") {
                 : createPatternId(index),
         name: sanitizePatternName(pattern.name),
         source,
-        exportOverrideCode: normalizeExportOverrideCode(pattern.exportOverrideCode),
         settings: sanitizeSettings({
             ...DEFAULT_SETTINGS,
             ...(pattern.settings && typeof pattern.settings === "object" ? pattern.settings : {})
@@ -1897,12 +2092,11 @@ function sanitizePatternRecord(pattern, index, source = "user") {
     };
 }
 
-function createPatternRecord(name, settings, exportOverrideCode = "") {
+function createPatternRecord(name, settings) {
     return {
         id: createPatternId(),
         name: sanitizePatternName(name),
         source: "user",
-        exportOverrideCode: normalizeExportOverrideCode(exportOverrideCode),
         settings: sanitizeSettings({ ...DEFAULT_SETTINGS, ...settings })
     };
 }
@@ -1926,31 +2120,11 @@ function sanitizePatternName(name) {
     return trimmed || "Untitled Pattern";
 }
 
-function normalizeExportOverrideCode(value) {
-    return String(value || "").replace(/\r\n?/g, "\n");
-}
-
-function getExportOverrideLines(exportOverrideCode) {
-    const normalizedCode = normalizeExportOverrideCode(exportOverrideCode).trim();
-
-    if (!normalizedCode) {
-        return [];
-    }
-
-    return [
-        "",
-        "    // Optional config overrides from the customizer",
-        ...normalizedCode.split("\n").map((line) => (line ? `    ${line}` : "")),
-        ""
-    ];
-}
-
 function generateBuiltInPatternSource(pattern) {
     const normalized = {
         id: pattern.id || createBuiltInPatternId(pattern.name),
         name: sanitizePatternName(pattern.name),
-        settings: sanitizeSettings({ ...DEFAULT_SETTINGS, ...pattern.settings }),
-        exportOverrideCode: normalizeExportOverrideCode(pattern.exportOverrideCode)
+        settings: sanitizeSettings({ ...DEFAULT_SETTINGS, ...pattern.settings })
     };
 
     return JSON.stringify(normalized, null, 4);
