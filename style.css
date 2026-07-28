@@ -57,7 +57,7 @@ body {
 
 .pattern-bar-controls {
     display: grid;
-    grid-template-columns: minmax(180px, 220px) minmax(180px, 240px) repeat(3, auto);
+    grid-template-columns: minmax(180px, 220px) minmax(180px, 240px) repeat(4, auto);
     gap: 10px;
     align-items: center;
     justify-content: end;
@@ -312,7 +312,7 @@ input[type="color"] {
 .code-panel {
     min-height: 0;
     display: grid;
-    grid-template-rows: auto minmax(0, 1fr);
+    grid-template-rows: auto auto minmax(0, 1fr);
     gap: 10px;
 }
 
@@ -328,14 +328,38 @@ input[type="color"] {
     color: var(--muted);
 }
 
+.export-editor {
+    display: grid;
+    gap: 8px;
+}
+
+.export-help {
+    margin: 0;
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: var(--muted);
+}
+
+.export-help code {
+    color: var(--muted-strong);
+}
+
+#export-override-input,
 #code-output {
     min-height: 0;
-    height: 100%;
     resize: none;
     font-family: "Cascadia Code", "SFMono-Regular", Consolas, monospace;
     font-size: 0.82rem;
     line-height: 1.45;
     color: #dbdbe2;
+}
+
+#export-override-input {
+    min-height: 116px;
+}
+
+#code-output {
+    height: 100%;
 }
 
 @media (max-width: 1120px) {

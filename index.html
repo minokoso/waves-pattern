@@ -14,7 +14,7 @@
         <div class="pattern-bar-inner">
             <div class="pattern-bar-copy">
                 <p class="eyebrow">Pattern Library</p>
-                <h2>Saved Patterns</h2>
+                <h2>Pattern Presets</h2>
             </div>
 
             <div class="pattern-bar-controls">
@@ -22,10 +22,11 @@
                 <input id="pattern-name" type="text" maxlength="80" placeholder="Pattern name">
                 <button id="new-pattern-button" class="ghost-button" type="button">New</button>
                 <button id="save-pattern-button" class="primary-button" type="button">Save</button>
+                <button id="copy-pattern-source-button" class="ghost-button" type="button">Copy Source</button>
                 <button id="delete-pattern-button" class="ghost-button danger-button" type="button">Delete</button>
             </div>
 
-            <span id="pattern-status" class="pattern-status">Patterns are saved on this device</span>
+            <span id="pattern-status" class="pattern-status">Built-in presets are hardcoded in app.js. Custom patterns save on this device.</span>
         </div>
     </header>
 
@@ -73,6 +74,19 @@
                         <p class="eyebrow">Export</p>
                     </div>
                     <span id="copy-status" class="copy-status">Ready to copy</span>
+                </div>
+
+                <div class="export-editor">
+                    <label class="control-label" for="export-override-input">Export override code</label>
+                    <p class="export-help">
+                        Optional JavaScript runs after the exported <code>config</code> object is created.
+                        Use it to change existing settings like <code>config.pointSize = 8;</code>.
+                    </p>
+                    <textarea
+                        id="export-override-input"
+                        spellcheck="false"
+                        placeholder="// Optional export overrides&#10;config.pointSize = 8;&#10;config.backgroundColor = '#111111';"
+                    ></textarea>
                 </div>
 
                 <textarea id="code-output" readonly spellcheck="false"></textarea>

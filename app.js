@@ -76,6 +76,16 @@ const DEFAULT_SETTINGS = {
     spikePower: 6
 };
 
+// Hardcode deployment presets here so they ship with static hosts like Vercel.
+const BUILT_IN_PATTERNS = [
+    {
+        id: "builtin-default",
+        name: "Default",
+        settings: { ...DEFAULT_SETTINGS },
+        exportOverrideCode: ""
+    }
+];
+
 const CONTROL_GROUPS = [
     {
         title: "Preview",
@@ -618,6 +628,7 @@ document.addEventListener("DOMContentLoaded", () => {
         patternNameInput: document.getElementById("pattern-name"),
         newPatternButton: document.getElementById("new-pattern-button"),
         savePatternButton: document.getElementById("save-pattern-button"),
+        copyPatternSourceButton: document.getElementById("copy-pattern-source-button"),
         deletePatternButton: document.getElementById("delete-pattern-button"),
         patternStatus: document.getElementById("pattern-status"),
         controlsRoot: document.getElementById("controls-root"),
@@ -625,6 +636,7 @@ document.addEventListener("DOMContentLoaded", () => {
         previewMount: document.getElementById("preview-mount"),
         resolutionLabel: document.getElementById("resolution-label"),
         loopLabel: document.getElementById("loop-label"),
+        exportOverrideInput: document.getElementById("export-override-input"),
         codeOutput: document.getElementById("code-output"),
         copyButton: document.getElementById("copy-button"),
         resetButton: document.getElementById("reset-button"),
@@ -632,13 +644,14 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const controlRefs = new Map();
-    const savedPatterns = loadSavedPatterns();
-    const initialPattern = savedPatterns[0];
+    const availablePatterns = loadSavedPatterns();
+    const initialPattern = availablePatterns[0];
     const state = {
-        patterns: savedPatterns,
+        patterns: availablePatterns,
         selectedPatternId: initialPattern.id,
         patternNameDraft: initialPattern.name,
         settings: sanitizeSettings({ ...DEFAULT_SETTINGS, ...initialPattern.settings }),
+        exportOverrideCode: normalizeExportOverrideCode(initialPattern.exportOverrideCode),
         isDirty: false
     };
 
@@ -669,6 +682,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     elements.resetButton.addEventListener("click", () => {
         state.settings = sanitizeSettings({ ...DEFAULT_SETTINGS });
+        state.exportOverrideCode = "";
         applyCurrentStateToView({ forceGeometry: true });
         updateDirtyState();
         refreshPatternStatus();
@@ -685,6 +699,13 @@ document.addEventListener("DOMContentLoaded", () => {
         refreshPatternStatus();
     });
 
+    elements.exportOverrideInput.addEventListener("input", () => {
+        state.exportOverrideCode = normalizeExportOverrideCode(elements.exportOverrideInput.value);
+        updateCodeOutput();
+        updateDirtyState();
+        refreshPatternStatus();
+    });
+
     elements.newPatternButton.addEventListener("click", () => {
         state.selectedPatternId = null;
         state.patternNameDraft = generatePatternDraftName(state.patterns);
@@ -696,24 +717,56 @@ document.addEventListener("DOMContentLoaded", () => {
     elements.savePatternButton.addEventListener("click", () => {
         const name = sanitizePatternName(state.patternNameDraft);
         const selectedPattern = getSelectedPattern();
+        const exportOverrideCode = normalizeExportOverrideCode(state.exportOverrideCode);
 
-        if (selectedPattern) {
+        if (selectedPattern && selectedPattern.source !== "builtin") {
             selectedPattern.name = name;
             selectedPattern.settings = sanitizeSettings({ ...state.settings });
+            selectedPattern.exportOverrideCode = exportOverrideCode;
         } else {
-            const newPattern = createPatternRecord(name, state.settings);
+            const newPattern = createPatternRecord(name, state.settings, exportOverrideCode);
             state.patterns = [newPattern, ...state.patterns];
             state.selectedPatternId = newPattern.id;
         }
 
         state.patternNameDraft = name;
+        state.exportOverrideCode = exportOverrideCode;
         state.isDirty = false;
         syncPatternLibraryUI();
 
         if (persistPatterns(state.patterns)) {
-            setPatternStatus(`Saved "${name}"`);
+            setPatternStatus(
+                selectedPattern && selectedPattern.source === "builtin"
+                    ? `Saved "${name}" as a custom pattern`
+                    : `Saved "${name}"`
+            );
         } else {
             setPatternStatus("Save failed on this device", true);
+        }
+    });
+
+    elements.copyPatternSourceButton.addEventListener("click", async () => {
+        const selectedPattern = getSelectedPattern();
+        const presetSource = generateBuiltInPatternSource({
+            id:
+                selectedPattern && selectedPattern.source === "builtin"
+                    ? selectedPattern.id
+                    : createBuiltInPatternId(state.patternNameDraft),
+            name: sanitizePatternName(state.patternNameDraft),
+            settings: state.settings,
+            exportOverrideCode: state.exportOverrideCode
+        });
+
+        try {
+            if (navigator.clipboard && window.isSecureContext) {
+                await navigator.clipboard.writeText(presetSource);
+            } else {
+                copyTextFallback(presetSource);
+            }
+
+            setPatternStatus("Preset source copied. Paste it into BUILT_IN_PATTERNS.");
+        } catch (error) {
+            setPatternStatus("Copy failed. Select and copy the source manually.", true);
         }
     });
 
@@ -728,17 +781,19 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
+        if (selectedPattern.source === "builtin") {
+            setPatternStatus("Built-in presets are hardcoded. Save a copy to customize one.", true);
+            return;
+        }
+
         const removedName = selectedPattern.name;
         state.patterns = state.patterns.filter((pattern) => pattern.id !== selectedPattern.id);
-
-        if (state.patterns.length === 0) {
-            state.patterns = [createPatternRecord("Default", DEFAULT_SETTINGS)];
-        }
 
         const nextPattern = state.patterns[0];
         state.selectedPatternId = nextPattern.id;
         state.patternNameDraft = nextPattern.name;
         state.settings = sanitizeSettings({ ...DEFAULT_SETTINGS, ...nextPattern.settings });
+        state.exportOverrideCode = normalizeExportOverrideCode(nextPattern.exportOverrideCode);
         state.isDirty = false;
 
         applyCurrentStateToView({ forceGeometry: true });
@@ -844,11 +899,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function updateCodeOutput() {
-        elements.codeOutput.value = generateEmbedCode(state.settings);
+        elements.codeOutput.value = generateEmbedCode(state.settings, state.exportOverrideCode);
     }
 
     function applyCurrentStateToView(options = {}) {
         syncControls(controlRefs, state.settings);
+        if (elements.exportOverrideInput.value !== state.exportOverrideCode) {
+            elements.exportOverrideInput.value = state.exportOverrideCode;
+        }
         preview.applySettings(state.settings, options);
         syncUI();
         updateCodeOutput();
@@ -868,6 +926,7 @@ document.addEventListener("DOMContentLoaded", () => {
         state.selectedPatternId = pattern.id;
         state.patternNameDraft = pattern.name;
         state.settings = sanitizeSettings({ ...DEFAULT_SETTINGS, ...pattern.settings });
+        state.exportOverrideCode = normalizeExportOverrideCode(pattern.exportOverrideCode);
         state.isDirty = false;
         applyCurrentStateToView({ forceGeometry: true });
         syncPatternLibraryUI();
@@ -886,10 +945,14 @@ document.addEventListener("DOMContentLoaded", () => {
             ...DEFAULT_SETTINGS,
             ...selectedPattern.settings
         });
+        const storedExportOverrideCode = normalizeExportOverrideCode(
+            selectedPattern.exportOverrideCode
+        );
 
         state.isDirty =
             JSON.stringify(state.settings) !== JSON.stringify(storedSettings) ||
-            state.patternNameDraft.trim() !== selectedPattern.name;
+            state.patternNameDraft.trim() !== selectedPattern.name ||
+            state.exportOverrideCode !== storedExportOverrideCode;
     }
 
     function syncPatternLibraryUI() {
@@ -905,13 +968,16 @@ document.addEventListener("DOMContentLoaded", () => {
         for (const pattern of state.patterns) {
             const option = document.createElement("option");
             option.value = pattern.id;
-            option.textContent = pattern.name;
+            option.textContent =
+                pattern.source === "builtin" ? `${pattern.name} (Built-in)` : pattern.name;
             elements.patternSelect.appendChild(option);
         }
 
+        const selectedPattern = getSelectedPattern();
         elements.patternSelect.value = state.selectedPatternId || "";
         elements.patternNameInput.value = state.patternNameDraft;
-        elements.deletePatternButton.disabled = !state.selectedPatternId;
+        elements.deletePatternButton.disabled =
+            !state.selectedPatternId || (selectedPattern && selectedPattern.source === "builtin");
         refreshPatternStatus();
     }
 
@@ -926,7 +992,8 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        elements.patternStatus.textContent = "Patterns are saved on this device";
+        elements.patternStatus.textContent =
+            "Built-in presets are hardcoded in app.js. Custom patterns save on this device.";
         elements.patternStatus.style.color = "";
     }
 
@@ -1482,10 +1549,11 @@ function setCameraDistance(settings, rawDistance) {
     };
 }
 
-function generateEmbedCode(settings) {
+function generateEmbedCode(settings, exportOverrideCode = "") {
     const color = normalizeHexColor(settings.particleColor);
     const backgroundColor = normalizeHexColor(settings.backgroundColor);
     const containerStyle = getEmbedContainerStyle(settings);
+    const exportOverrideLines = getExportOverrideLines(exportOverrideCode);
 
     return [
         "<!-- ============================================================ -->",
@@ -1546,6 +1614,7 @@ function generateEmbedCode(settings) {
         `        spikeAmplitude: ${formatNumber(settings.spikeAmplitude, 1)},`,
         `        spikePower: ${formatNumber(settings.spikePower, 1)}`,
         "    };",
+        ...exportOverrideLines,
         "",
         "    const simplex = new SimplexNoise();",
         "    const container = document.getElementById('particle-landscape-container');",
@@ -1759,39 +1828,56 @@ function generateEmbedCode(settings) {
 }
 
 function loadSavedPatterns() {
+    const builtInPatterns = loadBuiltInPatterns();
+
     try {
         const raw = window.localStorage.getItem(PATTERN_STORAGE_KEY);
 
         if (!raw) {
-            return [createPatternRecord("Default", DEFAULT_SETTINGS)];
+            return builtInPatterns;
         }
 
         const parsed = JSON.parse(raw);
 
         if (!Array.isArray(parsed)) {
-            return [createPatternRecord("Default", DEFAULT_SETTINGS)];
+            return builtInPatterns;
         }
 
-        const patterns = parsed
-            .map((pattern, index) => sanitizePatternRecord(pattern, index))
+        const savedPatterns = parsed
+            .map((pattern, index) => sanitizePatternRecord(pattern, index, "user"))
             .filter(Boolean);
 
-        return patterns.length ? patterns : [createPatternRecord("Default", DEFAULT_SETTINGS)];
+        return [...builtInPatterns, ...savedPatterns];
     } catch (error) {
-        return [createPatternRecord("Default", DEFAULT_SETTINGS)];
+        return builtInPatterns;
     }
 }
 
 function persistPatterns(patterns) {
     try {
-        window.localStorage.setItem(PATTERN_STORAGE_KEY, JSON.stringify(patterns));
+        const customPatterns = patterns
+            .filter((pattern) => pattern.source !== "builtin")
+            .map((pattern) => ({
+                id: pattern.id,
+                name: pattern.name,
+                settings: pattern.settings,
+                exportOverrideCode: pattern.exportOverrideCode
+            }));
+
+        window.localStorage.setItem(PATTERN_STORAGE_KEY, JSON.stringify(customPatterns));
         return true;
     } catch (error) {
         return false;
     }
 }
 
-function sanitizePatternRecord(pattern, index) {
+function loadBuiltInPatterns() {
+    return BUILT_IN_PATTERNS.map((pattern, index) =>
+        sanitizePatternRecord(pattern, index, "builtin")
+    );
+}
+
+function sanitizePatternRecord(pattern, index, source = "user") {
     if (!pattern || typeof pattern !== "object") {
         return null;
     }
@@ -1802,6 +1888,8 @@ function sanitizePatternRecord(pattern, index) {
                 ? pattern.id
                 : createPatternId(index),
         name: sanitizePatternName(pattern.name),
+        source,
+        exportOverrideCode: normalizeExportOverrideCode(pattern.exportOverrideCode),
         settings: sanitizeSettings({
             ...DEFAULT_SETTINGS,
             ...(pattern.settings && typeof pattern.settings === "object" ? pattern.settings : {})
@@ -1809,10 +1897,12 @@ function sanitizePatternRecord(pattern, index) {
     };
 }
 
-function createPatternRecord(name, settings) {
+function createPatternRecord(name, settings, exportOverrideCode = "") {
     return {
         id: createPatternId(),
         name: sanitizePatternName(name),
+        source: "user",
+        exportOverrideCode: normalizeExportOverrideCode(exportOverrideCode),
         settings: sanitizeSettings({ ...DEFAULT_SETTINGS, ...settings })
     };
 }
@@ -1821,9 +1911,49 @@ function createPatternId(seed = "") {
     return `pattern-${Date.now()}-${Math.random().toString(36).slice(2, 8)}${seed}`;
 }
 
+function createBuiltInPatternId(name) {
+    const slug = sanitizePatternName(name)
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "")
+        .slice(0, 48);
+
+    return `builtin-${slug || "pattern"}`;
+}
+
 function sanitizePatternName(name) {
     const trimmed = String(name || "").trim();
     return trimmed || "Untitled Pattern";
+}
+
+function normalizeExportOverrideCode(value) {
+    return String(value || "").replace(/\r\n?/g, "\n");
+}
+
+function getExportOverrideLines(exportOverrideCode) {
+    const normalizedCode = normalizeExportOverrideCode(exportOverrideCode).trim();
+
+    if (!normalizedCode) {
+        return [];
+    }
+
+    return [
+        "",
+        "    // Optional config overrides from the customizer",
+        ...normalizedCode.split("\n").map((line) => (line ? `    ${line}` : "")),
+        ""
+    ];
+}
+
+function generateBuiltInPatternSource(pattern) {
+    const normalized = {
+        id: pattern.id || createBuiltInPatternId(pattern.name),
+        name: sanitizePatternName(pattern.name),
+        settings: sanitizeSettings({ ...DEFAULT_SETTINGS, ...pattern.settings }),
+        exportOverrideCode: normalizeExportOverrideCode(pattern.exportOverrideCode)
+    };
+
+    return JSON.stringify(normalized, null, 4);
 }
 
 function generatePatternDraftName(patterns) {
@@ -1841,6 +1971,20 @@ function fallbackCopy(textarea) {
     textarea.focus();
     textarea.select();
     document.execCommand("copy");
+}
+
+function copyTextFallback(text) {
+    const textarea = document.createElement("textarea");
+    textarea.value = text;
+    textarea.setAttribute("readonly", "");
+    textarea.style.position = "fixed";
+    textarea.style.opacity = "0";
+    textarea.style.pointerEvents = "none";
+    document.body.appendChild(textarea);
+    textarea.focus();
+    textarea.select();
+    document.execCommand("copy");
+    document.body.removeChild(textarea);
 }
 
 function findMatchingPreset(width, height) {
