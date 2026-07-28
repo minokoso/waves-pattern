@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wave Pattern 1</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/simplex-noise/2.4.0/simplex-noise.min.js" defer></script>
+    <script src="app.js" defer></script>
+</head>
+<body>
+    <header class="pattern-bar">
+        <div class="pattern-bar-inner">
+            <div class="pattern-bar-copy">
+                <p class="eyebrow">Pattern Library</p>
+                <h2>Pattern Presets</h2>
+            </div>
+
+            <div class="pattern-bar-controls">
+                <select id="pattern-select" aria-label="Saved patterns"></select>
+                <input id="pattern-name" type="text" maxlength="80" placeholder="Pattern name">
+                <button id="new-pattern-button" class="ghost-button" type="button">New</button>
+                <button id="save-pattern-button" class="primary-button" type="button">Save</button>
+                <button id="copy-pattern-source-button" class="ghost-button" type="button">Copy Source</button>
+                <button id="delete-pattern-button" class="ghost-button danger-button" type="button">Delete</button>
+            </div>
+
+            <div id="builtin-patterns" class="builtin-patterns" aria-label="Built-in presets"></div>
+
+            <span id="pattern-status" class="pattern-status">Built-in presets are hardcoded in app.js. Custom patterns save on this device.</span>
+        </div>
+    </header>
+
+    <div class="app-shell">
+        <aside class="panel controls-panel">
+            <div class="brand">
+                <p class="eyebrow">Wave Pattern 1</p>
+                <h1>Particle Wave Customizer</h1>
+                <p class="lede">
+                    Tune the wave, spike, camera, and particle settings with a live dark preview,
+                    then copy a Webflow-ready embed snippet.
+                </p>
+            </div>
+
+            <div class="action-row">
+                <button id="reset-button" class="ghost-button" type="button">Reset Defaults</button>
+                <button id="copy-button" class="primary-button" type="button">Copy Embed Code</button>
+            </div>
+
+            <div id="controls-root" class="controls-root"></div>
+        </aside>
+
+        <main class="preview-panel">
+            <header class="preview-header">
+                <div>
+                    <p class="eyebrow">Live Preview</p>
+                    <h2 id="resolution-label">1920 x 1080</h2>
+                </div>
+
+                <div class="meta-chips">
+                    <span id="loop-label" class="chip">24.0s loop</span>
+                    <span class="chip">Minimal Dark UI</span>
+                </div>
+            </header>
+
+            <section class="preview-stage-wrap">
+                <div id="preview-frame" class="preview-frame">
+                    <div id="preview-mount" class="preview-mount"></div>
+                </div>
+            </section>
+
+            <section class="code-panel">
+                <div class="code-header">
+                    <div>
+                        <p class="eyebrow">Export</p>
+                    </div>
+                    <span id="copy-status" class="copy-status">Ready to copy</span>
+                </div>
+
+                <textarea id="code-output" readonly spellcheck="false"></textarea>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
