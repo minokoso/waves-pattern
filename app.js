@@ -7,10 +7,14 @@ const PRESET_RESOLUTIONS = {
 
 const HERO_ANIMATION = "heroInteraction";
 const FOOTER_ANIMATION = "footerInteraction";
+const FUNNEL_ANIMATION = "funnelInteraction";
+const FUNNEL_V2_ANIMATION = "funnelInteractionV2";
 
 const ANIMATION_OPTIONS = [
     { value: HERO_ANIMATION, label: "Hero interaction" },
-    { value: FOOTER_ANIMATION, label: "Footer interaction" }
+    { value: FOOTER_ANIMATION, label: "Footer interaction" },
+    { value: FUNNEL_ANIMATION, label: "Funnel interaction" },
+    { value: FUNNEL_V2_ANIMATION, label: "Funnel interaction v2" }
 ];
 
 const SHAPE_OPTIONS = [
@@ -40,6 +44,9 @@ const DIMENSION_UNIT_OPTIONS = [
 ];
 
 const PATTERN_STORAGE_KEY = "wave-pattern-1-patterns";
+const PREVIEW_SCALE_MIN = 35;
+const PREVIEW_SCALE_MAX = 100;
+const PREVIEW_SCALE_DEFAULT = 100;
 
 const DEFAULT_SETTINGS = {
     resolutionPreset: "fullhd",
@@ -139,6 +146,166 @@ const FOOTER_DEFAULT_SETTINGS = {
     pulseBrightness: 0.72,
     pulseSizeBoost: 1.25,
     pulseTrailStrength: 1
+};
+
+const FUNNEL_DEFAULT_SETTINGS = {
+    resolutionPreset: "custom",
+    renderWidth: 1000,
+    renderHeight: 760,
+    backgroundColor: "#f2f0ef",
+    containerPosition: "relative",
+    containerWidthValue: 100,
+    containerWidthUnit: "%",
+    containerHeightValue: 100,
+    containerHeightUnit: "%",
+    particleColor: "#000000",
+    flowColor: "#000000",
+    pulseColor: "#000000",
+    particleShape: "circle",
+    maskEnabled: "on",
+    pulseEnabled: "on",
+    baseVisibility: 0.2,
+    maximumPixelRatio: 1.5,
+    ringCount: 42,
+    pointsPerRing: 66,
+    ringRotationSpeed: 0.65,
+    particleSizeMin: 0.28,
+    particleSizeMax: 0.72,
+    particleAlphaMin: 0.12,
+    particleAlphaMax: 0.38,
+    flowParticleCount: 190,
+    flowSizeMin: 0.45,
+    flowSizeMax: 1.1,
+    flowAlphaMin: 0.38,
+    flowAlphaMax: 0.92,
+    flowSpeedMin: 0.05,
+    flowSpeedMax: 0.1,
+    flowSwirlSpeed: 1.45,
+    flowTwistStrength: 4.5,
+    flowAcceleration: 2.8,
+    topRadiusRatio: 0.34,
+    neckRadiusRatio: 0.08,
+    outletRadiusRatio: 0.042,
+    topYRatio: -0.32,
+    neckYRatio: 0.24,
+    outletYRatio: 0.44,
+    neckProgress: 0.82,
+    basePitch: -0.17,
+    maximumRotationY: 0.14,
+    maximumRotationX: 0.1,
+    rotationSpeed: 0.07,
+    perspectiveRatio: 1.55,
+    pointerRadiusRatio: 0.12,
+    minimumPointerRadius: 85,
+    repulsionStrength: 1.5,
+    springStrength: 0.03,
+    friction: 0.87,
+    cursorRevealRadiusRatio: 0.3,
+    minimumCursorRevealRadius: 200,
+    cursorRevealSoftness: 0.52,
+    cursorRevealFadeSpeed: 0.1,
+    cursorVisibilityStrength: 0.88,
+    pulseDuration: 1200,
+    pulseRepeatDelay: 1900,
+    pulseWidth: 100,
+    pulseBrightness: 0.72,
+    pulseSizeBoost: 1,
+    pulseRevealWidth: 150,
+    pulseRevealStrength: 0.86,
+    pulseRevealTrail: 0.18,
+    outletTrailCount: 0,
+    outletTrailLength: 0.14,
+    outletTrailSpread: 0.018,
+    outletTrailOpacity: 0.4
+};
+
+const FUNNEL_V2_DEFAULT_SETTINGS = {
+    resolutionPreset: "custom",
+    renderWidth: 1000,
+    renderHeight: 760,
+    backgroundColor: "#f2f0ef",
+    containerPosition: "relative",
+    containerWidthValue: 100,
+    containerWidthUnit: "%",
+    containerHeightValue: 100,
+    containerHeightUnit: "%",
+    particleColor: "#000000",
+    pulseColor: "#000000",
+    particleShape: "rectangle",
+    pulseEnabled: "off",
+    pulseDuration: 1200,
+    pulseRepeatDelay: 1900,
+    pulseWidth: 100,
+    pulseBrightness: 0.72,
+    pulseSizeBoost: 1,
+    maximumPixelRatio: 2,
+    radialSegments: 180,
+    verticalSegments: 105,
+    topY: 4.9,
+    bottomY: -5.6,
+    topRadius: 4.5,
+    throatRadius: 0.42,
+    bottomRadius: 0.7,
+    upperCurvePower: 3.15,
+    lowerBlendStart: 0.72,
+    flowSpeed: 0.055,
+    rectWidth: 1.2,
+    rectHeight: 1.2,
+    particleScaleMin: 0.8,
+    particleScaleMax: 1.4,
+    brightnessMin: 0.45,
+    brightnessMax: 1,
+    speedMin: 0.75,
+    speedMax: 1.25,
+    angleJitter: 0.01,
+    verticalJitter: 0.004,
+    twistStrength: 0.42,
+    twistExponent: 1.7,
+    twistWaveAmount: 0.01,
+    twistWaveSpeed: 0.3,
+    twistWaveFrequency: 7,
+    surfaceNoiseAmount: 0.012,
+    surfaceNoiseAngleFrequency: 7,
+    surfaceNoiseVerticalFrequency: 22,
+    surfaceNoiseSpeed: 0.8,
+    cameraStartRotationX: 1.12,
+    cameraStartRotationY: -1,
+    cameraRestRotationX: 0.52,
+    cameraRestRotationY: 0.18,
+    minimumRotationX: -1.28,
+    maximumRotationX: -0.92,
+    cameraDistance: 11.4,
+    cameraAngle: 0,
+    cameraPositionX: 0,
+    cameraPositionY: 0,
+    minimumDistance: 8.8,
+    maximumDistance: 14,
+    perspectiveScale: 1.1,
+    centerXRatio: 0.5,
+    centerYRatio: 0.47,
+    autoRotate: "on",
+    autoRotateSpeed: 0.018,
+    pointerRadius: 90,
+    repulsionStrength: 0.42,
+    displacementDecay: 0.9,
+    dragRotationYSpeed: 0.004,
+    dragRotationXSpeed: 0.0025,
+    zoomSpeed: 0.008,
+    dofStrength: 0.14,
+    dofFadeStrength: 0.55,
+    dofSizeBoost: 0.45,
+    depthShading: 0.55,
+    depthOffset: 5,
+    depthRange: 10,
+    topHighlightBase: 0.72,
+    topHighlightAmount: 0.32,
+    topHighlightPower: 1.3,
+    flickerSpeed: 2,
+    flickerAmount: 0.06,
+    flickerFrequency: 10,
+    bottomFadeStart: 0.82,
+    bottomFadeEnd: 1,
+    projectionSizeScale: 0.011
 };
 
 const LOGO_WIDTH = 1274;
@@ -611,6 +778,490 @@ const BUILT_IN_PATTERNS = [
             pulseBrightness: 2,
             pulseSizeBoost: 0.5,
             pulseTrailStrength: 1
+        }
+    },
+    {
+        id: "builtin-funnel-1",
+        name: "1",
+        animationType: FUNNEL_ANIMATION,
+        settings: {
+            resolutionPreset: "custom",
+            renderWidth: 1000,
+            renderHeight: 760,
+            backgroundColor: "#f2f0ef",
+            containerPosition: "relative",
+            containerWidthValue: 100,
+            containerWidthUnit: "%",
+            containerHeightValue: 100,
+            containerHeightUnit: "%",
+            particleColor: "#000000",
+            flowColor: "#000000",
+            pulseColor: "#000000",
+            particleShape: "circle",
+            maskEnabled: "on",
+            pulseEnabled: "on",
+            baseVisibility: 0.2,
+            maximumPixelRatio: 1.5,
+            ringCount: 42,
+            pointsPerRing: 66,
+            ringRotationSpeed: 0.65,
+            particleSizeMin: 0.28,
+            particleSizeMax: 0.72,
+            particleAlphaMin: 0.12,
+            particleAlphaMax: 0.38,
+            flowParticleCount: 190,
+            flowSizeMin: 0.45,
+            flowSizeMax: 1.1,
+            flowAlphaMin: 0.38,
+            flowAlphaMax: 0.92,
+            flowSpeedMin: 0.05,
+            flowSpeedMax: 0.1,
+            flowSwirlSpeed: 1.45,
+            flowTwistStrength: 4.5,
+            flowAcceleration: 2.8,
+            topRadiusRatio: 0.34,
+            neckRadiusRatio: 0.08,
+            outletRadiusRatio: 0.042,
+            topYRatio: -0.32,
+            neckYRatio: 0.24,
+            outletYRatio: 0.44,
+            neckProgress: 0.82,
+            basePitch: -0.17,
+            maximumRotationY: 0.14,
+            maximumRotationX: 0.1,
+            rotationSpeed: 0.07,
+            perspectiveRatio: 1.55,
+            pointerRadiusRatio: 0.12,
+            minimumPointerRadius: 85,
+            repulsionStrength: 1.5,
+            springStrength: 0.03,
+            friction: 0.87,
+            cursorRevealRadiusRatio: 0.3,
+            minimumCursorRevealRadius: 200,
+            cursorRevealSoftness: 0.52,
+            cursorRevealFadeSpeed: 0.1,
+            cursorVisibilityStrength: 0.88,
+            pulseDuration: 1200,
+            pulseRepeatDelay: 1900,
+            pulseWidth: 100,
+            pulseBrightness: 0.72,
+            pulseSizeBoost: 1,
+            pulseRevealWidth: 150,
+            pulseRevealStrength: 0.86,
+            pulseRevealTrail: 0.18,
+            outletTrailCount: 0,
+            outletTrailLength: 0.14,
+            outletTrailSpread: 0.018,
+            outletTrailOpacity: 0.4
+        }
+    },
+    {
+        id: "builtin-funnel-2",
+        name: "2",
+        animationType: FUNNEL_ANIMATION,
+        settings: {
+            resolutionPreset: "custom",
+            renderWidth: 1000,
+            renderHeight: 760,
+            backgroundColor: "#f2f0ef",
+            containerPosition: "relative",
+            containerWidthValue: 100,
+            containerWidthUnit: "%",
+            containerHeightValue: 100,
+            containerHeightUnit: "%",
+            particleColor: "#000000",
+            flowColor: "#000000",
+            pulseColor: "#000000",
+            particleShape: "circle",
+            maskEnabled: "off",
+            pulseEnabled: "off",
+            baseVisibility: 1,
+            maximumPixelRatio: 1.5,
+            ringCount: 42,
+            pointsPerRing: 66,
+            ringRotationSpeed: 0.65,
+            particleSizeMin: 0.28,
+            particleSizeMax: 0.72,
+            particleAlphaMin: 0.12,
+            particleAlphaMax: 0.38,
+            flowParticleCount: 190,
+            flowSizeMin: 0.45,
+            flowSizeMax: 1.1,
+            flowAlphaMin: 1,
+            flowAlphaMax: 1,
+            flowSpeedMin: 0.18,
+            flowSpeedMax: 0.215,
+            flowSwirlSpeed: 1.45,
+            flowTwistStrength: 4.5,
+            flowAcceleration: 4.6,
+            topRadiusRatio: 0.16,
+            neckRadiusRatio: 0.05,
+            outletRadiusRatio: 0.081,
+            topYRatio: -0.2,
+            neckYRatio: 0.09,
+            outletYRatio: 0.25,
+            neckProgress: 0.84,
+            basePitch: 0,
+            maximumRotationY: 0.14,
+            maximumRotationX: 0.1,
+            rotationSpeed: 0.07,
+            perspectiveRatio: 0.6,
+            pointerRadiusRatio: 0.12,
+            minimumPointerRadius: 85,
+            repulsionStrength: 1.5,
+            springStrength: 0.03,
+            friction: 0.87,
+            cursorRevealRadiusRatio: 0.3,
+            minimumCursorRevealRadius: 200,
+            cursorRevealSoftness: 0.52,
+            cursorRevealFadeSpeed: 0.1,
+            cursorVisibilityStrength: 0.88,
+            pulseDuration: 1200,
+            pulseRepeatDelay: 1900,
+            pulseWidth: 100,
+            pulseBrightness: 0.72,
+            pulseSizeBoost: 1,
+            pulseRevealWidth: 150,
+            pulseRevealStrength: 0.86,
+            pulseRevealTrail: 0.18,
+            outletTrailCount: 0,
+            outletTrailLength: 0.14,
+            outletTrailSpread: 0.018,
+            outletTrailOpacity: 0.4
+        }
+    },
+    {
+        id: "builtin-funnel-3",
+        name: "3",
+        animationType: FUNNEL_ANIMATION,
+        settings: {
+            resolutionPreset: "fullhd",
+            renderWidth: 1920,
+            renderHeight: 1080,
+            backgroundColor: "#f2f0ef",
+            containerPosition: "relative",
+            containerWidthValue: 100,
+            containerWidthUnit: "%",
+            containerHeightValue: 100,
+            containerHeightUnit: "%",
+            particleColor: "#000000",
+            flowColor: "#000000",
+            pulseColor: "#000000",
+            particleShape: "rectangle",
+            maskEnabled: "off",
+            pulseEnabled: "on",
+            baseVisibility: 1,
+            maximumPixelRatio: 3,
+            ringCount: 32,
+            pointsPerRing: 66,
+            ringRotationSpeed: 0.31,
+            particleSizeMin: 0.28,
+            particleSizeMax: 0.54,
+            particleAlphaMin: 0.3,
+            particleAlphaMax: 0.5,
+            flowParticleCount: 190,
+            flowSizeMin: 0.45,
+            flowSizeMax: 1.1,
+            flowAlphaMin: 1,
+            flowAlphaMax: 1,
+            flowSpeedMin: 0.18,
+            flowSpeedMax: 0.215,
+            flowSwirlSpeed: 1.45,
+            flowTwistStrength: 4.5,
+            flowAcceleration: 4.6,
+            topRadiusRatio: 0.13,
+            neckRadiusRatio: 0.025,
+            outletRadiusRatio: 0.046,
+            topYRatio: -0.29,
+            neckYRatio: 0.22,
+            outletYRatio: 0.36,
+            neckProgress: 0.84,
+            basePitch: 0,
+            maximumRotationY: 0.14,
+            maximumRotationX: 0.1,
+            rotationSpeed: 0.07,
+            perspectiveRatio: 0.6,
+            pointerRadiusRatio: 0.12,
+            minimumPointerRadius: 85,
+            repulsionStrength: 1.5,
+            springStrength: 0.03,
+            friction: 0.87,
+            cursorRevealRadiusRatio: 0.3,
+            minimumCursorRevealRadius: 200,
+            cursorRevealSoftness: 0.52,
+            cursorRevealFadeSpeed: 0.1,
+            cursorVisibilityStrength: 0.88,
+            pulseDuration: 1820,
+            pulseRepeatDelay: 1900,
+            pulseWidth: 64,
+            pulseBrightness: 0.72,
+            pulseSizeBoost: 1,
+            pulseRevealWidth: 150,
+            pulseRevealStrength: 0.86,
+            pulseRevealTrail: 0.18,
+            outletTrailCount: 0,
+            outletTrailLength: 0.14,
+            outletTrailSpread: 0.018,
+            outletTrailOpacity: 0.4
+        }
+    },
+    {
+        id: "builtin-funnel-4",
+        name: "4",
+        animationType: FUNNEL_ANIMATION,
+        settings: {
+            resolutionPreset: "custom",
+            renderWidth: 1000,
+            renderHeight: 760,
+            backgroundColor: "#f2f0ef",
+            containerPosition: "relative",
+            containerWidthValue: 100,
+            containerWidthUnit: "%",
+            containerHeightValue: 100,
+            containerHeightUnit: "%",
+            particleColor: "#000000",
+            flowColor: "#000000",
+            pulseColor: "#000000",
+            particleShape: "circle",
+            maskEnabled: "off",
+            pulseEnabled: "off",
+            baseVisibility: 1,
+            maximumPixelRatio: 1.5,
+            ringCount: 26,
+            pointsPerRing: 66,
+            ringRotationSpeed: 0.65,
+            particleSizeMin: 0.28,
+            particleSizeMax: 0.72,
+            particleAlphaMin: 0.12,
+            particleAlphaMax: 0.38,
+            flowParticleCount: 314,
+            flowSizeMin: 0.25,
+            flowSizeMax: 0.7,
+            flowAlphaMin: 1,
+            flowAlphaMax: 1,
+            flowSpeedMin: 0.18,
+            flowSpeedMax: 0.215,
+            flowSwirlSpeed: 1.45,
+            flowTwistStrength: 4.5,
+            flowAcceleration: 4.6,
+            topRadiusRatio: 0.17,
+            neckRadiusRatio: 0.02,
+            outletRadiusRatio: 0.081,
+            topYRatio: -0.27,
+            neckYRatio: 0.22,
+            outletYRatio: 0.35,
+            neckProgress: 0.84,
+            basePitch: 0,
+            maximumRotationY: 0.14,
+            maximumRotationX: 0.1,
+            rotationSpeed: 0.07,
+            perspectiveRatio: 0.6,
+            pointerRadiusRatio: 0.12,
+            minimumPointerRadius: 85,
+            repulsionStrength: 1.5,
+            springStrength: 0.03,
+            friction: 0.87,
+            cursorRevealRadiusRatio: 0.3,
+            minimumCursorRevealRadius: 200,
+            cursorRevealSoftness: 0.52,
+            cursorRevealFadeSpeed: 0.1,
+            cursorVisibilityStrength: 0.88,
+            pulseDuration: 1200,
+            pulseRepeatDelay: 1900,
+            pulseWidth: 100,
+            pulseBrightness: 0.72,
+            pulseSizeBoost: 1,
+            pulseRevealWidth: 150,
+            pulseRevealStrength: 0.86,
+            pulseRevealTrail: 0.18,
+            outletTrailCount: 0,
+            outletTrailLength: 0.14,
+            outletTrailSpread: 0.018,
+            outletTrailOpacity: 0.4
+        }
+    },
+    {
+        id: "builtin-funnel-v2-1",
+        name: "1",
+        animationType: FUNNEL_V2_ANIMATION,
+        settings: {
+            resolutionPreset: "custom",
+            renderWidth: 1000,
+            renderHeight: 760,
+            backgroundColor: "#f2f0ef",
+            containerPosition: "relative",
+            containerWidthValue: 100,
+            containerWidthUnit: "%",
+            containerHeightValue: 100,
+            containerHeightUnit: "%",
+            particleColor: "#000000",
+            pulseColor: "#000000",
+            particleShape: "rectangle",
+            pulseEnabled: "off",
+            pulseDuration: 1200,
+            pulseRepeatDelay: 1900,
+            pulseWidth: 100,
+            pulseBrightness: 0.72,
+            pulseSizeBoost: 1,
+            maximumPixelRatio: 2,
+            radialSegments: 180,
+            verticalSegments: 105,
+            topY: 4.9,
+            bottomY: -5.6,
+            topRadius: 4.5,
+            throatRadius: 0.42,
+            bottomRadius: 0.7,
+            upperCurvePower: 3.15,
+            lowerBlendStart: 0.72,
+            flowSpeed: 0.055,
+            rectWidth: 1.2,
+            rectHeight: 1.2,
+            particleScaleMin: 0.8,
+            particleScaleMax: 1.4,
+            brightnessMin: 0.45,
+            brightnessMax: 1,
+            speedMin: 0.75,
+            speedMax: 1.25,
+            angleJitter: 0.01,
+            verticalJitter: 0.004,
+            twistStrength: 0.42,
+            twistExponent: 1.7,
+            twistWaveAmount: 0.01,
+            twistWaveSpeed: 0.3,
+            twistWaveFrequency: 7,
+            surfaceNoiseAmount: 0.012,
+            surfaceNoiseAngleFrequency: 7,
+            surfaceNoiseVerticalFrequency: 22,
+            surfaceNoiseSpeed: 0.8,
+            cameraStartRotationX: 1.12,
+            cameraStartRotationY: -1,
+            cameraRestRotationX: 0.52,
+            cameraRestRotationY: 0.18,
+            minimumRotationX: -1.28,
+            maximumRotationX: -0.92,
+            cameraDistance: 11.4,
+            cameraPositionX: 0,
+            cameraPositionY: 0,
+            minimumDistance: 8.8,
+            maximumDistance: 14,
+            perspectiveScale: 1.1,
+            centerXRatio: 0.5,
+            centerYRatio: 0.47,
+            autoRotate: "on",
+            autoRotateSpeed: 0.018,
+            pointerRadius: 90,
+            repulsionStrength: 0.42,
+            displacementDecay: 0.9,
+            dragRotationYSpeed: 0.004,
+            dragRotationXSpeed: 0.0025,
+            zoomSpeed: 0.008,
+            dofStrength: 0.14,
+            dofFadeStrength: 0.55,
+            dofSizeBoost: 0.45,
+            depthShading: 0.55,
+            depthOffset: 5,
+            depthRange: 10,
+            topHighlightBase: 0.72,
+            topHighlightAmount: 0.32,
+            topHighlightPower: 1.3,
+            flickerSpeed: 2,
+            flickerAmount: 0.06,
+            flickerFrequency: 10,
+            bottomFadeStart: 0.82,
+            bottomFadeEnd: 1,
+            projectionSizeScale: 0.011
+        }
+    },
+    {
+        id: "builtin-funnel-v2-2",
+        name: "2",
+        animationType: FUNNEL_V2_ANIMATION,
+        settings: {
+            resolutionPreset: "custom",
+            renderWidth: 1000,
+            renderHeight: 760,
+            backgroundColor: "#f2f0ef",
+            containerPosition: "relative",
+            containerWidthValue: 100,
+            containerWidthUnit: "%",
+            containerHeightValue: 100,
+            containerHeightUnit: "%",
+            particleColor: "#000000",
+            pulseColor: "#000000",
+            particleShape: "rectangle",
+            pulseEnabled: "off",
+            pulseDuration: 1200,
+            pulseRepeatDelay: 1900,
+            pulseWidth: 100,
+            pulseBrightness: 0.72,
+            pulseSizeBoost: 1,
+            maximumPixelRatio: 2,
+            radialSegments: 51,
+            verticalSegments: 180,
+            topY: 3.08,
+            bottomY: -5.6,
+            topRadius: 4.5,
+            throatRadius: 0.13,
+            bottomRadius: 0.7,
+            upperCurvePower: 5,
+            lowerBlendStart: 0.72,
+            flowSpeed: 0.087,
+            rectWidth: 1.2,
+            rectHeight: 1.2,
+            particleScaleMin: 0.41,
+            particleScaleMax: 1.21,
+            brightnessMin: 0.17,
+            brightnessMax: 1,
+            speedMin: 0.75,
+            speedMax: 1.25,
+            angleJitter: 0,
+            verticalJitter: 0,
+            twistStrength: 2,
+            twistExponent: 4,
+            twistWaveAmount: 0.015,
+            twistWaveSpeed: 0.3,
+            twistWaveFrequency: 7,
+            surfaceNoiseAmount: 0,
+            surfaceNoiseAngleFrequency: 7,
+            surfaceNoiseVerticalFrequency: 22,
+            surfaceNoiseSpeed: 0.8,
+            cameraStartRotationX: 1.43,
+            cameraStartRotationY: 1.74,
+            cameraRestRotationX: 0.29,
+            cameraRestRotationY: 0.18,
+            minimumRotationX: -1.28,
+            maximumRotationX: -0.92,
+            cameraDistance: 13.74,
+            cameraPositionX: 0,
+            cameraPositionY: 0,
+            minimumDistance: 9.18,
+            maximumDistance: 14,
+            perspectiveScale: 1.12,
+            centerXRatio: 0.5,
+            centerYRatio: 0.47,
+            autoRotate: "on",
+            autoRotateSpeed: 0.016,
+            pointerRadius: 30,
+            repulsionStrength: 1.36,
+            displacementDecay: 0.9,
+            dragRotationYSpeed: 0.004,
+            dragRotationXSpeed: 0.0025,
+            zoomSpeed: 0.009,
+            dofStrength: 0.197,
+            dofFadeStrength: 0.55,
+            dofSizeBoost: 0.45,
+            depthShading: 0.55,
+            depthOffset: 5,
+            depthRange: 10,
+            topHighlightBase: 0.72,
+            topHighlightAmount: 0.32,
+            topHighlightPower: 1.3,
+            flickerSpeed: 2,
+            flickerAmount: 0.06,
+            flickerFrequency: 10,
+            bottomFadeStart: 0.82,
+            bottomFadeEnd: 1,
+            projectionSizeScale: 0.011
         }
     }
 ];
@@ -1431,6 +2082,1206 @@ const FOOTER_CONTROL_GROUPS = [
     }
 ];
 
+const FUNNEL_CONTROL_GROUPS = [
+    {
+        title: "Preview",
+        controls: [
+            {
+                key: "resolutionPreset",
+                type: "select",
+                label: "Resolution preset",
+                options: [
+                    { value: "hd", label: "HD - 1280 x 720" },
+                    { value: "fullhd", label: "Full HD - 1920 x 1080" },
+                    { value: "qhd", label: "QHD - 2560 x 1440" },
+                    { value: "uhd4k", label: "4K - 3840 x 2160" },
+                    { value: "custom", label: "Custom" }
+                ]
+            },
+            {
+                key: "renderWidth",
+                type: "number",
+                label: "Custom width",
+                min: 320,
+                max: 7680,
+                step: 1,
+                unit: "px"
+            },
+            {
+                key: "renderHeight",
+                type: "number",
+                label: "Custom height",
+                min: 240,
+                max: 4320,
+                step: 1,
+                unit: "px"
+            },
+            {
+                key: "containerPosition",
+                type: "select",
+                label: "Embed position",
+                options: POSITION_OPTIONS
+            },
+            {
+                type: "dimension",
+                key: "containerWidthValue",
+                unitKey: "containerWidthUnit",
+                label: "Embed width",
+                min: 1,
+                max: 10000,
+                step: 1
+            },
+            {
+                type: "dimension",
+                key: "containerHeightValue",
+                unitKey: "containerHeightUnit",
+                label: "Embed height",
+                min: 1,
+                max: 10000,
+                step: 1
+            },
+            {
+                key: "backgroundColor",
+                type: "color",
+                label: "Background color"
+            },
+            {
+                key: "maximumPixelRatio",
+                type: "range",
+                label: "Preview sharpness",
+                min: 1,
+                max: 3,
+                step: 0.1,
+                precision: 1
+            }
+        ]
+    },
+    {
+        title: "Shell",
+        controls: [
+            {
+                key: "ringCount",
+                type: "range",
+                label: "Ring count",
+                min: 6,
+                max: 96,
+                step: 1,
+                precision: 0
+            },
+            {
+                key: "pointsPerRing",
+                type: "range",
+                label: "Points per ring",
+                min: 12,
+                max: 180,
+                step: 1,
+                precision: 0
+            },
+            {
+                key: "ringRotationSpeed",
+                type: "range",
+                label: "Ring rotation speed",
+                min: -4,
+                max: 4,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "particleSizeMin",
+                type: "range",
+                label: "Min shell size",
+                min: 0.05,
+                max: 3,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "particleSizeMax",
+                type: "range",
+                label: "Max shell size",
+                min: 0.05,
+                max: 4,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "particleAlphaMin",
+                type: "range",
+                label: "Min shell alpha",
+                min: 0,
+                max: 1,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "particleAlphaMax",
+                type: "range",
+                label: "Max shell alpha",
+                min: 0,
+                max: 1,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "particleShape",
+                type: "select",
+                label: "Particle shape",
+                options: SHAPE_OPTIONS
+            },
+            {
+                key: "particleColor",
+                type: "color",
+                label: "Shell color"
+            },
+            {
+                key: "baseVisibility",
+                type: "range",
+                label: "Base visibility",
+                min: 0,
+                max: 1,
+                step: 0.01,
+                precision: 2
+            }
+        ]
+    },
+    {
+        title: "Flow",
+        controls: [
+            {
+                key: "flowParticleCount",
+                type: "range",
+                label: "Flow count",
+                min: 12,
+                max: 600,
+                step: 1,
+                precision: 0
+            },
+            {
+                key: "flowSizeMin",
+                type: "range",
+                label: "Min flow size",
+                min: 0.05,
+                max: 3,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "flowSizeMax",
+                type: "range",
+                label: "Max flow size",
+                min: 0.05,
+                max: 4,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "flowAlphaMin",
+                type: "range",
+                label: "Min flow alpha",
+                min: 0,
+                max: 1,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "flowAlphaMax",
+                type: "range",
+                label: "Max flow alpha",
+                min: 0,
+                max: 1,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "flowSpeedMin",
+                type: "range",
+                label: "Min flow speed",
+                min: 0.005,
+                max: 0.25,
+                step: 0.005,
+                precision: 3
+            },
+            {
+                key: "flowSpeedMax",
+                type: "range",
+                label: "Max flow speed",
+                min: 0.005,
+                max: 0.4,
+                step: 0.005,
+                precision: 3
+            },
+            {
+                key: "flowColor",
+                type: "color",
+                label: "Flow color"
+            },
+            {
+                key: "flowSwirlSpeed",
+                type: "range",
+                label: "Swirl speed",
+                min: 0,
+                max: 4,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "flowTwistStrength",
+                type: "range",
+                label: "Swirl twist",
+                min: 0,
+                max: 12,
+                step: 0.1,
+                precision: 1
+            },
+            {
+                key: "flowAcceleration",
+                type: "range",
+                label: "Outlet acceleration",
+                min: 0,
+                max: 8,
+                step: 0.1,
+                precision: 1
+            }
+        ]
+    },
+    {
+        title: "Shape",
+        controls: [
+            {
+                key: "topRadiusRatio",
+                type: "range",
+                label: "Top radius",
+                min: 0.08,
+                max: 0.6,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "neckRadiusRatio",
+                type: "range",
+                label: "Neck radius",
+                min: 0.01,
+                max: 0.3,
+                step: 0.005,
+                precision: 3
+            },
+            {
+                key: "outletRadiusRatio",
+                type: "range",
+                label: "Outlet radius",
+                min: 0.005,
+                max: 0.16,
+                step: 0.001,
+                precision: 3
+            },
+            {
+                key: "topYRatio",
+                type: "range",
+                label: "Top height",
+                min: -0.6,
+                max: 0.1,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "neckYRatio",
+                type: "range",
+                label: "Neck height",
+                min: -0.1,
+                max: 0.6,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "outletYRatio",
+                type: "range",
+                label: "Outlet height",
+                min: 0,
+                max: 0.9,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "neckProgress",
+                type: "range",
+                label: "Neck progress",
+                min: 0.2,
+                max: 0.95,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "basePitch",
+                type: "range",
+                label: "Base pitch",
+                min: -0.8,
+                max: 0.8,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "perspectiveRatio",
+                type: "range",
+                label: "Perspective",
+                min: 0.6,
+                max: 3,
+                step: 0.01,
+                precision: 2
+            }
+        ]
+    },
+    {
+        title: "Interaction",
+        controls: [
+            {
+                key: "maximumRotationY",
+                type: "range",
+                label: "Rotate Y amount",
+                min: 0,
+                max: 0.5,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "maximumRotationX",
+                type: "range",
+                label: "Rotate X amount",
+                min: 0,
+                max: 0.4,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "rotationSpeed",
+                type: "range",
+                label: "Rotation smoothing",
+                min: 0.01,
+                max: 0.3,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "pointerRadiusRatio",
+                type: "range",
+                label: "Pointer radius",
+                min: 0.02,
+                max: 0.4,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "minimumPointerRadius",
+                type: "range",
+                label: "Min pointer radius",
+                min: 10,
+                max: 400,
+                step: 1,
+                precision: 0,
+                unit: "px"
+            },
+            {
+                key: "repulsionStrength",
+                type: "range",
+                label: "Repulsion",
+                min: 0,
+                max: 8,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "springStrength",
+                type: "range",
+                label: "Spring",
+                min: 0.001,
+                max: 0.2,
+                step: 0.001,
+                precision: 3
+            },
+            {
+                key: "friction",
+                type: "range",
+                label: "Friction",
+                min: 0.6,
+                max: 0.99,
+                step: 0.01,
+                precision: 2
+            }
+        ]
+    },
+    {
+        title: "Reveal And Pulse",
+        controls: [
+            {
+                key: "maskEnabled",
+                type: "select",
+                label: "Mask",
+                options: TOGGLE_OPTIONS
+            },
+            {
+                key: "pulseEnabled",
+                type: "select",
+                label: "Pulse",
+                options: TOGGLE_OPTIONS
+            },
+            {
+                key: "cursorRevealRadiusRatio",
+                type: "range",
+                label: "Reveal radius",
+                min: 0.05,
+                max: 0.6,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "minimumCursorRevealRadius",
+                type: "range",
+                label: "Min reveal radius",
+                min: 20,
+                max: 600,
+                step: 1,
+                precision: 0,
+                unit: "px"
+            },
+            {
+                key: "cursorRevealSoftness",
+                type: "range",
+                label: "Reveal softness",
+                min: 0.05,
+                max: 0.95,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "cursorRevealFadeSpeed",
+                type: "range",
+                label: "Reveal fade speed",
+                min: 0.01,
+                max: 0.4,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "cursorVisibilityStrength",
+                type: "range",
+                label: "Reveal strength",
+                min: 0,
+                max: 1,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "pulseColor",
+                type: "color",
+                label: "Pulse color"
+            },
+            {
+                key: "pulseDuration",
+                type: "range",
+                label: "Pulse duration",
+                min: 100,
+                max: 4000,
+                step: 10,
+                precision: 0,
+                unit: "ms"
+            },
+            {
+                key: "pulseRepeatDelay",
+                type: "range",
+                label: "Pulse repeat",
+                min: 100,
+                max: 6000,
+                step: 10,
+                precision: 0,
+                unit: "ms"
+            },
+            {
+                key: "pulseWidth",
+                type: "range",
+                label: "Pulse width",
+                min: 10,
+                max: 360,
+                step: 1,
+                precision: 0,
+                unit: "px"
+            },
+            {
+                key: "pulseBrightness",
+                type: "range",
+                label: "Pulse brightness",
+                min: 0,
+                max: 2.5,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "pulseSizeBoost",
+                type: "range",
+                label: "Pulse size boost",
+                min: 0,
+                max: 4,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "pulseRevealWidth",
+                type: "range",
+                label: "Pulse reveal width",
+                min: 10,
+                max: 360,
+                step: 1,
+                precision: 0,
+                unit: "px"
+            },
+            {
+                key: "pulseRevealStrength",
+                type: "range",
+                label: "Pulse reveal strength",
+                min: 0,
+                max: 1,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "pulseRevealTrail",
+                type: "range",
+                label: "Pulse reveal trail",
+                min: 0,
+                max: 1,
+                step: 0.01,
+                precision: 2
+            }
+        ]
+    }
+];
+
+const FUNNEL_V2_CONTROL_GROUPS = [
+    {
+        title: "Preview",
+        controls: [
+            {
+                key: "resolutionPreset",
+                type: "select",
+                label: "Resolution preset",
+                options: [
+                    { value: "hd", label: "HD - 1280 x 720" },
+                    { value: "fullhd", label: "Full HD - 1920 x 1080" },
+                    { value: "qhd", label: "QHD - 2560 x 1440" },
+                    { value: "uhd4k", label: "4K - 3840 x 2160" },
+                    { value: "custom", label: "Custom" }
+                ]
+            },
+            {
+                key: "renderWidth",
+                type: "number",
+                label: "Custom width",
+                min: 320,
+                max: 7680,
+                step: 1,
+                unit: "px"
+            },
+            {
+                key: "renderHeight",
+                type: "number",
+                label: "Custom height",
+                min: 240,
+                max: 4320,
+                step: 1,
+                unit: "px"
+            },
+            {
+                key: "containerPosition",
+                type: "select",
+                label: "Embed position",
+                options: POSITION_OPTIONS
+            },
+            {
+                type: "dimension",
+                key: "containerWidthValue",
+                unitKey: "containerWidthUnit",
+                label: "Embed width",
+                min: 1,
+                max: 10000,
+                step: 1
+            },
+            {
+                type: "dimension",
+                key: "containerHeightValue",
+                unitKey: "containerHeightUnit",
+                label: "Embed height",
+                min: 1,
+                max: 10000,
+                step: 1
+            },
+            {
+                key: "backgroundColor",
+                type: "color",
+                label: "Background color"
+            },
+            {
+                key: "maximumPixelRatio",
+                type: "range",
+                label: "Preview sharpness",
+                min: 1,
+                max: 3,
+                step: 0.1,
+                precision: 1
+            }
+        ]
+    },
+    {
+        title: "Particles",
+        controls: [
+            {
+                key: "radialSegments",
+                type: "range",
+                label: "Radial segments",
+                min: 24,
+                max: 260,
+                step: 1,
+                precision: 0
+            },
+            {
+                key: "verticalSegments",
+                type: "range",
+                label: "Vertical segments",
+                min: 20,
+                max: 180,
+                step: 1,
+                precision: 0
+            },
+            {
+                key: "particleShape",
+                type: "select",
+                label: "Particle shape",
+                options: SHAPE_OPTIONS
+            },
+            {
+                key: "particleColor",
+                type: "color",
+                label: "Particle color"
+            },
+            {
+                key: "pulseColor",
+                type: "color",
+                label: "Pulse color"
+            },
+            {
+                key: "rectWidth",
+                type: "range",
+                label: "Base width",
+                min: 0.2,
+                max: 4,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "rectHeight",
+                type: "range",
+                label: "Base height",
+                min: 0.2,
+                max: 4,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "particleScaleMin",
+                type: "range",
+                label: "Min size scale",
+                min: 0.2,
+                max: 2,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "particleScaleMax",
+                type: "range",
+                label: "Max size scale",
+                min: 0.2,
+                max: 2.5,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "brightnessMin",
+                type: "range",
+                label: "Min brightness",
+                min: 0.05,
+                max: 1,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "brightnessMax",
+                type: "range",
+                label: "Max brightness",
+                min: 0.05,
+                max: 1.4,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "angleJitter",
+                type: "range",
+                label: "Angle jitter",
+                min: 0,
+                max: 0.08,
+                step: 0.001,
+                precision: 3
+            },
+            {
+                key: "verticalJitter",
+                type: "range",
+                label: "Vertical jitter",
+                min: 0,
+                max: 0.03,
+                step: 0.001,
+                precision: 3
+            }
+        ]
+    },
+    {
+        title: "Shape And Flow",
+        controls: [
+            {
+                key: "topY",
+                type: "range",
+                label: "Top height",
+                min: -2,
+                max: 12,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "bottomY",
+                type: "range",
+                label: "Bottom height",
+                min: -14,
+                max: 2,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "topRadius",
+                type: "range",
+                label: "Top radius",
+                min: 0.4,
+                max: 10,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "throatRadius",
+                type: "range",
+                label: "Throat radius",
+                min: 0.05,
+                max: 2,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "bottomRadius",
+                type: "range",
+                label: "Bottom radius",
+                min: 0.05,
+                max: 3,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "upperCurvePower",
+                type: "range",
+                label: "Upper curve",
+                min: 0.5,
+                max: 5,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "lowerBlendStart",
+                type: "range",
+                label: "Bottom blend start",
+                min: 0.3,
+                max: 0.98,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "flowSpeed",
+                type: "range",
+                label: "Flow speed",
+                min: 0.002,
+                max: 0.2,
+                step: 0.001,
+                precision: 3
+            },
+            {
+                key: "speedMin",
+                type: "range",
+                label: "Min speed variance",
+                min: 0.1,
+                max: 2,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "speedMax",
+                type: "range",
+                label: "Max speed variance",
+                min: 0.1,
+                max: 2.5,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "twistStrength",
+                type: "range",
+                label: "Twist amount",
+                min: 0,
+                max: 2,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "twistExponent",
+                type: "range",
+                label: "Twist exponent",
+                min: 0.2,
+                max: 4,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "twistWaveAmount",
+                type: "range",
+                label: "Twist wobble",
+                min: 0,
+                max: 0.08,
+                step: 0.001,
+                precision: 3
+            },
+            {
+                key: "surfaceNoiseAmount",
+                type: "range",
+                label: "Surface noise",
+                min: 0,
+                max: 0.08,
+                step: 0.001,
+                precision: 3
+            }
+        ]
+    },
+    {
+        title: "Camera",
+        controls: [
+            {
+                key: "cameraStartRotationX",
+                type: "range",
+                label: "Start pitch",
+                min: -2.4,
+                max: 2.4,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "cameraStartRotationY",
+                type: "range",
+                label: "Start yaw",
+                min: -3.2,
+                max: 3.2,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "cameraRestRotationX",
+                type: "range",
+                label: "Rest pitch",
+                min: -2.4,
+                max: 2.4,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "cameraRestRotationY",
+                type: "range",
+                label: "Rest yaw",
+                min: -3.2,
+                max: 3.2,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "cameraDistance",
+                type: "range",
+                label: "Camera distance",
+                min: 4,
+                max: 24,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "cameraAngle",
+                type: "range",
+                label: "Camera angle",
+                min: -2.4,
+                max: 2.4,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "cameraPositionX",
+                type: "range",
+                label: "Camera X position",
+                min: -10,
+                max: 10,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "cameraPositionY",
+                type: "range",
+                label: "Camera Y position",
+                min: -10,
+                max: 10,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "minimumDistance",
+                type: "range",
+                label: "Min zoom",
+                min: 2,
+                max: 20,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "maximumDistance",
+                type: "range",
+                label: "Max zoom",
+                min: 4,
+                max: 30,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "perspectiveScale",
+                type: "range",
+                label: "Perspective scale",
+                min: 0.3,
+                max: 2.4,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "centerXRatio",
+                type: "range",
+                label: "Horizontal framing",
+                min: 0.2,
+                max: 0.8,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "centerYRatio",
+                type: "range",
+                label: "Vertical framing",
+                min: 0.2,
+                max: 0.8,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "autoRotate",
+                type: "select",
+                label: "Auto rotate",
+                options: TOGGLE_OPTIONS
+            },
+            {
+                key: "autoRotateSpeed",
+                type: "range",
+                label: "Auto rotate speed",
+                min: -0.2,
+                max: 0.2,
+                step: 0.001,
+                precision: 3
+            }
+        ]
+    },
+    {
+        title: "Interaction And Depth",
+        controls: [
+            {
+                key: "pointerRadius",
+                type: "range",
+                label: "Pointer radius",
+                min: 10,
+                max: 240,
+                step: 1,
+                precision: 0,
+                unit: "px"
+            },
+            {
+                key: "repulsionStrength",
+                type: "range",
+                label: "Repulsion strength",
+                min: 0,
+                max: 2,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "displacementDecay",
+                type: "range",
+                label: "Displacement decay",
+                min: 0.6,
+                max: 0.99,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "dragRotationYSpeed",
+                type: "range",
+                label: "Drag yaw speed",
+                min: 0.0005,
+                max: 0.02,
+                step: 0.0001,
+                precision: 4
+            },
+            {
+                key: "dragRotationXSpeed",
+                type: "range",
+                label: "Drag pitch speed",
+                min: 0.0005,
+                max: 0.02,
+                step: 0.0001,
+                precision: 4
+            },
+            {
+                key: "minimumRotationX",
+                type: "range",
+                label: "Min pitch clamp",
+                min: -2.8,
+                max: 0.4,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "maximumRotationX",
+                type: "range",
+                label: "Max pitch clamp",
+                min: -2.8,
+                max: 0.8,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "zoomSpeed",
+                type: "range",
+                label: "Wheel zoom speed",
+                min: 0.001,
+                max: 0.05,
+                step: 0.001,
+                precision: 3
+            },
+            {
+                key: "dofStrength",
+                type: "range",
+                label: "Depth of field",
+                min: 0,
+                max: 0.5,
+                step: 0.001,
+                precision: 3
+            },
+            {
+                key: "depthShading",
+                type: "range",
+                label: "Depth shading",
+                min: 0,
+                max: 1.8,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "bottomFadeStart",
+                type: "range",
+                label: "Bottom fade start",
+                min: 0.4,
+                max: 1,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "bottomFadeEnd",
+                type: "range",
+                label: "Bottom fade end",
+                min: 0.5,
+                max: 1,
+                step: 0.01,
+                precision: 2
+            }
+        ]
+    },
+    {
+        title: "Pulse",
+        controls: [
+            {
+                key: "pulseEnabled",
+                type: "select",
+                label: "Pulse",
+                options: TOGGLE_OPTIONS
+            },
+            {
+                key: "pulseDuration",
+                type: "range",
+                label: "Pulse duration",
+                min: 100,
+                max: 4000,
+                step: 10,
+                precision: 0,
+                unit: "ms"
+            },
+            {
+                key: "pulseRepeatDelay",
+                type: "range",
+                label: "Pulse repeat",
+                min: 100,
+                max: 6000,
+                step: 10,
+                precision: 0,
+                unit: "ms"
+            },
+            {
+                key: "pulseWidth",
+                type: "range",
+                label: "Pulse width",
+                min: 10,
+                max: 360,
+                step: 1,
+                precision: 0,
+                unit: "px"
+            },
+            {
+                key: "pulseBrightness",
+                type: "range",
+                label: "Pulse brightness",
+                min: 0,
+                max: 2.5,
+                step: 0.01,
+                precision: 2
+            },
+            {
+                key: "pulseSizeBoost",
+                type: "range",
+                label: "Pulse size boost",
+                min: 0,
+                max: 4,
+                step: 0.01,
+                precision: 2
+            }
+        ]
+    }
+];
+
 const FOOTER_GEOMETRY_KEYS = new Set([
     "minimumSpacing",
     "spacingDivider",
@@ -1442,6 +3293,47 @@ const FOOTER_GEOMETRY_KEYS = new Set([
     "logoPaddingPercent",
     "logoSizePercent",
     "pulseBorderThickness"
+]);
+
+const FUNNEL_REBUILD_KEYS = new Set([
+    "ringCount",
+    "pointsPerRing",
+    "particleSizeMin",
+    "particleSizeMax",
+    "particleAlphaMin",
+    "particleAlphaMax",
+    "flowParticleCount",
+    "flowSizeMin",
+    "flowSizeMax",
+    "flowAlphaMin",
+    "flowAlphaMax",
+    "flowSpeedMin",
+    "flowSpeedMax"
+]);
+
+const FUNNEL_V2_REBUILD_KEYS = new Set([
+    "radialSegments",
+    "verticalSegments",
+    "rectWidth",
+    "rectHeight",
+    "particleScaleMin",
+    "particleScaleMax",
+    "brightnessMin",
+    "brightnessMax",
+    "speedMin",
+    "speedMax",
+    "angleJitter",
+    "verticalJitter"
+]);
+
+const FUNNEL_V2_CAMERA_RESET_KEYS = new Set([
+    "cameraStartRotationX",
+    "cameraStartRotationY",
+    "cameraRestRotationX",
+    "cameraRestRotationY",
+    "cameraDistance",
+    "minimumDistance",
+    "maximumDistance"
 ]);
 
 const VERTEX_SHADER = [
@@ -1521,14 +3413,16 @@ document.addEventListener("DOMContentLoaded", () => {
         builtinPatternsRoot: document.getElementById("builtin-patterns"),
         patternStatus: document.getElementById("pattern-status"),
         controlsRoot: document.getElementById("controls-root"),
+        previewStageWrap: document.getElementById("preview-stage-wrap"),
         previewFrame: document.getElementById("preview-frame"),
         previewMount: document.getElementById("preview-mount"),
+        previewSizeRange: document.getElementById("preview-size-range"),
+        previewSizeInput: document.getElementById("preview-size-input"),
+        previewSizeReset: document.getElementById("preview-size-reset"),
         resolutionLabel: document.getElementById("resolution-label"),
         loopLabel: document.getElementById("loop-label"),
-        codeOutput: document.getElementById("code-output"),
         copyButton: document.getElementById("copy-button"),
-        resetButton: document.getElementById("reset-button"),
-        copyStatus: document.getElementById("copy-status")
+        resetButton: document.getElementById("reset-button")
     };
 
     const controlRefs = new Map();
@@ -1552,26 +3446,50 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     let preview = null;
+    let previewScalePercent = PREVIEW_SCALE_DEFAULT;
+    let previewStageResizeObserver = null;
 
     populateAnimationOptions();
+    syncPreviewScaleInputs();
     rebuildControls();
     recreatePreview();
     applyCurrentStateToView({ forceGeometry: true });
     syncPatternLibraryUI();
 
+    if (typeof ResizeObserver !== "undefined") {
+        previewStageResizeObserver = new ResizeObserver(() => {
+            applyPreviewFrameSize();
+        });
+        previewStageResizeObserver.observe(elements.previewStageWrap);
+    } else {
+        window.addEventListener("resize", applyPreviewFrameSize);
+    }
+
+    elements.previewSizeRange.addEventListener("input", () => {
+        setPreviewScale(elements.previewSizeRange.value);
+    });
+
+    elements.previewSizeInput.addEventListener("input", () => {
+        setPreviewScale(elements.previewSizeInput.value);
+    });
+
+    elements.previewSizeReset.addEventListener("click", () => {
+        setPreviewScale(PREVIEW_SCALE_DEFAULT);
+    });
+
     elements.copyButton.addEventListener("click", async () => {
-        const text = elements.codeOutput.value;
+        const text = generateEmbedCode(state.settings, state.animationType);
 
         try {
             if (navigator.clipboard && window.isSecureContext) {
                 await navigator.clipboard.writeText(text);
             } else {
-                fallbackCopy(elements.codeOutput);
+                copyTextFallback(text);
             }
 
-            setCopyStatus("Embed code copied");
+            setPatternStatus("Embed code copied");
         } catch (error) {
-            setCopyStatus("Copy failed. Use Ctrl+C instead.", true);
+            setPatternStatus("Copy failed. Use Ctrl+C instead.", true);
         }
     });
 
@@ -1583,7 +3501,7 @@ document.addEventListener("DOMContentLoaded", () => {
         applyCurrentStateToView({ forceGeometry: true });
         updateDirtyState();
         refreshPatternStatus();
-        setCopyStatus("Defaults restored");
+        setPatternStatus("Defaults restored");
     });
 
     elements.animationSelect.addEventListener("change", () => {
@@ -1698,6 +3616,12 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     window.addEventListener("beforeunload", () => {
+        if (previewStageResizeObserver) {
+            previewStageResizeObserver.disconnect();
+        } else {
+            window.removeEventListener("resize", applyPreviewFrameSize);
+        }
+
         if (preview) {
             preview.destroy();
         }
@@ -1787,6 +3711,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function syncUI() {
         const { renderWidth, renderHeight } = state.settings;
         elements.previewFrame.style.aspectRatio = `${renderWidth} / ${renderHeight}`;
+        applyPreviewFrameSize();
         elements.resolutionLabel.textContent = `${renderWidth} x ${renderHeight}`;
         elements.loopLabel.textContent = getAnimationSummaryLabel(
             state.animationType,
@@ -1794,8 +3719,50 @@ document.addEventListener("DOMContentLoaded", () => {
         );
     }
 
-    function updateCodeOutput() {
-        elements.codeOutput.value = generateEmbedCode(state.settings, state.animationType);
+    function syncPreviewScaleInputs() {
+        elements.previewSizeRange.value = String(previewScalePercent);
+        elements.previewSizeInput.value = String(previewScalePercent);
+    }
+
+    function setPreviewScale(value) {
+        const numericValue = Number(value);
+
+        if (!Number.isFinite(numericValue)) {
+            syncPreviewScaleInputs();
+            return;
+        }
+
+        previewScalePercent = clampInt(
+            Math.round(numericValue),
+            PREVIEW_SCALE_MIN,
+            PREVIEW_SCALE_MAX
+        );
+        syncPreviewScaleInputs();
+        applyPreviewFrameSize();
+    }
+
+    function applyPreviewFrameSize() {
+        const stage = elements.previewStageWrap;
+
+        if (!stage) {
+            return;
+        }
+
+        const stageStyles = window.getComputedStyle(stage);
+        const paddingX = parseFloat(stageStyles.paddingLeft) + parseFloat(stageStyles.paddingRight);
+        const paddingY = parseFloat(stageStyles.paddingTop) + parseFloat(stageStyles.paddingBottom);
+        const availableWidth = Math.max(1, stage.clientWidth - paddingX);
+        const availableHeight = Math.max(1, stage.clientHeight - paddingY);
+        const aspectRatio = state.settings.renderWidth / Math.max(state.settings.renderHeight, 1);
+        const fitWidth = Math.min(availableWidth, availableHeight * aspectRatio);
+        const minimumWidth = Math.min(220, fitWidth, availableWidth);
+        const scaledWidth = clamp(
+            fitWidth * (previewScalePercent / 100),
+            minimumWidth,
+            availableWidth
+        );
+
+        elements.previewFrame.style.width = `${scaledWidth}px`;
     }
 
     function applyCurrentStateToView(options = {}) {
@@ -1804,7 +3771,6 @@ document.addEventListener("DOMContentLoaded", () => {
             preview.applySettings(state.settings, options);
         }
         syncUI();
-        updateCodeOutput();
     }
 
     function getSelectedPattern() {
@@ -1916,17 +3882,6 @@ document.addEventListener("DOMContentLoaded", () => {
         window.clearTimeout(setPatternStatus.timeoutId);
         setPatternStatus.timeoutId = window.setTimeout(() => {
             refreshPatternStatus();
-        }, 2400);
-    }
-
-    function setCopyStatus(message, isError = false) {
-        elements.copyStatus.textContent = message;
-        elements.copyStatus.style.color = isError ? "#ff9b9b" : "";
-
-        window.clearTimeout(setCopyStatus.timeoutId);
-        setCopyStatus.timeoutId = window.setTimeout(() => {
-            elements.copyStatus.textContent = "Ready to copy";
-            elements.copyStatus.style.color = "";
         }, 2400);
     }
 
@@ -2774,22 +4729,1614 @@ class FooterInteractionPreview {
     }
 }
 
+class FunnelInteractionPreview {
+    constructor(mount) {
+        this.mount = mount;
+        this.wrap = document.createElement("div");
+        this.wrap.style.position = "relative";
+        this.wrap.style.width = "100%";
+        this.wrap.style.height = "100%";
+        this.wrap.style.overflow = "hidden";
+        this.wrap.style.cursor = "crosshair";
+        this.wrap.style.userSelect = "none";
+
+        this.canvas = document.createElement("canvas");
+        this.canvas.style.display = "block";
+        this.canvas.style.width = "100%";
+        this.canvas.style.height = "100%";
+        this.wrap.appendChild(this.canvas);
+        this.mount.appendChild(this.wrap);
+
+        this.ctx = this.canvas.getContext("2d", {
+            alpha: true,
+            desynchronized: true
+        });
+        this.settings = sanitizeSettings({ ...FUNNEL_DEFAULT_SETTINGS }, FUNNEL_ANIMATION);
+        this.canvasWidth = 0;
+        this.canvasHeight = 0;
+        this.devicePixelRatio = 1;
+        this.sceneMetrics = null;
+        this.geometry = null;
+        this.shellParticles = [];
+        this.flowParticles = [];
+        this.pointerX = 0;
+        this.pointerY = 0;
+        this.pointerActive = false;
+        this.cursorRevealOpacity = 0;
+        this.targetCursorRevealOpacity = 0;
+        this.rotationX = 0;
+        this.rotationY = 0;
+        this.targetRotationX = 0;
+        this.targetRotationY = 0;
+        this.pulseActive = false;
+        this.pulseStartTime = 0;
+        this.pulseOriginX = 0;
+        this.pulseOriginY = 0;
+        this.pulseMaximumDistance = 0;
+        this.nextPulseTime = Infinity;
+        this.hoverPulseArmed = true;
+        this.lastFrameTime = performance.now();
+        this.animationFrameId = 0;
+
+        this.animate = this.animate.bind(this);
+        this.handleResize = this.handleResize.bind(this);
+        this.handlePointerEnter = this.handlePointerEnter.bind(this);
+        this.handlePointerMove = this.handlePointerMove.bind(this);
+        this.handlePointerLeave = this.handlePointerLeave.bind(this);
+        this.handlePointerDown = this.handlePointerDown.bind(this);
+
+        this.wrap.addEventListener("pointerenter", this.handlePointerEnter);
+        this.wrap.addEventListener("pointermove", this.handlePointerMove);
+        this.wrap.addEventListener("pointerleave", this.handlePointerLeave);
+        this.wrap.addEventListener("pointerdown", this.handlePointerDown);
+
+        if (typeof ResizeObserver !== "undefined") {
+            this.resizeObserver = new ResizeObserver(this.handleResize);
+            this.resizeObserver.observe(this.mount);
+        } else {
+            window.addEventListener("resize", this.handleResize);
+        }
+
+        this.resizeCanvas();
+        this.animationFrameId = window.requestAnimationFrame(this.animate);
+    }
+
+    applySettings(nextSettings, options = {}) {
+        const previous = this.settings;
+        const resizeChanged =
+            options.forceGeometry ||
+            previous.maximumPixelRatio !== nextSettings.maximumPixelRatio;
+        const rebuildChanged =
+            options.forceGeometry ||
+            Array.from(FUNNEL_REBUILD_KEYS).some((key) => previous[key] !== nextSettings[key]);
+
+        this.settings = { ...nextSettings };
+        this.wrap.style.backgroundColor = this.settings.backgroundColor;
+        this.targetCursorRevealOpacity =
+            this.settings.maskEnabled === "on" && this.pointerActive ? 1 : 0;
+        this.updateSceneGeometry();
+
+        if (this.settings.pulseEnabled !== "on") {
+            this.pulseActive = false;
+            this.nextPulseTime = Infinity;
+            this.hoverPulseArmed = false;
+        } else if (previous.pulseEnabled !== "on") {
+            this.hoverPulseArmed = true;
+        }
+
+        if (resizeChanged) {
+            this.resizeCanvas();
+            return;
+        }
+
+        if (rebuildChanged || !this.shellParticles.length || !this.flowParticles.length) {
+            this.buildShellParticles();
+            this.buildFlowParticles();
+        }
+    }
+
+    handleResize() {
+        this.resizeCanvas();
+    }
+
+    resizeCanvas() {
+        const rect = this.mount.getBoundingClientRect();
+        this.canvasWidth = Math.max(1, rect.width || 1);
+        this.canvasHeight = Math.max(1, rect.height || 1);
+        this.devicePixelRatio = Math.min(
+            window.devicePixelRatio || 1,
+            this.settings.maximumPixelRatio
+        );
+        this.canvas.width = Math.round(this.canvasWidth * this.devicePixelRatio);
+        this.canvas.height = Math.round(this.canvasHeight * this.devicePixelRatio);
+        this.ctx.setTransform(this.devicePixelRatio, 0, 0, this.devicePixelRatio, 0, 0);
+        this.updateSceneGeometry();
+        this.buildShellParticles();
+        this.buildFlowParticles();
+    }
+
+    updateSceneGeometry() {
+        const logicalWidth = Math.max(1, this.settings.renderWidth);
+        const logicalHeight = Math.max(1, this.settings.renderHeight);
+        const fitScale = Math.min(
+            this.canvasWidth / logicalWidth,
+            this.canvasHeight / logicalHeight
+        );
+        const sceneScale = Math.min(1, Math.max(0.0001, Number.isFinite(fitScale) ? fitScale : 1));
+        const sceneWidth = logicalWidth * sceneScale;
+        const sceneHeight = logicalHeight * sceneScale;
+
+        this.sceneMetrics = {
+            logicalWidth,
+            logicalHeight,
+            sceneScale,
+            sceneWidth,
+            sceneHeight,
+            offsetX: (this.canvasWidth - sceneWidth) * 0.5,
+            offsetY: (this.canvasHeight - sceneHeight) * 0.5
+        };
+        this.geometry = {
+            centerX: logicalWidth * 0.5,
+            centerY: logicalHeight * 0.48,
+            topY: logicalHeight * this.settings.topYRatio,
+            neckY: logicalHeight * this.settings.neckYRatio,
+            outletY: logicalHeight * this.settings.outletYRatio,
+            topRadius: logicalWidth * this.settings.topRadiusRatio,
+            neckRadius: logicalWidth * this.settings.neckRadiusRatio,
+            outletRadius: logicalWidth * this.settings.outletRadiusRatio,
+            perspective: Math.max(logicalWidth, logicalHeight) * this.settings.perspectiveRatio
+        };
+    }
+
+    getSceneMetrics() {
+        return this.sceneMetrics;
+    }
+
+    getGeometry() {
+        return this.geometry;
+    }
+
+    transformScenePoint(x, y, scale = 1) {
+        const scene = this.getSceneMetrics();
+        return {
+            x: scene.offsetX + x * scene.sceneScale,
+            y: scene.offsetY + y * scene.sceneScale,
+            scale: scale * scene.sceneScale
+        };
+    }
+
+    getCrossSection(progress) {
+        const geometry = this.getGeometry();
+
+        if (progress <= this.settings.neckProgress) {
+            const normalized = progress / Math.max(this.settings.neckProgress, 0.0001);
+            const curved = Math.pow(easeInOut(normalized), 0.78);
+            return {
+                y: lerp(geometry.topY, geometry.neckY, normalized),
+                radius: lerp(geometry.topRadius, geometry.neckRadius, curved)
+            };
+        }
+
+        const normalized =
+            (progress - this.settings.neckProgress) /
+            Math.max(1 - this.settings.neckProgress, 0.0001);
+        return {
+            y: lerp(geometry.neckY, geometry.outletY, normalized),
+            radius: lerp(geometry.neckRadius, geometry.outletRadius, easeInOut(normalized))
+        };
+    }
+
+    projectPoint(x, y, z) {
+        const geometry = this.getGeometry();
+        const angleX = this.settings.basePitch + this.rotationX;
+        const angleY = this.rotationY;
+        const cosX = Math.cos(angleX);
+        const sinX = Math.sin(angleX);
+        const cosY = Math.cos(angleY);
+        const sinY = Math.sin(angleY);
+
+        const rotatedY = y * cosX - z * sinX;
+        const rotatedZFromX = y * sinX + z * cosX;
+        const rotatedX = x * cosY + rotatedZFromX * sinY;
+        const rotatedZ = -x * sinY + rotatedZFromX * cosY;
+        const perspectiveScale =
+            geometry.perspective / Math.max(1, geometry.perspective - rotatedZ);
+        const projected = this.transformScenePoint(
+            geometry.centerX + rotatedX * perspectiveScale,
+            geometry.centerY + rotatedY * perspectiveScale,
+            perspectiveScale
+        );
+
+        return {
+            x: projected.x,
+            y: projected.y,
+            z: rotatedZ,
+            scale: projected.scale
+        };
+    }
+
+    getShellProjection(particle, currentTime = performance.now()) {
+        const section = this.getCrossSection(particle.progress);
+        const seconds = currentTime * 0.001;
+        const rotationAngle =
+            particle.theta +
+            seconds * this.settings.ringRotationSpeed * lerp(1.12, 0.72, particle.progress);
+        const localX = Math.cos(rotationAngle) * section.radius;
+        const localZ = Math.sin(rotationAngle) * section.radius;
+        const projection = this.projectPoint(localX, section.y, localZ);
+        const frontFactor = clamp(0.5 + projection.z / Math.max(1, section.radius * 2), 0, 1);
+        return { ...projection, frontFactor };
+    }
+
+    buildShellParticles() {
+        if (this.canvasWidth <= 0 || this.canvasHeight <= 0) {
+            return;
+        }
+
+        this.shellParticles = [];
+
+        for (let ringIndex = 0; ringIndex < this.settings.ringCount; ringIndex += 1) {
+            const progress = ringIndex / Math.max(this.settings.ringCount - 1, 1);
+            const ringOffset =
+                ringIndex % 2 === 0 ? 0 : Math.PI / Math.max(this.settings.pointsPerRing, 1);
+
+            for (let pointIndex = 0; pointIndex < this.settings.pointsPerRing; pointIndex += 1) {
+                const theta =
+                    (pointIndex / Math.max(this.settings.pointsPerRing, 1)) * Math.PI * 2 +
+                    ringOffset +
+                    randomBetween(-0.045, 0.045);
+
+                this.shellParticles.push({
+                    progress,
+                    theta,
+                    offsetX: 0,
+                    offsetY: 0,
+                    velocityX: 0,
+                    velocityY: 0,
+                    size: randomBetween(
+                        this.settings.particleSizeMin,
+                        this.settings.particleSizeMax
+                    ),
+                    alpha: randomBetween(
+                        this.settings.particleAlphaMin,
+                        this.settings.particleAlphaMax
+                    ),
+                    flickerPhase: Math.random() * Math.PI * 2,
+                    flickerSpeed: randomBetween(0.6, 1.8),
+                    blinkPhase: Math.random() * Math.PI * 2,
+                    blinkSpeed: randomBetween(0.5, 1.4)
+                });
+            }
+        }
+    }
+
+    resetFlowParticle(particle, initial = false) {
+        particle.progress = initial ? randomBetween(-0.22, 1.18) : randomBetween(-0.18, -0.02);
+        particle.theta = randomBetween(0, Math.PI * 2);
+        particle.radial = Math.sqrt(Math.random()) * 0.74;
+        particle.speed = randomBetween(this.settings.flowSpeedMin, this.settings.flowSpeedMax);
+        particle.size = randomBetween(this.settings.flowSizeMin, this.settings.flowSizeMax);
+        particle.alpha = randomBetween(this.settings.flowAlphaMin, this.settings.flowAlphaMax);
+        particle.phase = Math.random() * Math.PI * 2;
+        particle.entryXRatio = randomBetween(0.22, 0.78);
+        particle.entryYOffset = randomBetween(0.08, 0.2);
+    }
+
+    buildFlowParticles() {
+        if (this.canvasWidth <= 0 || this.canvasHeight <= 0) {
+            return;
+        }
+
+        this.flowParticles = [];
+
+        for (let index = 0; index < this.settings.flowParticleCount; index += 1) {
+            const particle = {};
+            this.resetFlowParticle(particle, true);
+            this.flowParticles.push(particle);
+        }
+    }
+
+    getFlowProjection(particle, currentTime) {
+        const rawProgress = particle.progress;
+        const progress = clamp(rawProgress, 0, 1);
+        const section = this.getCrossSection(progress);
+        const scene = this.getSceneMetrics();
+        const seconds = currentTime * 0.001;
+        const swirl =
+            particle.theta +
+            seconds * this.settings.flowSwirlSpeed +
+            particle.phase +
+            progress * this.settings.flowTwistStrength;
+        const radius = section.radius * particle.radial * 0.72;
+        const localX = Math.cos(swirl) * radius;
+        const localZ = Math.sin(swirl) * radius;
+        let projection = this.projectPoint(localX, section.y, localZ);
+        const frontFactor = clamp(0.5 + projection.z / Math.max(1, section.radius * 2), 0, 1);
+
+        if (rawProgress < 0) {
+            const entryProgress = easeInOut(clamp((particle.progress + 0.22) / 0.22, 0, 1));
+            const startX =
+                scene.offsetX + scene.logicalWidth * particle.entryXRatio * scene.sceneScale;
+            const startY =
+                scene.offsetY - scene.logicalHeight * particle.entryYOffset * scene.sceneScale;
+
+            return {
+                x: lerp(startX, projection.x, entryProgress),
+                y: lerp(startY, projection.y, entryProgress),
+                z: projection.z,
+                scale: lerp(0.72 * scene.sceneScale, projection.scale, entryProgress),
+                frontFactor
+            };
+        }
+
+        if (rawProgress > 1) {
+            const outletProgress = clamp((rawProgress - 1) / 0.18, 0, 1);
+            const outletAngle = swirl + outletProgress * 1.1;
+            const outletRadius = Math.max(
+                0,
+                section.radius * particle.radial * 0.22 * (1 - outletProgress)
+            );
+            const outletX = Math.cos(outletAngle) * outletRadius;
+            const outletZ = Math.sin(outletAngle) * outletRadius;
+            const outletY = section.y + outletProgress * scene.logicalHeight * 0.16;
+            projection = this.projectPoint(outletX, outletY, outletZ);
+
+            return {
+                ...projection,
+                frontFactor: clamp(
+                    0.5 + projection.z / Math.max(1, section.radius * 2),
+                    0,
+                    1
+                )
+            };
+        }
+
+        return { ...projection, frontFactor };
+    }
+
+    updatePointer(event) {
+        const rect = this.wrap.getBoundingClientRect();
+        const scene = this.getSceneMetrics();
+        this.pointerX = event.clientX - rect.left;
+        this.pointerY = event.clientY - rect.top;
+
+        const normalizedX =
+            clamp(
+                (this.pointerX - scene.offsetX) / Math.max(scene.sceneWidth, 1),
+                0,
+                1
+            ) *
+                2 -
+            1;
+        const normalizedY =
+            clamp(
+                (this.pointerY - scene.offsetY) / Math.max(scene.sceneHeight, 1),
+                0,
+                1
+            ) *
+                2 -
+            1;
+
+        this.targetRotationY = normalizedX * this.settings.maximumRotationY;
+        this.targetRotationX = -normalizedY * this.settings.maximumRotationX;
+    }
+
+    updateRotation() {
+        this.rotationX +=
+            (this.targetRotationX - this.rotationX) * this.settings.rotationSpeed;
+        this.rotationY +=
+            (this.targetRotationY - this.rotationY) * this.settings.rotationSpeed;
+    }
+
+    handlePointerEnter(event) {
+        this.updatePointer(event);
+        this.pointerActive = true;
+        this.targetCursorRevealOpacity = this.settings.maskEnabled === "on" ? 1 : 0;
+        if (this.hoverPulseArmed) {
+            this.triggerPulse(performance.now());
+        }
+    }
+
+    handlePointerMove(event) {
+        this.updatePointer(event);
+        this.pointerActive = true;
+        this.targetCursorRevealOpacity = this.settings.maskEnabled === "on" ? 1 : 0;
+
+        if (this.hoverPulseArmed) {
+            this.triggerPulse(performance.now());
+        }
+    }
+
+    handlePointerLeave() {
+        this.pointerActive = false;
+        this.targetCursorRevealOpacity = 0;
+        this.targetRotationX = 0;
+        this.targetRotationY = 0;
+        this.nextPulseTime = Infinity;
+        this.hoverPulseArmed = true;
+    }
+
+    handlePointerDown(event) {
+        this.updatePointer(event);
+        this.pointerActive = true;
+        this.targetCursorRevealOpacity = this.settings.maskEnabled === "on" ? 1 : 0;
+        this.triggerPulse(performance.now());
+    }
+
+    calculateMaximumPulseDistance(originX = this.pointerX, originY = this.pointerY) {
+        const scene = this.getSceneMetrics();
+        const minX = scene.offsetX;
+        const maxX = scene.offsetX + scene.sceneWidth;
+        const minY = scene.offsetY;
+        const maxY = scene.offsetY + scene.sceneHeight;
+
+        return Math.max(
+            Math.hypot(originX - minX, originY - minY),
+            Math.hypot(originX - maxX, originY - minY),
+            Math.hypot(originX - minX, originY - maxY),
+            Math.hypot(originX - maxX, originY - maxY)
+        );
+    }
+
+    triggerPulse(currentTime) {
+        if (this.settings.pulseEnabled !== "on") {
+            this.hoverPulseArmed = false;
+            return;
+        }
+
+        this.pulseOriginX = this.pointerX;
+        this.pulseOriginY = this.pointerY;
+        this.pulseStartTime = currentTime;
+        this.pulseMaximumDistance = this.calculateMaximumPulseDistance(
+            this.pointerX,
+            this.pointerY
+        );
+        this.pulseActive = true;
+        this.nextPulseTime = currentTime + this.settings.pulseRepeatDelay;
+        this.hoverPulseArmed = false;
+    }
+
+    getPulseState(currentTime) {
+        if (this.settings.pulseEnabled !== "on" || !this.pulseActive) {
+            return null;
+        }
+
+        const progress =
+            (currentTime - this.pulseStartTime) / Math.max(this.settings.pulseDuration, 1);
+
+        if (progress >= 1) {
+            this.pulseActive = false;
+            return null;
+        }
+
+        const easedProgress = 1 - Math.pow(1 - progress, 2);
+        const fadeProgress = clamp((progress - 0.72) / 0.28, 0, 1);
+        const lifeFade = 1 - easeInOut(fadeProgress);
+
+        return {
+            radius:
+                easedProgress *
+                (this.pulseMaximumDistance + this.settings.pulseRevealWidth),
+            lifeFade
+        };
+    }
+
+    getDistanceFromPulse(x, y) {
+        return Math.hypot(x - this.pulseOriginX, y - this.pulseOriginY);
+    }
+
+    getCursorReveal(x, y) {
+        if (this.settings.maskEnabled !== "on" || this.cursorRevealOpacity <= 0.001) {
+            return 0;
+        }
+
+        const scene = this.getSceneMetrics();
+        const radius = Math.max(
+            this.settings.minimumCursorRevealRadius,
+            scene.sceneWidth * this.settings.cursorRevealRadiusRatio
+        );
+        const innerRadius = radius * (1 - this.settings.cursorRevealSoftness);
+        const distance = Math.hypot(x - this.pointerX, y - this.pointerY);
+
+        if (distance <= innerRadius) {
+            return this.cursorRevealOpacity * this.settings.cursorVisibilityStrength;
+        }
+
+        if (distance >= radius) {
+            return 0;
+        }
+
+        const normalized =
+            1 - (distance - innerRadius) / Math.max(radius - innerRadius, 0.0001);
+        return (
+            easeInOut(clamp(normalized, 0, 1)) *
+            this.cursorRevealOpacity *
+            this.settings.cursorVisibilityStrength
+        );
+    }
+
+    getPulseReveal(distance, pulseState) {
+        if (this.settings.maskEnabled !== "on" || !pulseState) {
+            return 0;
+        }
+
+        const distanceFromPulse = Math.abs(distance - pulseState.radius);
+        let pulseStrength = Math.max(
+            0,
+            1 - distanceFromPulse / Math.max(this.settings.pulseRevealWidth, 0.0001)
+        );
+        pulseStrength = easeInOut(pulseStrength);
+
+        let trail = 0;
+        if (distance < pulseState.radius) {
+            const trailDistance = pulseState.radius - distance;
+            trail = Math.max(
+                0,
+                1 -
+                    trailDistance /
+                        Math.max(this.settings.pulseRevealWidth * 2.7, 0.0001)
+            );
+            trail *= this.settings.pulseRevealTrail;
+        }
+
+        return clamp(
+            (pulseStrength * this.settings.pulseRevealStrength + trail) *
+                pulseState.lifeFade,
+            0,
+            1
+        );
+    }
+
+    getPulseAppearance(distance, pulseState) {
+        if (this.settings.pulseEnabled !== "on" || !pulseState) {
+            return { brightness: 0, sizeBoost: 0, mix: 0 };
+        }
+
+        const distanceFromPulse = Math.abs(distance - pulseState.radius);
+        let pulseStrength = Math.max(
+            0,
+            1 - distanceFromPulse / Math.max(this.settings.pulseWidth, 0.0001)
+        );
+        pulseStrength = easeInOut(pulseStrength);
+
+        const behindWave =
+            distance < pulseState.radius
+                ? Math.max(
+                      0,
+                      1 -
+                          (pulseState.radius - distance) /
+                              Math.max(this.settings.pulseWidth * 3, 0.0001)
+                  )
+                : 0;
+        const trail = behindWave * this.settings.pulseRevealTrail * 0.6 * pulseState.lifeFade;
+        const strength = pulseStrength * pulseState.lifeFade;
+
+        return {
+            brightness: strength * this.settings.pulseBrightness + trail,
+            sizeBoost: strength * this.settings.pulseSizeBoost,
+            mix: clamp(strength + trail, 0, 1)
+        };
+    }
+
+    updateShellParticles(deltaMultiplier, currentTime) {
+        const scene = this.getSceneMetrics();
+        const pointerRadius = Math.max(
+            this.settings.minimumPointerRadius,
+            scene.sceneWidth * this.settings.pointerRadiusRatio
+        );
+        const pointerRadiusSquared = pointerRadius * pointerRadius;
+        const frameFriction = Math.pow(this.settings.friction, deltaMultiplier);
+
+        for (const particle of this.shellParticles) {
+            const projection = this.getShellProjection(particle, currentTime);
+            const renderX = projection.x + particle.offsetX;
+            const renderY = projection.y + particle.offsetY;
+
+            if (this.pointerActive) {
+                const deltaX = renderX - this.pointerX;
+                const deltaY = renderY - this.pointerY;
+                const distanceSquared = deltaX * deltaX + deltaY * deltaY;
+
+                if (distanceSquared > 0.001 && distanceSquared < pointerRadiusSquared) {
+                    const distance = Math.sqrt(distanceSquared);
+                    const influence = 1 - distance / pointerRadius;
+                    const force =
+                        influence *
+                        influence *
+                        this.settings.repulsionStrength *
+                        deltaMultiplier;
+
+                    particle.velocityX += (deltaX / distance) * force;
+                    particle.velocityY += (deltaY / distance) * force;
+                }
+            }
+
+            particle.velocityX +=
+                -particle.offsetX * this.settings.springStrength * deltaMultiplier;
+            particle.velocityY +=
+                -particle.offsetY * this.settings.springStrength * deltaMultiplier;
+            particle.velocityX *= frameFriction;
+            particle.velocityY *= frameFriction;
+            particle.offsetX += particle.velocityX * deltaMultiplier;
+            particle.offsetY += particle.velocityY * deltaMultiplier;
+        }
+    }
+
+    updateFlowParticles(deltaMultiplier) {
+        for (const particle of this.flowParticles) {
+            const acceleration =
+                1 +
+                Math.pow(clamp((particle.progress - 0.62) / 0.38, 0, 1), 2) *
+                    this.settings.flowAcceleration;
+
+            particle.progress += particle.speed * acceleration * deltaMultiplier * 0.01;
+
+            if (particle.progress > 1.18) {
+                this.resetFlowParticle(particle);
+            }
+        }
+    }
+
+    drawParticle(x, y, size, alpha, rgb) {
+        this.ctx.fillStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${alpha})`;
+
+        if (this.settings.particleShape === "circle") {
+            this.ctx.beginPath();
+            this.ctx.arc(x, y, size, 0, Math.PI * 2);
+            this.ctx.fill();
+            return;
+        }
+
+        this.ctx.fillRect(x - size, y - size, size * 2, size * 2);
+    }
+
+    drawShellParticles(currentTime, pulseState, drawFront, shellRgb, pulseRgb) {
+        const seconds = currentTime * 0.001;
+
+        for (const particle of this.shellParticles) {
+            const projection = this.getShellProjection(particle, currentTime);
+            const isFront = projection.frontFactor >= 0.5;
+
+            if (isFront !== drawFront) {
+                continue;
+            }
+
+            const renderX = projection.x + particle.offsetX;
+            const renderY = projection.y + particle.offsetY;
+            const pulseDistance = this.getDistanceFromPulse(renderX, renderY);
+            const cursorReveal = this.getCursorReveal(renderX, renderY);
+            const pulseReveal = this.getPulseReveal(pulseDistance, pulseState);
+            const reveal = Math.max(cursorReveal, pulseReveal);
+            const visibility =
+                this.settings.maskEnabled === "on"
+                    ? this.settings.baseVisibility +
+                      (1 - this.settings.baseVisibility) * reveal
+                    : 1;
+            const flicker =
+                0.78 +
+                (Math.sin(seconds * particle.flickerSpeed + particle.flickerPhase) + 1) * 0.18;
+            const blinkWave = Math.max(
+                0,
+                Math.sin(seconds * particle.blinkSpeed + particle.blinkPhase)
+            );
+            const blink = Math.pow(blinkWave, 24);
+            const pulse = this.getPulseAppearance(pulseDistance, pulseState);
+            const depthBrightness = lerp(0.5, 1.2, projection.frontFactor);
+            const baseContribution = particle.alpha * flicker * depthBrightness + blink * 0.18;
+            const pulseContribution = pulse.brightness;
+            const alpha = Math.min(1, (baseContribution + pulseContribution) * visibility);
+            const size =
+                particle.size *
+                projection.scale *
+                lerp(0.8, 1.18, projection.frontFactor) *
+                (1 + blink * 0.55) *
+                (1 + pulse.sizeBoost);
+            const pulseMix =
+                alpha > 0 ? clamp((pulseContribution * visibility) / alpha, 0, 1) : 0;
+            const rgb = {
+                r: Math.round(lerp(shellRgb.r, pulseRgb.r, pulseMix)),
+                g: Math.round(lerp(shellRgb.g, pulseRgb.g, pulseMix)),
+                b: Math.round(lerp(shellRgb.b, pulseRgb.b, pulseMix))
+            };
+
+            this.drawParticle(renderX, renderY, size, alpha, rgb);
+        }
+    }
+
+    drawFlowParticles(currentTime, pulseState, flowRgb, pulseRgb) {
+        for (const particle of this.flowParticles) {
+            const projection = this.getFlowProjection(particle, currentTime);
+            const pulseDistance = this.getDistanceFromPulse(projection.x, projection.y);
+            const cursorReveal = this.getCursorReveal(projection.x, projection.y);
+            const pulseReveal = this.getPulseReveal(pulseDistance, pulseState);
+            const reveal = Math.max(cursorReveal, pulseReveal);
+            const visibility = this.settings.maskEnabled === "on" ? 0.44 + reveal * 0.56 : 1;
+            const pulse = this.getPulseAppearance(pulseDistance, pulseState);
+            const depthBrightness = lerp(0.72, 1.22, projection.frontFactor);
+            const entryFade =
+                particle.progress < 0
+                    ? easeInOut(clamp((particle.progress + 0.22) / 0.22, 0, 1))
+                    : 1;
+            const exitFade =
+                particle.progress > 0.9
+                    ? 1 - easeInOut(clamp((particle.progress - 0.9) / 0.28, 0, 1))
+                    : 1;
+            const streamFade = entryFade * exitFade;
+            const baseContribution = particle.alpha * depthBrightness;
+            const pulseContribution = pulse.brightness;
+            const alpha = Math.min(
+                1,
+                (baseContribution + pulseContribution) * visibility * streamFade
+            );
+            const size =
+                particle.size *
+                projection.scale *
+                lerp(0.86, 1.18, projection.frontFactor) *
+                (1 + pulse.sizeBoost) *
+                lerp(0.86, 1, streamFade);
+            const pulseMix =
+                alpha > 0 ? clamp((pulseContribution * visibility) / alpha, 0, 1) : 0;
+            const rgb = {
+                r: Math.round(lerp(flowRgb.r, pulseRgb.r, pulseMix)),
+                g: Math.round(lerp(flowRgb.g, pulseRgb.g, pulseMix)),
+                b: Math.round(lerp(flowRgb.b, pulseRgb.b, pulseMix))
+            };
+
+            this.drawParticle(projection.x, projection.y, size, alpha, rgb);
+        }
+    }
+
+    draw(currentTime, pulseState) {
+        this.ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
+        this.cursorRevealOpacity +=
+            (this.targetCursorRevealOpacity - this.cursorRevealOpacity) *
+            this.settings.cursorRevealFadeSpeed;
+
+        const shellRgb = hexToRgb(this.settings.particleColor);
+        const flowRgb = hexToRgb(this.settings.flowColor);
+        const pulseRgb = hexToRgb(this.settings.pulseColor);
+
+        this.drawShellParticles(currentTime, pulseState, false, shellRgb, pulseRgb);
+        this.drawFlowParticles(currentTime, pulseState, flowRgb, pulseRgb);
+        this.drawShellParticles(currentTime, pulseState, true, shellRgb, pulseRgb);
+    }
+
+    animate(currentTime) {
+        this.animationFrameId = window.requestAnimationFrame(this.animate);
+        const elapsed = currentTime - this.lastFrameTime;
+        this.lastFrameTime = currentTime;
+        const deltaMultiplier = Math.min(elapsed / 16.667 || 1, 2);
+
+        this.updateRotation();
+
+        if (
+            this.settings.pulseEnabled === "on" &&
+            this.pointerActive &&
+            currentTime >= this.nextPulseTime
+        ) {
+            this.triggerPulse(currentTime);
+        }
+
+        const pulseState = this.getPulseState(currentTime);
+        this.updateShellParticles(deltaMultiplier, currentTime);
+        this.updateFlowParticles(deltaMultiplier);
+        this.draw(currentTime, pulseState);
+    }
+
+    destroy() {
+        window.cancelAnimationFrame(this.animationFrameId);
+        this.wrap.removeEventListener("pointerenter", this.handlePointerEnter);
+        this.wrap.removeEventListener("pointermove", this.handlePointerMove);
+        this.wrap.removeEventListener("pointerleave", this.handlePointerLeave);
+        this.wrap.removeEventListener("pointerdown", this.handlePointerDown);
+
+        if (this.resizeObserver) {
+            this.resizeObserver.disconnect();
+        } else {
+            window.removeEventListener("resize", this.handleResize);
+        }
+    }
+}
+
+class FunnelInteractionV2Preview {
+    constructor(mount) {
+        this.mount = mount;
+        this.wrap = document.createElement("div");
+        this.wrap.style.position = "relative";
+        this.wrap.style.width = "100%";
+        this.wrap.style.height = "100%";
+        this.wrap.style.overflow = "hidden";
+        this.wrap.style.userSelect = "none";
+        this.wrap.style.touchAction = "none";
+
+        this.canvas = document.createElement("canvas");
+        this.canvas.style.display = "block";
+        this.canvas.style.width = "100%";
+        this.canvas.style.height = "100%";
+        this.canvas.style.cursor = "grab";
+        this.canvas.style.touchAction = "none";
+        this.wrap.appendChild(this.canvas);
+        this.mount.appendChild(this.wrap);
+
+        this.ctx = this.canvas.getContext("2d", {
+            alpha: false,
+            desynchronized: true
+        });
+        this.settings = sanitizeSettings({ ...FUNNEL_V2_DEFAULT_SETTINGS }, FUNNEL_V2_ANIMATION);
+        this.canvasWidth = 0;
+        this.canvasHeight = 0;
+        this.devicePixelRatio = 1;
+        this.centerX = 0;
+        this.centerY = 0;
+        this.time = 0;
+        this.lastFrameTime = performance.now();
+        this.animationFrameId = 0;
+        this.particles = [];
+        this.pointer = {
+            down: false,
+            previousX: 0,
+            previousY: 0,
+            currentX: -9999,
+            currentY: -9999,
+            active: false
+        };
+        this.pulseActive = false;
+        this.pulseStartTime = 0;
+        this.pulseOriginX = 0;
+        this.pulseOriginY = 0;
+        this.pulseMaximumDistance = 0;
+        this.nextPulseTime = Infinity;
+        this.hoverPulseArmed = true;
+        this.camera = {
+            rotationX: this.settings.cameraStartRotationX,
+            rotationY: this.settings.cameraStartRotationY,
+            targetRotationX: this.settings.cameraRestRotationX,
+            targetRotationY: this.settings.cameraRestRotationY,
+            distance: this.settings.cameraDistance,
+            targetDistance: this.settings.cameraDistance,
+            perspective: 900
+        };
+
+        this.animate = this.animate.bind(this);
+        this.handleResize = this.handleResize.bind(this);
+        this.handlePointerEnter = this.handlePointerEnter.bind(this);
+        this.handlePointerDown = this.handlePointerDown.bind(this);
+        this.handlePointerMove = this.handlePointerMove.bind(this);
+        this.handlePointerLeave = this.handlePointerLeave.bind(this);
+        this.handlePointerRelease = this.handlePointerRelease.bind(this);
+        this.handleWheel = this.handleWheel.bind(this);
+
+        this.canvas.addEventListener("pointerenter", this.handlePointerEnter);
+        this.canvas.addEventListener("pointerdown", this.handlePointerDown);
+        this.canvas.addEventListener("pointermove", this.handlePointerMove);
+        this.canvas.addEventListener("pointerleave", this.handlePointerLeave);
+        this.canvas.addEventListener("pointerup", this.handlePointerRelease);
+        this.canvas.addEventListener("pointercancel", this.handlePointerRelease);
+        this.canvas.addEventListener("wheel", this.handleWheel, { passive: false });
+
+        if (typeof ResizeObserver !== "undefined") {
+            this.resizeObserver = new ResizeObserver(this.handleResize);
+            this.resizeObserver.observe(this.mount);
+        } else {
+            window.addEventListener("resize", this.handleResize);
+        }
+
+        this.wrap.style.backgroundColor = this.settings.backgroundColor;
+        this.canvas.style.backgroundColor = this.settings.backgroundColor;
+        this.resizeCanvas();
+        this.resetCamera();
+        this.animationFrameId = window.requestAnimationFrame(this.animate);
+    }
+
+    applySettings(nextSettings, options = {}) {
+        const previous = this.settings;
+        const resizeChanged =
+            options.forceGeometry ||
+            previous.maximumPixelRatio !== nextSettings.maximumPixelRatio;
+        const rebuildChanged =
+            options.forceGeometry ||
+            Array.from(FUNNEL_V2_REBUILD_KEYS).some((key) => previous[key] !== nextSettings[key]);
+        const cameraResetChanged =
+            options.forceGeometry ||
+            Array.from(FUNNEL_V2_CAMERA_RESET_KEYS).some(
+                (key) => previous[key] !== nextSettings[key]
+            );
+
+        this.settings = { ...nextSettings };
+        this.wrap.style.backgroundColor = this.settings.backgroundColor;
+        this.canvas.style.backgroundColor = this.settings.backgroundColor;
+
+        if (cameraResetChanged) {
+            this.resetCamera();
+        } else {
+            this.syncCameraBounds();
+        }
+
+        if (this.settings.pulseEnabled !== "on") {
+            this.pulseActive = false;
+            this.nextPulseTime = Infinity;
+            this.hoverPulseArmed = false;
+        } else if (previous.pulseEnabled !== "on") {
+            this.hoverPulseArmed = true;
+        } else if (!this.pointer.active) {
+            this.hoverPulseArmed = true;
+        }
+
+        if (resizeChanged) {
+            this.resizeCanvas();
+            return;
+        }
+
+        this.updateViewportMetrics();
+
+        if (rebuildChanged || !this.particles.length) {
+            this.buildParticles();
+        }
+    }
+
+    getDistanceBounds() {
+        return {
+            min: Math.min(this.settings.minimumDistance, this.settings.maximumDistance),
+            max: Math.max(this.settings.minimumDistance, this.settings.maximumDistance)
+        };
+    }
+
+    getRotationBounds() {
+        return {
+            min: Math.min(this.settings.minimumRotationX, this.settings.maximumRotationX),
+            max: Math.max(this.settings.minimumRotationX, this.settings.maximumRotationX)
+        };
+    }
+
+    syncCameraBounds() {
+        const distanceBounds = this.getDistanceBounds();
+        const rotationBounds = this.getRotationBounds();
+        this.camera.distance = clamp(this.camera.distance, distanceBounds.min, distanceBounds.max);
+        this.camera.targetDistance = clamp(
+            this.camera.targetDistance,
+            distanceBounds.min,
+            distanceBounds.max
+        );
+        this.camera.rotationX = clamp(this.camera.rotationX, rotationBounds.min, rotationBounds.max);
+        this.camera.targetRotationX = clamp(
+            this.camera.targetRotationX,
+            rotationBounds.min,
+            rotationBounds.max
+        );
+    }
+
+    resetCamera() {
+        const distanceBounds = this.getDistanceBounds();
+        const rotationBounds = this.getRotationBounds();
+        this.camera.rotationX = clamp(
+            this.settings.cameraStartRotationX,
+            rotationBounds.min,
+            rotationBounds.max
+        );
+        this.camera.rotationY = this.settings.cameraStartRotationY;
+        this.camera.targetRotationX = clamp(
+            this.settings.cameraRestRotationX,
+            rotationBounds.min,
+            rotationBounds.max
+        );
+        this.camera.targetRotationY = this.settings.cameraRestRotationY;
+        this.camera.distance = clamp(
+            this.settings.cameraDistance,
+            distanceBounds.min,
+            distanceBounds.max
+        );
+        this.camera.targetDistance = this.camera.distance;
+        this.updateViewportMetrics();
+    }
+
+    handleResize() {
+        this.resizeCanvas();
+    }
+
+    resizeCanvas() {
+        const rect = this.mount.getBoundingClientRect();
+        this.canvasWidth = Math.max(1, rect.width || 1);
+        this.canvasHeight = Math.max(1, rect.height || 1);
+        this.devicePixelRatio = Math.min(
+            window.devicePixelRatio || 1,
+            this.settings.maximumPixelRatio
+        );
+        this.canvas.width = Math.round(this.canvasWidth * this.devicePixelRatio);
+        this.canvas.height = Math.round(this.canvasHeight * this.devicePixelRatio);
+        this.ctx.setTransform(this.devicePixelRatio, 0, 0, this.devicePixelRatio, 0, 0);
+        this.updateViewportMetrics();
+        this.buildParticles();
+    }
+
+    updateViewportMetrics() {
+        this.centerX = this.canvasWidth * this.settings.centerXRatio;
+        this.centerY = this.canvasHeight * this.settings.centerYRatio;
+        this.camera.perspective =
+            Math.max(1, Math.min(this.canvasWidth, this.canvasHeight)) *
+            this.settings.perspectiveScale;
+        this.syncCameraBounds();
+    }
+
+    smoothstep(edge0, edge1, value) {
+        const denominator = Math.max(edge1 - edge0, 0.0001);
+        const normalized = clamp((value - edge0) / denominator, 0, 1);
+        return normalized * normalized * (3 - 2 * normalized);
+    }
+
+    getFunnelRadius(progress) {
+        const upperContraction = Math.pow(1 - progress, this.settings.upperCurvePower);
+        let radius =
+            this.settings.throatRadius +
+            (this.settings.topRadius - this.settings.throatRadius) * upperContraction;
+
+        const lowerBlend = this.smoothstep(this.settings.lowerBlendStart, 1, progress);
+        radius +=
+            (this.settings.bottomRadius - this.settings.throatRadius) * lowerBlend;
+        return radius;
+    }
+
+    buildParticles() {
+        if (this.canvasWidth <= 0 || this.canvasHeight <= 0) {
+            return;
+        }
+
+        this.particles = [];
+
+        for (let radialIndex = 0; radialIndex < this.settings.radialSegments; radialIndex += 1) {
+            const baseAngle =
+                (radialIndex / Math.max(this.settings.radialSegments, 1)) * Math.PI * 2;
+
+            for (
+                let verticalIndex = 0;
+                verticalIndex < this.settings.verticalSegments;
+                verticalIndex += 1
+            ) {
+                const progress =
+                    verticalIndex / Math.max(this.settings.verticalSegments - 1, 1);
+                const stagger =
+                    radialIndex % 2 === 0
+                        ? 0
+                        : 0.5 / Math.max(this.settings.verticalSegments, 1);
+                const normalizedProgress = Math.min(1, progress + stagger);
+
+                this.particles.push({
+                    baseAngle,
+                    baseT: normalizedProgress,
+                    angleOffset:
+                        (Math.random() - 0.5) * this.settings.angleJitter,
+                    tOffset: (Math.random() - 0.5) * this.settings.verticalJitter,
+                    width:
+                        this.settings.rectWidth *
+                        randomBetween(
+                            this.settings.particleScaleMin,
+                            this.settings.particleScaleMax
+                        ),
+                    height:
+                        this.settings.rectHeight *
+                        randomBetween(
+                            this.settings.particleScaleMin,
+                            this.settings.particleScaleMax
+                        ),
+                    brightness: randomBetween(
+                        this.settings.brightnessMin,
+                        this.settings.brightnessMax
+                    ),
+                    speed: randomBetween(this.settings.speedMin, this.settings.speedMax),
+                    phase: Math.random() * Math.PI * 2,
+                    dispX: 0,
+                    dispY: 0,
+                    dispZ: 0
+                });
+            }
+        }
+    }
+
+    rotatePoint(x, y, z, rotationX, rotationY) {
+        const cosY = Math.cos(rotationY);
+        const sinY = Math.sin(rotationY);
+        const x1 = x * cosY - z * sinY;
+        const z1 = x * sinY + z * cosY;
+
+        const cosX = Math.cos(rotationX);
+        const sinX = Math.sin(rotationX);
+        const y1 = y * cosX - z1 * sinX;
+        const z2 = y * sinX + z1 * cosX;
+
+        return { x: x1, y: y1, z: z2 };
+    }
+
+    projectPoint(point) {
+        const depth = this.camera.distance - point.z;
+
+        if (depth <= 0.1) {
+            return null;
+        }
+
+        const scale = this.camera.perspective / depth;
+        return {
+            x: this.centerX + (point.x - this.settings.cameraPositionX) * scale,
+            y: this.centerY - (point.y - this.settings.cameraPositionY) * scale,
+            z: point.z,
+            depth,
+            scale
+        };
+    }
+
+    updatePointerPosition(event) {
+        const rect = this.canvas.getBoundingClientRect();
+        this.pointer.currentX = event.clientX - rect.left;
+        this.pointer.currentY = event.clientY - rect.top;
+        this.pointer.active = true;
+    }
+
+    handlePointerEnter(event) {
+        this.updatePointerPosition(event);
+        this.canvas.style.cursor = this.pointer.down ? "grabbing" : "grab";
+
+        if (this.hoverPulseArmed) {
+            this.triggerPulse(performance.now());
+        }
+    }
+
+    handlePointerDown(event) {
+        this.updatePointerPosition(event);
+        this.pointer.down = true;
+        this.pointer.previousX = event.clientX;
+        this.pointer.previousY = event.clientY;
+        this.canvas.style.cursor = "grabbing";
+        this.triggerPulse(performance.now());
+
+        if (this.canvas.setPointerCapture) {
+            this.canvas.setPointerCapture(event.pointerId);
+        }
+    }
+
+    handlePointerMove(event) {
+        this.updatePointerPosition(event);
+
+        if (this.hoverPulseArmed) {
+            this.triggerPulse(performance.now());
+        }
+
+        if (!this.pointer.down) {
+            return;
+        }
+
+        const deltaX = event.clientX - this.pointer.previousX;
+        const deltaY = event.clientY - this.pointer.previousY;
+        const rotationBounds = this.getRotationBounds();
+
+        this.camera.targetRotationY += deltaX * this.settings.dragRotationYSpeed;
+        this.camera.targetRotationX = clamp(
+            this.camera.targetRotationX + deltaY * this.settings.dragRotationXSpeed,
+            rotationBounds.min,
+            rotationBounds.max
+        );
+
+        this.pointer.previousX = event.clientX;
+        this.pointer.previousY = event.clientY;
+    }
+
+    handlePointerLeave() {
+        if (!this.pointer.down) {
+            this.pointer.active = false;
+            this.hoverPulseArmed = true;
+        }
+
+        this.nextPulseTime = Infinity;
+        this.canvas.style.cursor = this.pointer.down ? "grabbing" : "grab";
+    }
+
+    handlePointerRelease(event) {
+        this.pointer.down = false;
+        this.canvas.style.cursor = "grab";
+
+        if (
+            this.canvas.releasePointerCapture &&
+            this.canvas.hasPointerCapture &&
+            this.canvas.hasPointerCapture(event.pointerId)
+        ) {
+            this.canvas.releasePointerCapture(event.pointerId);
+        }
+    }
+
+    handleWheel(event) {
+        event.preventDefault();
+        const distanceBounds = this.getDistanceBounds();
+        this.camera.targetDistance = clamp(
+            this.camera.targetDistance + event.deltaY * this.settings.zoomSpeed,
+            distanceBounds.min,
+            distanceBounds.max
+        );
+    }
+
+    calculateMaximumPulseDistance(
+        originX = this.pointer.currentX,
+        originY = this.pointer.currentY
+    ) {
+        return Math.max(
+            Math.hypot(originX, originY),
+            Math.hypot(originX - this.canvasWidth, originY),
+            Math.hypot(originX, originY - this.canvasHeight),
+            Math.hypot(originX - this.canvasWidth, originY - this.canvasHeight)
+        );
+    }
+
+    triggerPulse(currentTime) {
+        if (this.settings.pulseEnabled !== "on") {
+            this.hoverPulseArmed = false;
+            return;
+        }
+
+        this.pulseOriginX = this.pointer.currentX;
+        this.pulseOriginY = this.pointer.currentY;
+        this.pulseStartTime = currentTime;
+        this.pulseMaximumDistance = this.calculateMaximumPulseDistance();
+        this.pulseActive = true;
+        this.nextPulseTime = currentTime + this.settings.pulseRepeatDelay;
+        this.hoverPulseArmed = false;
+    }
+
+    getPulseState(currentTime) {
+        if (this.settings.pulseEnabled !== "on" || !this.pulseActive) {
+            return null;
+        }
+
+        const progress =
+            (currentTime - this.pulseStartTime) / Math.max(this.settings.pulseDuration, 1);
+
+        if (progress >= 1) {
+            this.pulseActive = false;
+            return null;
+        }
+
+        const easedProgress = 1 - Math.pow(1 - progress, 2);
+        const fadeProgress = clamp((progress - 0.72) / 0.28, 0, 1);
+        const lifeFade = 1 - easeInOut(fadeProgress);
+
+        return {
+            radius: easedProgress * (this.pulseMaximumDistance + this.settings.pulseWidth),
+            lifeFade
+        };
+    }
+
+    getPulseAppearance(distance, pulseState) {
+        if (this.settings.pulseEnabled !== "on" || !pulseState) {
+            return { brightness: 0, sizeBoost: 0, mix: 0 };
+        }
+
+        const distanceFromPulse = Math.abs(distance - pulseState.radius);
+        let pulseStrength = Math.max(
+            0,
+            1 - distanceFromPulse / Math.max(this.settings.pulseWidth, 0.0001)
+        );
+        pulseStrength = easeInOut(pulseStrength);
+
+        const behindWave =
+            distance < pulseState.radius
+                ? Math.max(
+                      0,
+                      1 -
+                          (pulseState.radius - distance) /
+                              Math.max(this.settings.pulseWidth * 2.6, 0.0001)
+                  )
+                : 0;
+        const trail = behindWave * 0.3 * pulseState.lifeFade;
+        const strength = pulseStrength * pulseState.lifeFade;
+
+        return {
+            brightness: strength * this.settings.pulseBrightness + trail,
+            sizeBoost: strength * this.settings.pulseSizeBoost + trail * 0.2,
+            mix: clamp(strength + trail * 0.5, 0, 1)
+        };
+    }
+
+    updateCamera(deltaTime) {
+        const easing = 1 - Math.pow(0.0001, deltaTime);
+        const rotationBounds = this.getRotationBounds();
+
+        this.camera.targetRotationX = clamp(
+            this.camera.targetRotationX,
+            rotationBounds.min,
+            rotationBounds.max
+        );
+        this.camera.rotationX +=
+            (this.camera.targetRotationX - this.camera.rotationX) * easing;
+        this.camera.rotationY +=
+            (this.camera.targetRotationY - this.camera.rotationY) * easing;
+        this.camera.distance +=
+            (this.camera.targetDistance - this.camera.distance) * easing;
+
+        if (this.settings.autoRotate === "on" && !this.pointer.down) {
+            this.camera.targetRotationY += this.settings.autoRotateSpeed * deltaTime;
+        }
+    }
+
+    drawBackground() {
+        this.ctx.fillStyle = this.settings.backgroundColor;
+        this.ctx.fillRect(0, 0, this.canvasWidth, this.canvasHeight);
+    }
+
+    drawParticle(particle) {
+        this.ctx.globalAlpha = particle.alpha;
+        this.ctx.fillStyle = particle.color;
+
+        if (this.settings.particleShape === "circle") {
+            this.ctx.beginPath();
+            this.ctx.arc(
+                particle.x,
+                particle.y,
+                Math.max(particle.width, particle.height) * 0.5,
+                0,
+                Math.PI * 2
+            );
+            this.ctx.fill();
+            return;
+        }
+
+        this.ctx.save();
+        this.ctx.translate(particle.x, particle.y);
+        this.ctx.rotate(particle.rotation);
+        this.ctx.fillRect(
+            -particle.width * 0.5,
+            -particle.height * 0.5,
+            particle.width,
+            particle.height
+        );
+        this.ctx.restore();
+    }
+
+    renderParticles(currentTime) {
+        const rendered = [];
+        const flow = this.time * this.settings.flowSpeed;
+        const particleRgb = hexToRgb(this.settings.particleColor);
+        const pulseRgb = hexToRgb(this.settings.pulseColor);
+        const pulseState = this.getPulseState(currentTime);
+
+        for (const particle of this.particles) {
+            let progress = particle.baseT + particle.tOffset + flow * particle.speed;
+            progress = ((progress % 1) + 1) % 1;
+
+            const radius = this.getFunnelRadius(progress);
+            const twist =
+                Math.pow(progress, this.settings.twistExponent) * this.settings.twistStrength +
+                Math.sin(
+                    this.time * this.settings.twistWaveSpeed +
+                        progress * this.settings.twistWaveFrequency +
+                        particle.phase
+                ) *
+                    this.settings.twistWaveAmount;
+            const angle = particle.baseAngle + particle.angleOffset + twist;
+            const surfaceNoise =
+                Math.sin(
+                    angle * this.settings.surfaceNoiseAngleFrequency +
+                        progress * this.settings.surfaceNoiseVerticalFrequency +
+                        particle.phase +
+                        this.time * this.settings.surfaceNoiseSpeed
+                ) * this.settings.surfaceNoiseAmount;
+            const finalRadius = radius + surfaceNoise;
+
+            let x = Math.cos(angle) * finalRadius;
+            let z = Math.sin(angle) * finalRadius;
+            let y = lerp(this.settings.topY, this.settings.bottomY, progress);
+
+            particle.dispX *= this.settings.displacementDecay;
+            particle.dispY *= this.settings.displacementDecay;
+            particle.dispZ *= this.settings.displacementDecay;
+
+            x += particle.dispX;
+            y += particle.dispY;
+            z += particle.dispZ;
+
+            const rotated = this.rotatePoint(
+                x,
+                y,
+                z,
+                this.camera.rotationX + this.settings.cameraAngle,
+                this.camera.rotationY
+            );
+            const projected = this.projectPoint(rotated);
+
+            if (!projected) {
+                continue;
+            }
+
+            if (this.pointer.active) {
+                const deltaX = projected.x - this.pointer.currentX;
+                const deltaY = projected.y - this.pointer.currentY;
+                const distanceSquared = deltaX * deltaX + deltaY * deltaY;
+
+                if (
+                    distanceSquared < this.settings.pointerRadius * this.settings.pointerRadius &&
+                    distanceSquared > 1
+                ) {
+                    const distance = Math.sqrt(distanceSquared);
+                    const force =
+                        (1 - distance / Math.max(this.settings.pointerRadius, 1)) *
+                        this.settings.repulsionStrength;
+
+                    particle.dispX += (deltaX / distance) * force * 1.5;
+                    particle.dispY -= (deltaY / distance) * force * 1.5;
+                }
+            }
+
+            if (
+                projected.x < -40 ||
+                projected.x > this.canvasWidth + 40 ||
+                projected.y < -40 ||
+                projected.y > this.canvasHeight + 40
+            ) {
+                continue;
+            }
+
+            const distanceFromFocus = Math.abs(projected.z);
+            const dofFactor = Math.min(1, distanceFromFocus * this.settings.dofStrength);
+            const normalizedDepth =
+                (projected.z + this.settings.depthOffset) /
+                Math.max(this.settings.depthRange, 0.0001);
+            const depthShadingMultiplier = clamp(
+                0.4 + normalizedDepth * this.settings.depthShading,
+                0.15,
+                1.2
+            );
+            const topHighlight =
+                this.settings.topHighlightBase +
+                Math.pow(1 - progress, this.settings.topHighlightPower) *
+                    this.settings.topHighlightAmount;
+            const flicker =
+                1 -
+                this.settings.flickerAmount +
+                Math.sin(
+                    this.time * this.settings.flickerSpeed +
+                        particle.phase +
+                        progress * this.settings.flickerFrequency
+                ) *
+                    this.settings.flickerAmount;
+            const focusAlphaScale = 1 - dofFactor * this.settings.dofFadeStrength;
+            const bottomFade =
+                1 - this.smoothstep(this.settings.bottomFadeStart, this.settings.bottomFadeEnd, progress);
+            const baseAlpha = clamp(
+                particle.brightness *
+                    topHighlight *
+                    flicker *
+                    depthShadingMultiplier *
+                    focusAlphaScale *
+                    bottomFade,
+                0.02,
+                0.95
+            );
+            const bokehExpansion = 1 + dofFactor * this.settings.dofSizeBoost;
+            const sizeScale = clamp(
+                projected.scale * this.settings.projectionSizeScale * bokehExpansion,
+                0.35,
+                3.5
+            );
+            const pulseDistance = Math.hypot(
+                projected.x - this.pulseOriginX,
+                projected.y - this.pulseOriginY
+            );
+            const pulse = this.getPulseAppearance(pulseDistance, pulseState);
+            const alpha = clamp(baseAlpha + pulse.brightness, 0.02, 1);
+            const pulseMix = alpha > 0 ? clamp(pulse.brightness / alpha, 0, 1) : 0;
+            const color = `rgb(${Math.round(
+                lerp(particleRgb.r, pulseRgb.r, pulseMix)
+            )}, ${Math.round(lerp(particleRgb.g, pulseRgb.g, pulseMix))}, ${Math.round(
+                lerp(particleRgb.b, pulseRgb.b, pulseMix)
+            )})`;
+
+            rendered.push({
+                x: projected.x,
+                y: projected.y,
+                z: projected.z,
+                alpha,
+                width: particle.width * sizeScale * (1 + pulse.sizeBoost),
+                height: particle.height * sizeScale * (1 + pulse.sizeBoost),
+                rotation: angle + this.camera.rotationY,
+                color
+            });
+        }
+
+        rendered.sort((a, b) => a.z - b.z);
+
+        for (const particle of rendered) {
+            this.drawParticle(particle);
+        }
+
+        this.ctx.globalAlpha = 1;
+    }
+
+    animate(currentTime) {
+        this.animationFrameId = window.requestAnimationFrame(this.animate);
+        const rawDelta = (currentTime - this.lastFrameTime) / 1000;
+        const deltaTime = Math.min(rawDelta || 1 / 60, 0.033);
+
+        this.lastFrameTime = currentTime;
+        this.time += deltaTime;
+
+        this.updateCamera(deltaTime);
+
+        if (
+            this.settings.pulseEnabled === "on" &&
+            this.pointer.active &&
+            currentTime >= this.nextPulseTime
+        ) {
+            this.triggerPulse(currentTime);
+        }
+
+        this.drawBackground();
+        this.renderParticles(currentTime);
+    }
+
+    destroy() {
+        window.cancelAnimationFrame(this.animationFrameId);
+        this.canvas.removeEventListener("pointerenter", this.handlePointerEnter);
+        this.canvas.removeEventListener("pointerdown", this.handlePointerDown);
+        this.canvas.removeEventListener("pointermove", this.handlePointerMove);
+        this.canvas.removeEventListener("pointerleave", this.handlePointerLeave);
+        this.canvas.removeEventListener("pointerup", this.handlePointerRelease);
+        this.canvas.removeEventListener("pointercancel", this.handlePointerRelease);
+        this.canvas.removeEventListener("wheel", this.handleWheel);
+
+        if (this.resizeObserver) {
+            this.resizeObserver.disconnect();
+        } else {
+            window.removeEventListener("resize", this.handleResize);
+        }
+    }
+}
+
 function createPreviewInstance(mount, animationType) {
-    return sanitizeAnimationType(animationType) === FOOTER_ANIMATION
-        ? new FooterInteractionPreview(mount)
-        : new WavePatternPreview(mount);
+    const normalizedAnimationType = sanitizeAnimationType(animationType);
+
+    if (normalizedAnimationType === FOOTER_ANIMATION) {
+        return new FooterInteractionPreview(mount);
+    }
+
+    if (normalizedAnimationType === FUNNEL_V2_ANIMATION) {
+        return new FunnelInteractionV2Preview(mount);
+    }
+
+    if (normalizedAnimationType === FUNNEL_ANIMATION) {
+        return new FunnelInteractionPreview(mount);
+    }
+
+    return new WavePatternPreview(mount);
 }
 
 function getControlGroups(animationType) {
-    return sanitizeAnimationType(animationType) === FOOTER_ANIMATION
-        ? FOOTER_CONTROL_GROUPS
-        : CONTROL_GROUPS;
+    const normalizedAnimationType = sanitizeAnimationType(animationType);
+
+    if (normalizedAnimationType === FOOTER_ANIMATION) {
+        return FOOTER_CONTROL_GROUPS;
+    }
+
+    if (normalizedAnimationType === FUNNEL_V2_ANIMATION) {
+        return FUNNEL_V2_CONTROL_GROUPS;
+    }
+
+    if (normalizedAnimationType === FUNNEL_ANIMATION) {
+        return FUNNEL_CONTROL_GROUPS;
+    }
+
+    return CONTROL_GROUPS;
 }
 
 function getDefaultSettings(animationType) {
-    return sanitizeAnimationType(animationType) === FOOTER_ANIMATION
-        ? { ...FOOTER_DEFAULT_SETTINGS }
-        : { ...DEFAULT_SETTINGS };
+    const normalizedAnimationType = sanitizeAnimationType(animationType);
+
+    if (normalizedAnimationType === FOOTER_ANIMATION) {
+        return { ...FOOTER_DEFAULT_SETTINGS };
+    }
+
+    if (normalizedAnimationType === FUNNEL_V2_ANIMATION) {
+        return { ...FUNNEL_V2_DEFAULT_SETTINGS };
+    }
+
+    if (normalizedAnimationType === FUNNEL_ANIMATION) {
+        return { ...FUNNEL_DEFAULT_SETTINGS };
+    }
+
+    return { ...DEFAULT_SETTINGS };
 }
 
 function getAnimationLabel(animationType) {
@@ -2800,8 +6347,18 @@ function getAnimationLabel(animationType) {
 }
 
 function getAnimationSummaryLabel(animationType, settings) {
-    if (sanitizeAnimationType(animationType) === FOOTER_ANIMATION) {
+    const normalizedAnimationType = sanitizeAnimationType(animationType);
+
+    if (normalizedAnimationType === FOOTER_ANIMATION) {
         return `${formatNumber(settings.pulseDuration)}ms pulse`;
+    }
+
+    if (normalizedAnimationType === FUNNEL_V2_ANIMATION) {
+        return `${formatNumber(settings.radialSegments)} x ${formatNumber(settings.verticalSegments)} shell`;
+    }
+
+    if (normalizedAnimationType === FUNNEL_ANIMATION) {
+        return `${formatNumber(settings.ringCount)} rings / ${formatNumber(settings.flowParticleCount)} flow`;
     }
 
     return `${formatNumber(getLoopDuration(settings), 1)}s loop`;
@@ -3023,7 +6580,19 @@ function syncControls(controlRefs, settings) {
 }
 
 function sanitizeAnimationType(value) {
-    return value === FOOTER_ANIMATION ? FOOTER_ANIMATION : HERO_ANIMATION;
+    if (value === FOOTER_ANIMATION) {
+        return FOOTER_ANIMATION;
+    }
+
+    if (value === FUNNEL_V2_ANIMATION) {
+        return FUNNEL_V2_ANIMATION;
+    }
+
+    if (value === FUNNEL_ANIMATION) {
+        return FUNNEL_ANIMATION;
+    }
+
+    return HERO_ANIMATION;
 }
 
 function sanitizeCommonSettings(input) {
@@ -3156,6 +6725,160 @@ function sanitizeFooterSettings(input) {
     return settings;
 }
 
+function sanitizeFunnelSettings(input) {
+    const settings = sanitizeCommonSettings(input);
+
+    settings.flowColor = normalizeHexColor(settings.flowColor);
+    settings.pulseColor = normalizeHexColor(settings.pulseColor);
+    settings.maskEnabled = TOGGLE_OPTIONS.some((option) => option.value === settings.maskEnabled)
+        ? settings.maskEnabled
+        : "on";
+    settings.pulseEnabled = TOGGLE_OPTIONS.some((option) => option.value === settings.pulseEnabled)
+        ? settings.pulseEnabled
+        : "on";
+    settings.baseVisibility = clamp(settings.baseVisibility, 0, 1);
+    settings.maximumPixelRatio = clamp(settings.maximumPixelRatio, 1, 3);
+    settings.ringCount = clampInt(settings.ringCount, 6, 96);
+    settings.pointsPerRing = clampInt(settings.pointsPerRing, 12, 180);
+    settings.ringRotationSpeed = clamp(settings.ringRotationSpeed, -4, 4);
+    settings.particleSizeMin = clamp(settings.particleSizeMin, 0.05, 3);
+    settings.particleSizeMax = clamp(settings.particleSizeMax, settings.particleSizeMin, 4);
+    settings.particleAlphaMin = clamp(settings.particleAlphaMin, 0, 1);
+    settings.particleAlphaMax = clamp(settings.particleAlphaMax, settings.particleAlphaMin, 1);
+    settings.flowParticleCount = clampInt(settings.flowParticleCount, 12, 600);
+    settings.flowSizeMin = clamp(settings.flowSizeMin, 0.05, 3);
+    settings.flowSizeMax = clamp(settings.flowSizeMax, settings.flowSizeMin, 4);
+    settings.flowAlphaMin = clamp(settings.flowAlphaMin, 0, 1);
+    settings.flowAlphaMax = clamp(settings.flowAlphaMax, settings.flowAlphaMin, 1);
+    settings.flowSpeedMin = clamp(settings.flowSpeedMin, 0.005, 0.25);
+    settings.flowSpeedMax = clamp(settings.flowSpeedMax, settings.flowSpeedMin, 0.4);
+    settings.flowSwirlSpeed = clamp(settings.flowSwirlSpeed, 0, 4);
+    settings.flowTwistStrength = clamp(settings.flowTwistStrength, 0, 12);
+    settings.flowAcceleration = clamp(settings.flowAcceleration, 0, 8);
+    settings.topRadiusRatio = clamp(settings.topRadiusRatio, 0.08, 0.6);
+    settings.neckRadiusRatio = clamp(settings.neckRadiusRatio, 0.01, 0.3);
+    settings.outletRadiusRatio = clamp(settings.outletRadiusRatio, 0.005, 0.16);
+    settings.topYRatio = clamp(settings.topYRatio, -0.6, 0.1);
+    settings.neckYRatio = clamp(settings.neckYRatio, -0.1, 0.6);
+    settings.outletYRatio = clamp(settings.outletYRatio, 0, 0.9);
+    settings.neckProgress = clamp(settings.neckProgress, 0.2, 0.95);
+    settings.basePitch = clamp(settings.basePitch, -0.8, 0.8);
+    settings.maximumRotationY = clamp(settings.maximumRotationY, 0, 0.5);
+    settings.maximumRotationX = clamp(settings.maximumRotationX, 0, 0.4);
+    settings.rotationSpeed = clamp(settings.rotationSpeed, 0.01, 0.3);
+    settings.perspectiveRatio = clamp(settings.perspectiveRatio, 0.6, 3);
+    settings.pointerRadiusRatio = clamp(settings.pointerRadiusRatio, 0.02, 0.4);
+    settings.minimumPointerRadius = clamp(settings.minimumPointerRadius, 10, 400);
+    settings.repulsionStrength = clamp(settings.repulsionStrength, 0, 8);
+    settings.springStrength = clamp(settings.springStrength, 0.001, 0.2);
+    settings.friction = clamp(settings.friction, 0.6, 0.99);
+    settings.cursorRevealRadiusRatio = clamp(settings.cursorRevealRadiusRatio, 0.05, 0.6);
+    settings.minimumCursorRevealRadius = clamp(settings.minimumCursorRevealRadius, 20, 600);
+    settings.cursorRevealSoftness = clamp(settings.cursorRevealSoftness, 0.05, 0.95);
+    settings.cursorRevealFadeSpeed = clamp(settings.cursorRevealFadeSpeed, 0.01, 0.4);
+    settings.cursorVisibilityStrength = clamp(settings.cursorVisibilityStrength, 0, 1);
+    settings.pulseDuration = clampInt(settings.pulseDuration, 100, 4000);
+    settings.pulseRepeatDelay = clampInt(settings.pulseRepeatDelay, 100, 6000);
+    settings.pulseWidth = clamp(settings.pulseWidth, 10, 360);
+    settings.pulseBrightness = clamp(settings.pulseBrightness, 0, 2.5);
+    settings.pulseSizeBoost = clamp(settings.pulseSizeBoost, 0, 4);
+    settings.pulseRevealWidth = clamp(settings.pulseRevealWidth, 10, 360);
+    settings.pulseRevealStrength = clamp(settings.pulseRevealStrength, 0, 1);
+    settings.pulseRevealTrail = clamp(settings.pulseRevealTrail, 0, 1);
+    settings.outletTrailCount = clampInt(settings.outletTrailCount, 0, 80);
+    settings.outletTrailLength = clamp(settings.outletTrailLength, 0, 0.4);
+    settings.outletTrailSpread = clamp(settings.outletTrailSpread, 0, 0.08);
+    settings.outletTrailOpacity = clamp(settings.outletTrailOpacity, 0, 1);
+
+    return settings;
+}
+
+function sanitizeFunnelV2Settings(input) {
+    const settings = sanitizeCommonSettings(input);
+
+    settings.pulseColor = normalizeHexColor(settings.pulseColor);
+    settings.pulseEnabled = TOGGLE_OPTIONS.some((option) => option.value === settings.pulseEnabled)
+        ? settings.pulseEnabled
+        : "off";
+    settings.maximumPixelRatio = clamp(settings.maximumPixelRatio, 1, 3);
+    settings.radialSegments = clampInt(settings.radialSegments, 24, 260);
+    settings.verticalSegments = clampInt(settings.verticalSegments, 20, 180);
+    settings.topY = clamp(settings.topY, -2, 12);
+    settings.bottomY = clamp(settings.bottomY, -14, 2);
+    settings.topRadius = clamp(settings.topRadius, 0.4, 10);
+    settings.throatRadius = clamp(settings.throatRadius, 0.05, 2);
+    settings.bottomRadius = clamp(settings.bottomRadius, 0.05, 3);
+    settings.upperCurvePower = clamp(settings.upperCurvePower, 0.5, 5);
+    settings.lowerBlendStart = clamp(settings.lowerBlendStart, 0.3, 0.98);
+    settings.flowSpeed = clamp(settings.flowSpeed, 0.002, 0.2);
+    settings.rectWidth = clamp(settings.rectWidth, 0.2, 4);
+    settings.rectHeight = clamp(settings.rectHeight, 0.2, 4);
+    settings.particleScaleMin = clamp(settings.particleScaleMin, 0.2, 2);
+    settings.particleScaleMax = clamp(settings.particleScaleMax, settings.particleScaleMin, 2.5);
+    settings.brightnessMin = clamp(settings.brightnessMin, 0.05, 1);
+    settings.brightnessMax = clamp(settings.brightnessMax, settings.brightnessMin, 1.4);
+    settings.speedMin = clamp(settings.speedMin, 0.1, 2);
+    settings.speedMax = clamp(settings.speedMax, settings.speedMin, 2.5);
+    settings.angleJitter = clamp(settings.angleJitter, 0, 0.08);
+    settings.verticalJitter = clamp(settings.verticalJitter, 0, 0.03);
+    settings.twistStrength = clamp(settings.twistStrength, 0, 2);
+    settings.twistExponent = clamp(settings.twistExponent, 0.2, 4);
+    settings.twistWaveAmount = clamp(settings.twistWaveAmount, 0, 0.08);
+    settings.twistWaveSpeed = clamp(settings.twistWaveSpeed, 0, 4);
+    settings.twistWaveFrequency = clamp(settings.twistWaveFrequency, 0, 20);
+    settings.surfaceNoiseAmount = clamp(settings.surfaceNoiseAmount, 0, 0.08);
+    settings.surfaceNoiseAngleFrequency = clamp(settings.surfaceNoiseAngleFrequency, 0, 30);
+    settings.surfaceNoiseVerticalFrequency = clamp(settings.surfaceNoiseVerticalFrequency, 0, 50);
+    settings.surfaceNoiseSpeed = clamp(settings.surfaceNoiseSpeed, 0, 4);
+    settings.cameraStartRotationX = clamp(settings.cameraStartRotationX, -2.4, 2.4);
+    settings.cameraStartRotationY = clamp(settings.cameraStartRotationY, -3.2, 3.2);
+    settings.cameraRestRotationX = clamp(settings.cameraRestRotationX, -2.4, 2.4);
+    settings.cameraRestRotationY = clamp(settings.cameraRestRotationY, -3.2, 3.2);
+    settings.minimumRotationX = clamp(settings.minimumRotationX, -2.8, 0.4);
+    settings.maximumRotationX = clamp(settings.maximumRotationX, -2.8, 0.8);
+    settings.cameraDistance = clamp(settings.cameraDistance, 4, 24);
+    settings.cameraAngle = clamp(settings.cameraAngle, -2.4, 2.4);
+    settings.cameraPositionX = clamp(settings.cameraPositionX, -10, 10);
+    settings.cameraPositionY = clamp(settings.cameraPositionY, -10, 10);
+    settings.minimumDistance = clamp(settings.minimumDistance, 2, 20);
+    settings.maximumDistance = clamp(settings.maximumDistance, 4, 30);
+    settings.perspectiveScale = clamp(settings.perspectiveScale, 0.3, 2.4);
+    settings.centerXRatio = clamp(settings.centerXRatio, 0.2, 0.8);
+    settings.centerYRatio = clamp(settings.centerYRatio, 0.2, 0.8);
+    settings.autoRotate = TOGGLE_OPTIONS.some((option) => option.value === settings.autoRotate)
+        ? settings.autoRotate
+        : "on";
+    settings.autoRotateSpeed = clamp(settings.autoRotateSpeed, -0.2, 0.2);
+    settings.pointerRadius = clamp(settings.pointerRadius, 10, 240);
+    settings.repulsionStrength = clamp(settings.repulsionStrength, 0, 2);
+    settings.displacementDecay = clamp(settings.displacementDecay, 0.6, 0.99);
+    settings.dragRotationYSpeed = clamp(settings.dragRotationYSpeed, 0.0005, 0.02);
+    settings.dragRotationXSpeed = clamp(settings.dragRotationXSpeed, 0.0005, 0.02);
+    settings.zoomSpeed = clamp(settings.zoomSpeed, 0.001, 0.05);
+    settings.dofStrength = clamp(settings.dofStrength, 0, 0.5);
+    settings.dofFadeStrength = clamp(settings.dofFadeStrength, 0, 1);
+    settings.dofSizeBoost = clamp(settings.dofSizeBoost, 0, 2);
+    settings.depthShading = clamp(settings.depthShading, 0, 1.8);
+    settings.depthOffset = clamp(settings.depthOffset, 0, 20);
+    settings.depthRange = clamp(settings.depthRange, 0.5, 40);
+    settings.topHighlightBase = clamp(settings.topHighlightBase, 0, 1.4);
+    settings.topHighlightAmount = clamp(settings.topHighlightAmount, 0, 1.4);
+    settings.topHighlightPower = clamp(settings.topHighlightPower, 0.1, 4);
+    settings.flickerSpeed = clamp(settings.flickerSpeed, 0, 8);
+    settings.flickerAmount = clamp(settings.flickerAmount, 0, 0.5);
+    settings.flickerFrequency = clamp(settings.flickerFrequency, 0, 40);
+    settings.pulseDuration = clampInt(settings.pulseDuration, 100, 4000);
+    settings.pulseRepeatDelay = clampInt(settings.pulseRepeatDelay, 100, 6000);
+    settings.pulseWidth = clamp(settings.pulseWidth, 10, 360);
+    settings.pulseBrightness = clamp(settings.pulseBrightness, 0, 2.5);
+    settings.pulseSizeBoost = clamp(settings.pulseSizeBoost, 0, 4);
+    settings.bottomFadeStart = clamp(settings.bottomFadeStart, 0.4, 1);
+    settings.bottomFadeEnd = clamp(settings.bottomFadeEnd, 0.5, 1);
+    settings.projectionSizeScale = clamp(settings.projectionSizeScale, 0.001, 0.04);
+
+    return settings;
+}
+
 function sanitizeSettings(input, animationType = HERO_ANIMATION) {
     const normalizedAnimationType = sanitizeAnimationType(animationType);
     const merged = {
@@ -3163,13 +6886,26 @@ function sanitizeSettings(input, animationType = HERO_ANIMATION) {
         ...(input && typeof input === "object" ? input : {})
     };
 
-    return normalizedAnimationType === FOOTER_ANIMATION
-        ? sanitizeFooterSettings(merged)
-        : sanitizeHeroSettings(merged);
+    if (normalizedAnimationType === FOOTER_ANIMATION) {
+        return sanitizeFooterSettings(merged);
+    }
+
+    if (normalizedAnimationType === FUNNEL_V2_ANIMATION) {
+        return sanitizeFunnelV2Settings(merged);
+    }
+
+    if (normalizedAnimationType === FUNNEL_ANIMATION) {
+        return sanitizeFunnelSettings(merged);
+    }
+
+    return sanitizeHeroSettings(merged);
 }
 
 function getControlValue(control, settings) {
-    if (control.key === "cameraDistance") {
+    if (
+        control.key === "cameraDistance" &&
+        !Object.prototype.hasOwnProperty.call(settings, "cameraDistance")
+    ) {
         return getCameraDistance(settings);
     }
 
@@ -3204,9 +6940,21 @@ function setCameraDistance(settings, rawDistance) {
 }
 
 function generateEmbedCode(settings, animationType = HERO_ANIMATION) {
-    return sanitizeAnimationType(animationType) === FOOTER_ANIMATION
-        ? generateFooterEmbedCode(settings)
-        : generateHeroEmbedCode(settings);
+    const normalizedAnimationType = sanitizeAnimationType(animationType);
+
+    if (normalizedAnimationType === FOOTER_ANIMATION) {
+        return generateFooterEmbedCode(settings);
+    }
+
+    if (normalizedAnimationType === FUNNEL_V2_ANIMATION) {
+        return generateFunnelV2EmbedCode(settings);
+    }
+
+    if (normalizedAnimationType === FUNNEL_ANIMATION) {
+        return generateFunnelEmbedCode(settings);
+    }
+
+    return generateHeroEmbedCode(settings);
 }
 
 function generateHeroEmbedCode(settings) {
@@ -3480,6 +7228,1386 @@ function generateHeroEmbedCode(settings) {
         "    requestAnimationFrame(resizeRenderer);",
         "    setTimeout(resizeRenderer, 120);",
         "    setTimeout(resizeRenderer, 600);",
+        "})();",
+        "</script>"
+    ].join("\n");
+}
+
+function generateFunnelV2EmbedCode(settings) {
+    const particleColor = normalizeHexColor(settings.particleColor);
+    const pulseColor = normalizeHexColor(settings.pulseColor);
+    const backgroundColor = normalizeHexColor(settings.backgroundColor);
+    const containerStyle = getEmbedContainerStyle(settings, "auto");
+
+    return `<!-- ============================================================ -->
+<!-- WEBFLOW EMBED: WAVE PATTERN 1 FUNNEL INTERACTION V2          -->
+<!-- Paste inside a Webflow Embed element.                       -->
+<!-- ============================================================ -->
+
+<div id="funnel-interaction-v2-wrap" style="${containerStyle}">
+    <canvas
+        id="funnel-interaction-v2-canvas"
+        style="display:block;width:100%;height:100%;background:${backgroundColor};cursor:grab;touch-action:none;"
+    ></canvas>
+</div>
+
+<script>
+(function () {
+    const wrap = document.getElementById("funnel-interaction-v2-wrap");
+    const canvas = document.getElementById("funnel-interaction-v2-canvas");
+    if (!wrap || !canvas) return;
+
+    const ctx = canvas.getContext("2d", { alpha: false, desynchronized: true });
+    if (!ctx) return;
+
+    const config = {
+        renderWidth: ${formatNumber(settings.renderWidth)},
+        renderHeight: ${formatNumber(settings.renderHeight)},
+        backgroundColor: ${JSON.stringify(backgroundColor)},
+        particleColor: ${JSON.stringify(particleColor)},
+        pulseColor: ${JSON.stringify(pulseColor)},
+        particleShape: ${JSON.stringify(settings.particleShape)},
+        pulseEnabled: ${JSON.stringify(settings.pulseEnabled)},
+        pulseDuration: ${formatNumber(settings.pulseDuration)},
+        pulseRepeatDelay: ${formatNumber(settings.pulseRepeatDelay)},
+        pulseWidth: ${formatNumber(settings.pulseWidth)},
+        pulseBrightness: ${formatNumber(settings.pulseBrightness, 2)},
+        pulseSizeBoost: ${formatNumber(settings.pulseSizeBoost, 2)},
+        maximumPixelRatio: ${formatNumber(settings.maximumPixelRatio, 1)},
+        radialSegments: ${formatNumber(settings.radialSegments)},
+        verticalSegments: ${formatNumber(settings.verticalSegments)},
+        topY: ${formatNumber(settings.topY, 2)},
+        bottomY: ${formatNumber(settings.bottomY, 2)},
+        topRadius: ${formatNumber(settings.topRadius, 2)},
+        throatRadius: ${formatNumber(settings.throatRadius, 2)},
+        bottomRadius: ${formatNumber(settings.bottomRadius, 2)},
+        upperCurvePower: ${formatNumber(settings.upperCurvePower, 2)},
+        lowerBlendStart: ${formatNumber(settings.lowerBlendStart, 2)},
+        flowSpeed: ${formatNumber(settings.flowSpeed, 3)},
+        rectWidth: ${formatNumber(settings.rectWidth, 2)},
+        rectHeight: ${formatNumber(settings.rectHeight, 2)},
+        particleScaleMin: ${formatNumber(settings.particleScaleMin, 2)},
+        particleScaleMax: ${formatNumber(settings.particleScaleMax, 2)},
+        brightnessMin: ${formatNumber(settings.brightnessMin, 2)},
+        brightnessMax: ${formatNumber(settings.brightnessMax, 2)},
+        speedMin: ${formatNumber(settings.speedMin, 2)},
+        speedMax: ${formatNumber(settings.speedMax, 2)},
+        angleJitter: ${formatNumber(settings.angleJitter, 3)},
+        verticalJitter: ${formatNumber(settings.verticalJitter, 3)},
+        twistStrength: ${formatNumber(settings.twistStrength, 2)},
+        twistExponent: ${formatNumber(settings.twistExponent, 2)},
+        twistWaveAmount: ${formatNumber(settings.twistWaveAmount, 3)},
+        twistWaveSpeed: ${formatNumber(settings.twistWaveSpeed, 2)},
+        twistWaveFrequency: ${formatNumber(settings.twistWaveFrequency, 2)},
+        surfaceNoiseAmount: ${formatNumber(settings.surfaceNoiseAmount, 3)},
+        surfaceNoiseAngleFrequency: ${formatNumber(settings.surfaceNoiseAngleFrequency, 2)},
+        surfaceNoiseVerticalFrequency: ${formatNumber(settings.surfaceNoiseVerticalFrequency, 2)},
+        surfaceNoiseSpeed: ${formatNumber(settings.surfaceNoiseSpeed, 2)},
+        cameraStartRotationX: ${formatNumber(settings.cameraStartRotationX, 2)},
+        cameraStartRotationY: ${formatNumber(settings.cameraStartRotationY, 2)},
+        cameraRestRotationX: ${formatNumber(settings.cameraRestRotationX, 2)},
+        cameraRestRotationY: ${formatNumber(settings.cameraRestRotationY, 2)},
+        minimumRotationX: ${formatNumber(settings.minimumRotationX, 2)},
+        maximumRotationX: ${formatNumber(settings.maximumRotationX, 2)},
+        cameraDistance: ${formatNumber(settings.cameraDistance, 2)},
+        cameraAngle: ${formatNumber(settings.cameraAngle, 2)},
+        cameraPositionX: ${formatNumber(settings.cameraPositionX, 2)},
+        cameraPositionY: ${formatNumber(settings.cameraPositionY, 2)},
+        minimumDistance: ${formatNumber(settings.minimumDistance, 2)},
+        maximumDistance: ${formatNumber(settings.maximumDistance, 2)},
+        perspectiveScale: ${formatNumber(settings.perspectiveScale, 2)},
+        centerXRatio: ${formatNumber(settings.centerXRatio, 2)},
+        centerYRatio: ${formatNumber(settings.centerYRatio, 2)},
+        autoRotate: ${JSON.stringify(settings.autoRotate)},
+        autoRotateSpeed: ${formatNumber(settings.autoRotateSpeed, 3)},
+        pointerRadius: ${formatNumber(settings.pointerRadius)},
+        repulsionStrength: ${formatNumber(settings.repulsionStrength, 2)},
+        displacementDecay: ${formatNumber(settings.displacementDecay, 2)},
+        dragRotationYSpeed: ${formatNumber(settings.dragRotationYSpeed, 4)},
+        dragRotationXSpeed: ${formatNumber(settings.dragRotationXSpeed, 4)},
+        zoomSpeed: ${formatNumber(settings.zoomSpeed, 3)},
+        dofStrength: ${formatNumber(settings.dofStrength, 3)},
+        dofFadeStrength: ${formatNumber(settings.dofFadeStrength, 2)},
+        dofSizeBoost: ${formatNumber(settings.dofSizeBoost, 2)},
+        depthShading: ${formatNumber(settings.depthShading, 2)},
+        depthOffset: ${formatNumber(settings.depthOffset, 2)},
+        depthRange: ${formatNumber(settings.depthRange, 2)},
+        topHighlightBase: ${formatNumber(settings.topHighlightBase, 2)},
+        topHighlightAmount: ${formatNumber(settings.topHighlightAmount, 2)},
+        topHighlightPower: ${formatNumber(settings.topHighlightPower, 2)},
+        flickerSpeed: ${formatNumber(settings.flickerSpeed, 2)},
+        flickerAmount: ${formatNumber(settings.flickerAmount, 2)},
+        flickerFrequency: ${formatNumber(settings.flickerFrequency, 2)},
+        bottomFadeStart: ${formatNumber(settings.bottomFadeStart, 2)},
+        bottomFadeEnd: ${formatNumber(settings.bottomFadeEnd, 2)},
+        projectionSizeScale: ${formatNumber(settings.projectionSizeScale, 3)}
+    };
+
+    let width = 0;
+    let height = 0;
+    let pixelRatio = 1;
+    let centerX = 0;
+    let centerY = 0;
+    let time = 0;
+    let lastTime = performance.now();
+    let animationFrameId = 0;
+    let particles = [];
+    let pulseActive = false;
+    let pulseStartTime = 0;
+    let pulseOriginX = 0;
+    let pulseOriginY = 0;
+    let pulseMaximumDistance = 0;
+    let nextPulseTime = Infinity;
+    let hoverPulseArmed = true;
+
+    const pointer = {
+        down: false,
+        previousX: 0,
+        previousY: 0,
+        currentX: -9999,
+        currentY: -9999,
+        active: false
+    };
+
+    const camera = {
+        rotationX: 0,
+        rotationY: 0,
+        targetRotationX: 0,
+        targetRotationY: 0,
+        distance: 0,
+        targetDistance: 0,
+        perspective: 900
+    };
+
+    function clamp(value, minimum, maximum) {
+        const min = minimum === undefined ? 0 : minimum;
+        const max = maximum === undefined ? 1 : maximum;
+        return Math.max(min, Math.min(max, value));
+    }
+
+    function lerp(start, end, progress) {
+        return start + (end - start) * progress;
+    }
+
+    function randomBetween(minimum, maximum) {
+        return minimum + Math.random() * (maximum - minimum);
+    }
+
+    function smoothstep(edge0, edge1, value) {
+        const denominator = Math.max(edge1 - edge0, 0.0001);
+        const normalized = clamp((value - edge0) / denominator, 0, 1);
+        return normalized * normalized * (3 - 2 * normalized);
+    }
+
+    function getDistanceBounds() {
+        return {
+            min: Math.min(config.minimumDistance, config.maximumDistance),
+            max: Math.max(config.minimumDistance, config.maximumDistance)
+        };
+    }
+
+    function getRotationBounds() {
+        return {
+            min: Math.min(config.minimumRotationX, config.maximumRotationX),
+            max: Math.max(config.minimumRotationX, config.maximumRotationX)
+        };
+    }
+
+    function syncCameraBounds() {
+        const distanceBounds = getDistanceBounds();
+        const rotationBounds = getRotationBounds();
+        camera.distance = clamp(camera.distance, distanceBounds.min, distanceBounds.max);
+        camera.targetDistance = clamp(camera.targetDistance, distanceBounds.min, distanceBounds.max);
+        camera.rotationX = clamp(camera.rotationX, rotationBounds.min, rotationBounds.max);
+        camera.targetRotationX = clamp(camera.targetRotationX, rotationBounds.min, rotationBounds.max);
+    }
+
+    function resetCamera() {
+        const distanceBounds = getDistanceBounds();
+        const rotationBounds = getRotationBounds();
+        camera.rotationX = clamp(config.cameraStartRotationX, rotationBounds.min, rotationBounds.max);
+        camera.rotationY = config.cameraStartRotationY;
+        camera.targetRotationX = clamp(config.cameraRestRotationX, rotationBounds.min, rotationBounds.max);
+        camera.targetRotationY = config.cameraRestRotationY;
+        camera.distance = clamp(config.cameraDistance, distanceBounds.min, distanceBounds.max);
+        camera.targetDistance = camera.distance;
+    }
+
+    function updateViewportMetrics() {
+        centerX = width * config.centerXRatio;
+        centerY = height * config.centerYRatio;
+        camera.perspective = Math.max(1, Math.min(width, height)) * config.perspectiveScale;
+        syncCameraBounds();
+    }
+
+    function resizeCanvas() {
+        const rect = wrap.getBoundingClientRect();
+        width = Math.max(1, rect.width || 1);
+        height = Math.max(1, rect.height || 1);
+        pixelRatio = Math.min(window.devicePixelRatio || 1, config.maximumPixelRatio);
+        canvas.width = Math.round(width * pixelRatio);
+        canvas.height = Math.round(height * pixelRatio);
+        canvas.style.width = width + "px";
+        canvas.style.height = height + "px";
+        ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+        updateViewportMetrics();
+        buildParticles();
+    }
+
+    function getFunnelRadius(progress) {
+        const upperContraction = Math.pow(1 - progress, config.upperCurvePower);
+        let radius =
+            config.throatRadius +
+            (config.topRadius - config.throatRadius) * upperContraction;
+
+        const lowerBlend = smoothstep(config.lowerBlendStart, 1, progress);
+        radius += (config.bottomRadius - config.throatRadius) * lowerBlend;
+        return radius;
+    }
+
+    function buildParticles() {
+        particles = [];
+
+        for (let radialIndex = 0; radialIndex < config.radialSegments; radialIndex += 1) {
+            const baseAngle = (radialIndex / Math.max(config.radialSegments, 1)) * Math.PI * 2;
+
+            for (let verticalIndex = 0; verticalIndex < config.verticalSegments; verticalIndex += 1) {
+                const progress = verticalIndex / Math.max(config.verticalSegments - 1, 1);
+                const stagger = radialIndex % 2 === 0 ? 0 : 0.5 / Math.max(config.verticalSegments, 1);
+                const normalizedProgress = Math.min(1, progress + stagger);
+
+                particles.push({
+                    baseAngle: baseAngle,
+                    baseT: normalizedProgress,
+                    angleOffset: (Math.random() - 0.5) * config.angleJitter,
+                    tOffset: (Math.random() - 0.5) * config.verticalJitter,
+                    width: config.rectWidth * randomBetween(config.particleScaleMin, config.particleScaleMax),
+                    height: config.rectHeight * randomBetween(config.particleScaleMin, config.particleScaleMax),
+                    brightness: randomBetween(config.brightnessMin, config.brightnessMax),
+                    speed: randomBetween(config.speedMin, config.speedMax),
+                    phase: Math.random() * Math.PI * 2,
+                    dispX: 0,
+                    dispY: 0,
+                    dispZ: 0
+                });
+            }
+        }
+    }
+
+    function rotatePoint(x, y, z, rotationX, rotationY) {
+        const cosY = Math.cos(rotationY);
+        const sinY = Math.sin(rotationY);
+        const x1 = x * cosY - z * sinY;
+        const z1 = x * sinY + z * cosY;
+
+        const cosX = Math.cos(rotationX);
+        const sinX = Math.sin(rotationX);
+        const y1 = y * cosX - z1 * sinX;
+        const z2 = y * sinX + z1 * cosX;
+
+        return { x: x1, y: y1, z: z2 };
+    }
+
+    function projectPoint(point) {
+        const depth = camera.distance - point.z;
+        if (depth <= 0.1) return null;
+
+        const scale = camera.perspective / depth;
+        return {
+            x: centerX + (point.x - config.cameraPositionX) * scale,
+            y: centerY - (point.y - config.cameraPositionY) * scale,
+            z: point.z,
+            depth: depth,
+            scale: scale
+        };
+    }
+
+    function updatePointerPosition(event) {
+        const rect = canvas.getBoundingClientRect();
+        pointer.currentX = event.clientX - rect.left;
+        pointer.currentY = event.clientY - rect.top;
+        pointer.active = true;
+    }
+
+    function calculateMaximumPulseDistance(originX, originY) {
+        return Math.max(
+            Math.hypot(originX, originY),
+            Math.hypot(originX - width, originY),
+            Math.hypot(originX, originY - height),
+            Math.hypot(originX - width, originY - height)
+        );
+    }
+
+    function triggerPulse(currentTime) {
+        if (config.pulseEnabled !== "on") {
+            hoverPulseArmed = false;
+            return;
+        }
+
+        pulseOriginX = pointer.currentX;
+        pulseOriginY = pointer.currentY;
+        pulseStartTime = currentTime;
+        pulseMaximumDistance = calculateMaximumPulseDistance(
+            pointer.currentX,
+            pointer.currentY
+        );
+        pulseActive = true;
+        nextPulseTime = currentTime + config.pulseRepeatDelay;
+        hoverPulseArmed = false;
+    }
+
+    function getPulseState(currentTime) {
+        if (config.pulseEnabled !== "on" || !pulseActive) return null;
+
+        const progress = (currentTime - pulseStartTime) / Math.max(config.pulseDuration, 1);
+        if (progress >= 1) {
+            pulseActive = false;
+            return null;
+        }
+
+        const easedProgress = 1 - Math.pow(1 - progress, 2);
+        const fadeProgress = clamp((progress - 0.72) / 0.28, 0, 1);
+        const lifeFade = 1 - smoothstep(0, 1, fadeProgress);
+
+        return {
+            radius: easedProgress * (pulseMaximumDistance + config.pulseWidth),
+            lifeFade: lifeFade
+        };
+    }
+
+    function getPulseAppearance(distance, pulseState) {
+        if (config.pulseEnabled !== "on" || !pulseState) {
+            return { brightness: 0, sizeBoost: 0, mix: 0 };
+        }
+
+        const distanceFromPulse = Math.abs(distance - pulseState.radius);
+        const pulseStrength = smoothstep(
+            0,
+            Math.max(config.pulseWidth, 0.0001),
+            Math.max(config.pulseWidth, 0.0001) - distanceFromPulse
+        );
+        const behindWave = distance < pulseState.radius
+            ? Math.max(
+                0,
+                1 - (pulseState.radius - distance) / Math.max(config.pulseWidth * 2.6, 0.0001)
+            )
+            : 0;
+        const trail = behindWave * 0.3 * pulseState.lifeFade;
+        const strength = pulseStrength * pulseState.lifeFade;
+
+        return {
+            brightness: strength * config.pulseBrightness + trail,
+            sizeBoost: strength * config.pulseSizeBoost + trail * 0.2,
+            mix: clamp(strength + trail * 0.5, 0, 1)
+        };
+    }
+
+    function updateCamera(deltaTime) {
+        const easing = 1 - Math.pow(0.0001, deltaTime);
+        const rotationBounds = getRotationBounds();
+
+        camera.targetRotationX = clamp(camera.targetRotationX, rotationBounds.min, rotationBounds.max);
+        camera.rotationX += (camera.targetRotationX - camera.rotationX) * easing;
+        camera.rotationY += (camera.targetRotationY - camera.rotationY) * easing;
+        camera.distance += (camera.targetDistance - camera.distance) * easing;
+
+        if (config.autoRotate === "on" && !pointer.down) {
+            camera.targetRotationY += config.autoRotateSpeed * deltaTime;
+        }
+    }
+
+    function drawBackground() {
+        ctx.fillStyle = config.backgroundColor;
+        ctx.fillRect(0, 0, width, height);
+    }
+
+    function drawParticle(particle) {
+        ctx.globalAlpha = particle.alpha;
+        ctx.fillStyle = particle.color;
+
+        if (config.particleShape === "circle") {
+            ctx.beginPath();
+            ctx.arc(
+                particle.x,
+                particle.y,
+                Math.max(particle.width, particle.height) * 0.5,
+                0,
+                Math.PI * 2
+            );
+            ctx.fill();
+            return;
+        }
+
+        ctx.save();
+        ctx.translate(particle.x, particle.y);
+        ctx.rotate(particle.rotation);
+        ctx.fillRect(
+            -particle.width * 0.5,
+            -particle.height * 0.5,
+            particle.width,
+            particle.height
+        );
+        ctx.restore();
+    }
+
+    function renderParticles(currentTime) {
+        const rendered = [];
+        const flow = time * config.flowSpeed;
+        const particleRgb = {
+            r: parseInt(config.particleColor.slice(1, 3), 16),
+            g: parseInt(config.particleColor.slice(3, 5), 16),
+            b: parseInt(config.particleColor.slice(5, 7), 16)
+        };
+        const pulseRgb = {
+            r: parseInt(config.pulseColor.slice(1, 3), 16),
+            g: parseInt(config.pulseColor.slice(3, 5), 16),
+            b: parseInt(config.pulseColor.slice(5, 7), 16)
+        };
+        const pulseState = getPulseState(currentTime);
+
+        for (let index = 0; index < particles.length; index += 1) {
+            const particle = particles[index];
+            let progress = particle.baseT + particle.tOffset + flow * particle.speed;
+            progress = ((progress % 1) + 1) % 1;
+
+            const radius = getFunnelRadius(progress);
+            const twist =
+                Math.pow(progress, config.twistExponent) * config.twistStrength +
+                Math.sin(
+                    time * config.twistWaveSpeed +
+                        progress * config.twistWaveFrequency +
+                        particle.phase
+                ) * config.twistWaveAmount;
+            const angle = particle.baseAngle + particle.angleOffset + twist;
+            const surfaceNoise =
+                Math.sin(
+                    angle * config.surfaceNoiseAngleFrequency +
+                        progress * config.surfaceNoiseVerticalFrequency +
+                        particle.phase +
+                        time * config.surfaceNoiseSpeed
+                ) * config.surfaceNoiseAmount;
+            const finalRadius = radius + surfaceNoise;
+
+            let x = Math.cos(angle) * finalRadius;
+            let z = Math.sin(angle) * finalRadius;
+            let y = lerp(config.topY, config.bottomY, progress);
+
+            particle.dispX *= config.displacementDecay;
+            particle.dispY *= config.displacementDecay;
+            particle.dispZ *= config.displacementDecay;
+
+            x += particle.dispX;
+            y += particle.dispY;
+            z += particle.dispZ;
+
+            const rotated = rotatePoint(
+                x,
+                y,
+                z,
+                camera.rotationX + config.cameraAngle,
+                camera.rotationY
+            );
+            const projected = projectPoint(rotated);
+            if (!projected) continue;
+
+            if (pointer.active) {
+                const deltaX = projected.x - pointer.currentX;
+                const deltaY = projected.y - pointer.currentY;
+                const distanceSquared = deltaX * deltaX + deltaY * deltaY;
+
+                if (
+                    distanceSquared < config.pointerRadius * config.pointerRadius &&
+                    distanceSquared > 1
+                ) {
+                    const distance = Math.sqrt(distanceSquared);
+                    const force =
+                        (1 - distance / Math.max(config.pointerRadius, 1)) *
+                        config.repulsionStrength;
+
+                    particle.dispX += (deltaX / distance) * force * 1.5;
+                    particle.dispY -= (deltaY / distance) * force * 1.5;
+                }
+            }
+
+            if (
+                projected.x < -40 ||
+                projected.x > width + 40 ||
+                projected.y < -40 ||
+                projected.y > height + 40
+            ) {
+                continue;
+            }
+
+            const distanceFromFocus = Math.abs(projected.z);
+            const dofFactor = Math.min(1, distanceFromFocus * config.dofStrength);
+            const normalizedDepth =
+                (projected.z + config.depthOffset) / Math.max(config.depthRange, 0.0001);
+            const depthShadingMultiplier = clamp(
+                0.4 + normalizedDepth * config.depthShading,
+                0.15,
+                1.2
+            );
+            const topHighlight =
+                config.topHighlightBase +
+                Math.pow(1 - progress, config.topHighlightPower) * config.topHighlightAmount;
+            const flicker =
+                1 -
+                config.flickerAmount +
+                Math.sin(
+                    time * config.flickerSpeed +
+                        particle.phase +
+                        progress * config.flickerFrequency
+                ) * config.flickerAmount;
+            const focusAlphaScale = 1 - dofFactor * config.dofFadeStrength;
+            const bottomFade = 1 - smoothstep(config.bottomFadeStart, config.bottomFadeEnd, progress);
+            const baseAlpha = clamp(
+                particle.brightness *
+                    topHighlight *
+                    flicker *
+                    depthShadingMultiplier *
+                    focusAlphaScale *
+                    bottomFade,
+                0.02,
+                0.95
+            );
+            const bokehExpansion = 1 + dofFactor * config.dofSizeBoost;
+            const sizeScale = clamp(
+                projected.scale * config.projectionSizeScale * bokehExpansion,
+                0.35,
+                3.5
+            );
+            const pulseDistance = Math.hypot(projected.x - pulseOriginX, projected.y - pulseOriginY);
+            const pulse = getPulseAppearance(pulseDistance, pulseState);
+            const alpha = clamp(baseAlpha + pulse.brightness, 0.02, 1);
+            const pulseMix = alpha > 0 ? clamp(pulse.brightness / alpha, 0, 1) : 0;
+            const color =
+                "rgb(" +
+                Math.round(lerp(particleRgb.r, pulseRgb.r, pulseMix)) +
+                ", " +
+                Math.round(lerp(particleRgb.g, pulseRgb.g, pulseMix)) +
+                ", " +
+                Math.round(lerp(particleRgb.b, pulseRgb.b, pulseMix)) +
+                ")";
+
+            rendered.push({
+                x: projected.x,
+                y: projected.y,
+                z: projected.z,
+                alpha: alpha,
+                width: particle.width * sizeScale * (1 + pulse.sizeBoost),
+                height: particle.height * sizeScale * (1 + pulse.sizeBoost),
+                rotation: angle + camera.rotationY,
+                color: color
+            });
+        }
+
+        rendered.sort(function (a, b) {
+            return a.z - b.z;
+        });
+
+        for (let index = 0; index < rendered.length; index += 1) {
+            drawParticle(rendered[index]);
+        }
+
+        ctx.globalAlpha = 1;
+    }
+
+    function animate(currentTime) {
+        animationFrameId = requestAnimationFrame(animate);
+        const rawDelta = (currentTime - lastTime) / 1000;
+        const deltaTime = Math.min(rawDelta || 1 / 60, 0.033);
+        lastTime = currentTime;
+        time += deltaTime;
+
+        updateCamera(deltaTime);
+        if (config.pulseEnabled === "on" && pointer.active && currentTime >= nextPulseTime) {
+            triggerPulse(currentTime);
+        }
+        drawBackground();
+        renderParticles(currentTime);
+    }
+
+    canvas.addEventListener("pointerenter", function (event) {
+        updatePointerPosition(event);
+        canvas.style.cursor = pointer.down ? "grabbing" : "grab";
+
+        if (hoverPulseArmed) {
+            triggerPulse(performance.now());
+        }
+    });
+
+    canvas.addEventListener("pointerdown", function (event) {
+        updatePointerPosition(event);
+        pointer.down = true;
+        pointer.previousX = event.clientX;
+        pointer.previousY = event.clientY;
+        canvas.style.cursor = "grabbing";
+        triggerPulse(performance.now());
+
+        if (canvas.setPointerCapture) {
+            canvas.setPointerCapture(event.pointerId);
+        }
+    });
+
+    canvas.addEventListener("pointermove", function (event) {
+        updatePointerPosition(event);
+
+        if (hoverPulseArmed) {
+            triggerPulse(performance.now());
+        }
+
+        if (!pointer.down) return;
+
+        const deltaX = event.clientX - pointer.previousX;
+        const deltaY = event.clientY - pointer.previousY;
+        const rotationBounds = getRotationBounds();
+
+        camera.targetRotationY += deltaX * config.dragRotationYSpeed;
+        camera.targetRotationX = clamp(
+            camera.targetRotationX + deltaY * config.dragRotationXSpeed,
+            rotationBounds.min,
+            rotationBounds.max
+        );
+
+        pointer.previousX = event.clientX;
+        pointer.previousY = event.clientY;
+    });
+
+    canvas.addEventListener("pointerleave", function () {
+        if (!pointer.down) {
+            pointer.active = false;
+            hoverPulseArmed = true;
+        }
+        nextPulseTime = Infinity;
+        canvas.style.cursor = pointer.down ? "grabbing" : "grab";
+    });
+
+    function releasePointer(event) {
+        pointer.down = false;
+        canvas.style.cursor = "grab";
+
+        if (
+            canvas.releasePointerCapture &&
+            canvas.hasPointerCapture &&
+            canvas.hasPointerCapture(event.pointerId)
+        ) {
+            canvas.releasePointerCapture(event.pointerId);
+        }
+    }
+
+    canvas.addEventListener("pointerup", releasePointer);
+    canvas.addEventListener("pointercancel", releasePointer);
+
+    canvas.addEventListener(
+        "wheel",
+        function (event) {
+            event.preventDefault();
+            const distanceBounds = getDistanceBounds();
+            camera.targetDistance = clamp(
+                camera.targetDistance + event.deltaY * config.zoomSpeed,
+                distanceBounds.min,
+                distanceBounds.max
+            );
+        },
+        { passive: false }
+    );
+
+    if (typeof ResizeObserver !== "undefined") {
+        const resizeObserver = new ResizeObserver(resizeCanvas);
+        resizeObserver.observe(wrap);
+    } else {
+        window.addEventListener("resize", resizeCanvas);
+    }
+
+    wrap.style.backgroundColor = config.backgroundColor;
+    canvas.style.backgroundColor = config.backgroundColor;
+
+    resizeCanvas();
+    resetCamera();
+    animationFrameId = requestAnimationFrame(animate);
+})();
+</script>`;
+}
+
+function generateFunnelEmbedCode(settings) {
+    const particleColor = normalizeHexColor(settings.particleColor);
+    const flowColor = normalizeHexColor(settings.flowColor);
+    const pulseColor = normalizeHexColor(settings.pulseColor);
+    const backgroundColor = normalizeHexColor(settings.backgroundColor);
+    const containerStyle = getEmbedContainerStyle(settings, "auto");
+
+    return [
+        "<!-- ============================================================ -->",
+        "<!-- WEBFLOW EMBED: WAVE PATTERN 1 FUNNEL INTERACTION             -->",
+        "<!-- Paste inside a Webflow Embed element.                       -->",
+        "<!-- ============================================================ -->",
+        "",
+        `<div id="funnel-interaction-wrap" style="${containerStyle}">`,
+        '    <canvas id="funnel-interaction-canvas" style="display:block; width:100%; height:100%;"></canvas>',
+        "</div>",
+        "",
+        "<script>",
+        "(function () {",
+        "    const wrap = document.getElementById('funnel-interaction-wrap');",
+        "    const canvas = document.getElementById('funnel-interaction-canvas');",
+        "    if (!wrap || !canvas) return;",
+        "",
+        "    const ctx = canvas.getContext('2d', { alpha: true, desynchronized: true });",
+        "    if (!ctx) return;",
+        "",
+        "    const TWO_PI = Math.PI * 2;",
+        "    const config = {",
+        `        renderWidth: ${formatNumber(settings.renderWidth)},`,
+        `        renderHeight: ${formatNumber(settings.renderHeight)},`,
+        `        backgroundColor: ${JSON.stringify(backgroundColor)},`,
+        `        particleColor: ${JSON.stringify(particleColor)},`,
+        `        flowColor: ${JSON.stringify(flowColor)},`,
+        `        pulseColor: ${JSON.stringify(pulseColor)},`,
+        `        particleShape: ${JSON.stringify(settings.particleShape)},`,
+        `        maskEnabled: ${JSON.stringify(settings.maskEnabled)},`,
+        `        pulseEnabled: ${JSON.stringify(settings.pulseEnabled)},`,
+        `        baseVisibility: ${formatNumber(settings.baseVisibility, 2)},`,
+        `        maximumPixelRatio: ${formatNumber(settings.maximumPixelRatio, 1)},`,
+        `        ringCount: ${formatNumber(settings.ringCount)},`,
+        `        pointsPerRing: ${formatNumber(settings.pointsPerRing)},`,
+        `        ringRotationSpeed: ${formatNumber(settings.ringRotationSpeed, 2)},`,
+        `        particleSizeMin: ${formatNumber(settings.particleSizeMin, 2)},`,
+        `        particleSizeMax: ${formatNumber(settings.particleSizeMax, 2)},`,
+        `        particleAlphaMin: ${formatNumber(settings.particleAlphaMin, 2)},`,
+        `        particleAlphaMax: ${formatNumber(settings.particleAlphaMax, 2)},`,
+        `        flowParticleCount: ${formatNumber(settings.flowParticleCount)},`,
+        `        flowSizeMin: ${formatNumber(settings.flowSizeMin, 2)},`,
+        `        flowSizeMax: ${formatNumber(settings.flowSizeMax, 2)},`,
+        `        flowAlphaMin: ${formatNumber(settings.flowAlphaMin, 2)},`,
+        `        flowAlphaMax: ${formatNumber(settings.flowAlphaMax, 2)},`,
+        `        flowSpeedMin: ${formatNumber(settings.flowSpeedMin, 3)},`,
+        `        flowSpeedMax: ${formatNumber(settings.flowSpeedMax, 3)},`,
+        `        flowSwirlSpeed: ${formatNumber(settings.flowSwirlSpeed, 2)},`,
+        `        flowTwistStrength: ${formatNumber(settings.flowTwistStrength, 1)},`,
+        `        flowAcceleration: ${formatNumber(settings.flowAcceleration, 1)},`,
+        `        topRadiusRatio: ${formatNumber(settings.topRadiusRatio, 2)},`,
+        `        neckRadiusRatio: ${formatNumber(settings.neckRadiusRatio, 3)},`,
+        `        outletRadiusRatio: ${formatNumber(settings.outletRadiusRatio, 3)},`,
+        `        topYRatio: ${formatNumber(settings.topYRatio, 2)},`,
+        `        neckYRatio: ${formatNumber(settings.neckYRatio, 2)},`,
+        `        outletYRatio: ${formatNumber(settings.outletYRatio, 2)},`,
+        `        neckProgress: ${formatNumber(settings.neckProgress, 2)},`,
+        `        basePitch: ${formatNumber(settings.basePitch, 2)},`,
+        `        maximumRotationY: ${formatNumber(settings.maximumRotationY, 2)},`,
+        `        maximumRotationX: ${formatNumber(settings.maximumRotationX, 2)},`,
+        `        rotationSpeed: ${formatNumber(settings.rotationSpeed, 2)},`,
+        `        perspectiveRatio: ${formatNumber(settings.perspectiveRatio, 2)},`,
+        `        pointerRadiusRatio: ${formatNumber(settings.pointerRadiusRatio, 2)},`,
+        `        minimumPointerRadius: ${formatNumber(settings.minimumPointerRadius)},`,
+        `        repulsionStrength: ${formatNumber(settings.repulsionStrength, 2)},`,
+        `        springStrength: ${formatNumber(settings.springStrength, 3)},`,
+        `        friction: ${formatNumber(settings.friction, 2)},`,
+        `        cursorRevealRadiusRatio: ${formatNumber(settings.cursorRevealRadiusRatio, 2)},`,
+        `        minimumCursorRevealRadius: ${formatNumber(settings.minimumCursorRevealRadius)},`,
+        `        cursorRevealSoftness: ${formatNumber(settings.cursorRevealSoftness, 2)},`,
+        `        cursorRevealFadeSpeed: ${formatNumber(settings.cursorRevealFadeSpeed, 2)},`,
+        `        cursorVisibilityStrength: ${formatNumber(settings.cursorVisibilityStrength, 2)},`,
+        `        pulseDuration: ${formatNumber(settings.pulseDuration)},`,
+        `        pulseRepeatDelay: ${formatNumber(settings.pulseRepeatDelay)},`,
+        `        pulseWidth: ${formatNumber(settings.pulseWidth)},`,
+        `        pulseBrightness: ${formatNumber(settings.pulseBrightness, 2)},`,
+        `        pulseSizeBoost: ${formatNumber(settings.pulseSizeBoost, 2)},`,
+        `        pulseRevealWidth: ${formatNumber(settings.pulseRevealWidth)},`,
+        `        pulseRevealStrength: ${formatNumber(settings.pulseRevealStrength, 2)},`,
+        `        pulseRevealTrail: ${formatNumber(settings.pulseRevealTrail, 2)}`,
+        "    };",
+        "",
+        "    wrap.style.backgroundColor = config.backgroundColor;",
+        "    wrap.style.overflow = 'hidden';",
+        "    wrap.style.cursor = 'crosshair';",
+        "    wrap.style.userSelect = 'none';",
+        "",
+        "    let width = 0;",
+        "    let height = 0;",
+        "    let pixelRatio = 1;",
+        "    let sceneMetrics = null;",
+        "    let geometry = null;",
+        "    let shellParticles = [];",
+        "    let flowParticles = [];",
+        "    let pointerX = 0;",
+        "    let pointerY = 0;",
+        "    let pointerActive = false;",
+        "    let cursorRevealOpacity = 0;",
+        "    let targetCursorRevealOpacity = 0;",
+        "    let rotationX = 0;",
+        "    let rotationY = 0;",
+        "    let targetRotationX = 0;",
+        "    let targetRotationY = 0;",
+        "    let pulseActive = false;",
+        "    let pulseStartTime = 0;",
+        "    let pulseOriginX = 0;",
+        "    let pulseOriginY = 0;",
+        "    let pulseMaximumDistance = 0;",
+        "    let nextPulseTime = Infinity;",
+        "    let hoverPulseArmed = true;",
+        "    let lastFrameTime = performance.now();",
+        "    let animationFrameId = 0;",
+        "",
+        "    function randomBetween(minimum, maximum) {",
+        "        return minimum + Math.random() * (maximum - minimum);",
+        "    }",
+        "",
+        "    function clamp(value, minimum, maximum) {",
+        "        const min = minimum === undefined ? 0 : minimum;",
+        "        const max = maximum === undefined ? 1 : maximum;",
+        "        return Math.max(min, Math.min(max, value));",
+        "    }",
+        "",
+        "    function easeInOut(value) {",
+        "        const clamped = clamp(value, 0, 1);",
+        "        return clamped * clamped * (3 - 2 * clamped);",
+        "    }",
+        "",
+        "    function lerp(start, end, progress) {",
+        "        return start + (end - start) * progress;",
+        "    }",
+        "",
+        "    function hexToRgb(hex) {",
+        "        const normalized = String(hex || '#000000').replace('#', '');",
+        "        return {",
+        "            r: parseInt(normalized.slice(0, 2), 16),",
+        "            g: parseInt(normalized.slice(2, 4), 16),",
+        "            b: parseInt(normalized.slice(4, 6), 16)",
+        "        };",
+        "    }",
+        "",
+        "    function drawParticle(x, y, size, alpha, rgb) {",
+        "        ctx.fillStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${alpha})`;",
+        "",
+        "        if (config.particleShape === 'circle') {",
+        "            ctx.beginPath();",
+        "            ctx.arc(x, y, size, 0, TWO_PI);",
+        "            ctx.fill();",
+        "            return;",
+        "        }",
+        "",
+        "        ctx.fillRect(x - size, y - size, size * 2, size * 2);",
+        "    }",
+        "",
+        "    function updateSceneGeometry() {",
+        "        const logicalWidth = Math.max(1, config.renderWidth);",
+        "        const logicalHeight = Math.max(1, config.renderHeight);",
+        "        const fitScale = Math.min(width / logicalWidth, height / logicalHeight);",
+        "        const sceneScale = Math.min(1, Math.max(0.0001, Number.isFinite(fitScale) ? fitScale : 1));",
+        "        const sceneWidth = logicalWidth * sceneScale;",
+        "        const sceneHeight = logicalHeight * sceneScale;",
+        "",
+        "        sceneMetrics = {",
+        "            logicalWidth,",
+        "            logicalHeight,",
+        "            sceneScale,",
+        "            sceneWidth,",
+        "            sceneHeight,",
+        "            offsetX: (width - sceneWidth) * 0.5,",
+        "            offsetY: (height - sceneHeight) * 0.5",
+        "        };",
+        "        geometry = {",
+        "            centerX: logicalWidth * 0.5,",
+        "            centerY: logicalHeight * 0.48,",
+        "            topY: logicalHeight * config.topYRatio,",
+        "            neckY: logicalHeight * config.neckYRatio,",
+        "            outletY: logicalHeight * config.outletYRatio,",
+        "            topRadius: logicalWidth * config.topRadiusRatio,",
+        "            neckRadius: logicalWidth * config.neckRadiusRatio,",
+        "            outletRadius: logicalWidth * config.outletRadiusRatio,",
+        "            perspective: Math.max(logicalWidth, logicalHeight) * config.perspectiveRatio",
+        "        };",
+        "    }",
+        "",
+        "    function getSceneMetrics() {",
+        "        return sceneMetrics;",
+        "    }",
+        "",
+        "    function getGeometry() {",
+        "        return geometry;",
+        "    }",
+        "",
+        "    function transformScenePoint(x, y, scale) {",
+        "        const scene = getSceneMetrics();",
+        "        return {",
+        "            x: scene.offsetX + x * scene.sceneScale,",
+        "            y: scene.offsetY + y * scene.sceneScale,",
+        "            scale: scale * scene.sceneScale",
+        "        };",
+        "    }",
+        "",
+        "    function getCrossSection(progress) {",
+        "        const geometry = getGeometry();",
+        "",
+        "        if (progress <= config.neckProgress) {",
+        "            const normalized = progress / Math.max(config.neckProgress, 0.0001);",
+        "            const curved = Math.pow(easeInOut(normalized), 0.78);",
+        "            return {",
+        "                y: lerp(geometry.topY, geometry.neckY, normalized),",
+        "                radius: lerp(geometry.topRadius, geometry.neckRadius, curved)",
+        "            };",
+        "        }",
+        "",
+        "        const normalized = (progress - config.neckProgress) / Math.max(1 - config.neckProgress, 0.0001);",
+        "        return {",
+        "            y: lerp(geometry.neckY, geometry.outletY, normalized),",
+        "            radius: lerp(geometry.neckRadius, geometry.outletRadius, easeInOut(normalized))",
+        "        };",
+        "    }",
+        "",
+        "    function projectPoint(x, y, z) {",
+        "        const geometry = getGeometry();",
+        "        const angleX = config.basePitch + rotationX;",
+        "        const angleY = rotationY;",
+        "        const cosX = Math.cos(angleX);",
+        "        const sinX = Math.sin(angleX);",
+        "        const cosY = Math.cos(angleY);",
+        "        const sinY = Math.sin(angleY);",
+        "",
+        "        const rotatedY = y * cosX - z * sinX;",
+        "        const rotatedZFromX = y * sinX + z * cosX;",
+        "        const rotatedX = x * cosY + rotatedZFromX * sinY;",
+        "        const rotatedZ = -x * sinY + rotatedZFromX * cosY;",
+        "        const perspectiveScale = geometry.perspective / Math.max(1, geometry.perspective - rotatedZ);",
+        "        const projected = transformScenePoint(",
+        "            geometry.centerX + rotatedX * perspectiveScale,",
+        "            geometry.centerY + rotatedY * perspectiveScale,",
+        "            perspectiveScale",
+        "        );",
+        "",
+        "        return {",
+        "            x: projected.x,",
+        "            y: projected.y,",
+        "            z: rotatedZ,",
+        "            scale: projected.scale",
+        "        };",
+        "    }",
+        "",
+        "    function getShellProjection(particle, currentTime) {",
+        "        const section = getCrossSection(particle.progress);",
+        "        const seconds = currentTime * 0.001;",
+        "        const rotationAngle = particle.theta + seconds * config.ringRotationSpeed * lerp(1.12, 0.72, particle.progress);",
+        "        const localX = Math.cos(rotationAngle) * section.radius;",
+        "        const localZ = Math.sin(rotationAngle) * section.radius;",
+        "        const projection = projectPoint(localX, section.y, localZ);",
+        "        const frontFactor = clamp(0.5 + projection.z / Math.max(1, section.radius * 2), 0, 1);",
+        "        return { ...projection, frontFactor };",
+        "    }",
+        "",
+        "    function resizeCanvas() {",
+        "        const rect = wrap.getBoundingClientRect();",
+        "        width = Math.max(1, rect.width || 1);",
+        "        height = Math.max(1, rect.height || 1);",
+        "        pixelRatio = Math.min(window.devicePixelRatio || 1, config.maximumPixelRatio);",
+        "        canvas.width = Math.round(width * pixelRatio);",
+        "        canvas.height = Math.round(height * pixelRatio);",
+        "        canvas.style.width = `${width}px`;",
+        "        canvas.style.height = `${height}px`;",
+        "        ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);",
+        "        updateSceneGeometry();",
+        "        buildShellParticles();",
+        "        buildFlowParticles();",
+        "    }",
+        "",
+        "    function buildShellParticles() {",
+        "        shellParticles = [];",
+        "",
+        "        for (let ringIndex = 0; ringIndex < config.ringCount; ringIndex += 1) {",
+        "            const progress = ringIndex / Math.max(config.ringCount - 1, 1);",
+        "            const ringOffset = ringIndex % 2 === 0 ? 0 : Math.PI / Math.max(config.pointsPerRing, 1);",
+        "",
+        "            for (let pointIndex = 0; pointIndex < config.pointsPerRing; pointIndex += 1) {",
+        "                const theta = (pointIndex / Math.max(config.pointsPerRing, 1)) * TWO_PI + ringOffset + randomBetween(-0.045, 0.045);",
+        "                shellParticles.push({",
+        "                    progress,",
+        "                    theta,",
+        "                    offsetX: 0,",
+        "                    offsetY: 0,",
+        "                    velocityX: 0,",
+        "                    velocityY: 0,",
+        "                    size: randomBetween(config.particleSizeMin, config.particleSizeMax),",
+        "                    alpha: randomBetween(config.particleAlphaMin, config.particleAlphaMax),",
+        "                    flickerPhase: Math.random() * TWO_PI,",
+        "                    flickerSpeed: randomBetween(0.6, 1.8),",
+        "                    blinkPhase: Math.random() * TWO_PI,",
+        "                    blinkSpeed: randomBetween(0.5, 1.4)",
+        "                });",
+        "            }",
+        "        }",
+        "    }",
+        "",
+        "    function resetFlowParticle(particle, initial) {",
+        "        particle.progress = initial ? randomBetween(-0.22, 1.18) : randomBetween(-0.18, -0.02);",
+        "        particle.theta = randomBetween(0, TWO_PI);",
+        "        particle.radial = Math.sqrt(Math.random()) * 0.74;",
+        "        particle.speed = randomBetween(config.flowSpeedMin, config.flowSpeedMax);",
+        "        particle.size = randomBetween(config.flowSizeMin, config.flowSizeMax);",
+        "        particle.alpha = randomBetween(config.flowAlphaMin, config.flowAlphaMax);",
+        "        particle.phase = Math.random() * TWO_PI;",
+        "        particle.entryXRatio = randomBetween(0.22, 0.78);",
+        "        particle.entryYOffset = randomBetween(0.08, 0.2);",
+        "    }",
+        "",
+        "    function buildFlowParticles() {",
+        "        flowParticles = [];",
+        "        for (let index = 0; index < config.flowParticleCount; index += 1) {",
+        "            const particle = {};",
+        "            resetFlowParticle(particle, true);",
+        "            flowParticles.push(particle);",
+        "        }",
+        "    }",
+        "",
+        "    function getFlowProjection(particle, currentTime) {",
+        "        const rawProgress = particle.progress;",
+        "        const progress = clamp(rawProgress, 0, 1);",
+        "        const section = getCrossSection(progress);",
+        "        const scene = getSceneMetrics();",
+        "        const seconds = currentTime * 0.001;",
+        "        const swirl = particle.theta + seconds * config.flowSwirlSpeed + particle.phase + progress * config.flowTwistStrength;",
+        "        const radius = section.radius * particle.radial * 0.72;",
+        "        const localX = Math.cos(swirl) * radius;",
+        "        const localZ = Math.sin(swirl) * radius;",
+        "        let projection = projectPoint(localX, section.y, localZ);",
+        "        const frontFactor = clamp(0.5 + projection.z / Math.max(1, section.radius * 2), 0, 1);",
+        "        if (rawProgress < 0) {",
+        "            const entryProgress = easeInOut(clamp((particle.progress + 0.22) / 0.22, 0, 1));",
+        "            const startX = scene.offsetX + scene.logicalWidth * particle.entryXRatio * scene.sceneScale;",
+        "            const startY = scene.offsetY - scene.logicalHeight * particle.entryYOffset * scene.sceneScale;",
+            "            return {",
+        "                x: lerp(startX, projection.x, entryProgress),",
+        "                y: lerp(startY, projection.y, entryProgress),",
+        "                z: projection.z,",
+        "                scale: lerp(0.72 * scene.sceneScale, projection.scale, entryProgress),",
+        "                frontFactor",
+        "            };",
+        "        }",
+        "        if (rawProgress > 1) {",
+        "            const outletProgress = clamp((rawProgress - 1) / 0.18, 0, 1);",
+        "            const outletAngle = swirl + outletProgress * 1.1;",
+        "            const outletRadius = Math.max(0, section.radius * particle.radial * 0.22 * (1 - outletProgress));",
+        "            const outletX = Math.cos(outletAngle) * outletRadius;",
+        "            const outletZ = Math.sin(outletAngle) * outletRadius;",
+        "            const outletY = section.y + outletProgress * scene.logicalHeight * 0.16;",
+        "            projection = projectPoint(outletX, outletY, outletZ);",
+        "            return {",
+        "                ...projection,",
+        "                frontFactor: clamp(0.5 + projection.z / Math.max(1, section.radius * 2), 0, 1)",
+        "            };",
+        "        }",
+        "        return { ...projection, frontFactor };",
+        "    }",
+        "",
+        "    function updatePointer(event) {",
+        "        const rect = wrap.getBoundingClientRect();",
+        "        const scene = getSceneMetrics();",
+        "        pointerX = event.clientX - rect.left;",
+        "        pointerY = event.clientY - rect.top;",
+        "",
+        "        const normalizedX = clamp((pointerX - scene.offsetX) / Math.max(scene.sceneWidth, 1), 0, 1) * 2 - 1;",
+        "        const normalizedY = clamp((pointerY - scene.offsetY) / Math.max(scene.sceneHeight, 1), 0, 1) * 2 - 1;",
+        "        targetRotationY = normalizedX * config.maximumRotationY;",
+        "        targetRotationX = -normalizedY * config.maximumRotationX;",
+        "    }",
+        "",
+        "    function updateRotation() {",
+        "        rotationX += (targetRotationX - rotationX) * config.rotationSpeed;",
+        "        rotationY += (targetRotationY - rotationY) * config.rotationSpeed;",
+        "    }",
+        "",
+        "    function calculateMaximumPulseDistance(originX, originY) {",
+        "        const scene = getSceneMetrics();",
+        "        const minX = scene.offsetX;",
+        "        const maxX = scene.offsetX + scene.sceneWidth;",
+        "        const minY = scene.offsetY;",
+        "        const maxY = scene.offsetY + scene.sceneHeight;",
+        "        return Math.max(",
+        "            Math.hypot(originX - minX, originY - minY),",
+        "            Math.hypot(originX - maxX, originY - minY),",
+        "            Math.hypot(originX - minX, originY - maxY),",
+        "            Math.hypot(originX - maxX, originY - maxY)",
+        "        );",
+        "    }",
+        "",
+        "    function triggerPulse(currentTime) {",
+        "        if (config.pulseEnabled !== 'on') {",
+        "            hoverPulseArmed = false;",
+        "            return;",
+        "        }",
+        "",
+        "        pulseOriginX = pointerX;",
+        "        pulseOriginY = pointerY;",
+        "        pulseStartTime = currentTime;",
+        "        pulseMaximumDistance = calculateMaximumPulseDistance(pointerX, pointerY);",
+        "        pulseActive = true;",
+        "        nextPulseTime = currentTime + config.pulseRepeatDelay;",
+        "        hoverPulseArmed = false;",
+        "    }",
+        "",
+        "    function getPulseState(currentTime) {",
+        "        if (config.pulseEnabled !== 'on' || !pulseActive) return null;",
+        "",
+        "        const progress = (currentTime - pulseStartTime) / Math.max(config.pulseDuration, 1);",
+        "        if (progress >= 1) {",
+        "            pulseActive = false;",
+        "            return null;",
+        "        }",
+        "",
+        "        const easedProgress = 1 - Math.pow(1 - progress, 2);",
+        "        const fadeProgress = clamp((progress - 0.72) / 0.28, 0, 1);",
+        "        const lifeFade = 1 - easeInOut(fadeProgress);",
+        "        return {",
+        "            radius: easedProgress * (pulseMaximumDistance + config.pulseRevealWidth),",
+        "            lifeFade",
+        "        };",
+        "    }",
+        "",
+        "    function getDistanceFromPulse(x, y) {",
+        "        return Math.hypot(x - pulseOriginX, y - pulseOriginY);",
+        "    }",
+        "",
+        "    function getCursorReveal(x, y) {",
+        "        if (config.maskEnabled !== 'on' || cursorRevealOpacity <= 0.001) return 0;",
+        "",
+        "        const scene = getSceneMetrics();",
+        "        const radius = Math.max(config.minimumCursorRevealRadius, scene.sceneWidth * config.cursorRevealRadiusRatio);",
+        "        const innerRadius = radius * (1 - config.cursorRevealSoftness);",
+        "        const distance = Math.hypot(x - pointerX, y - pointerY);",
+        "",
+        "        if (distance <= innerRadius) {",
+        "            return cursorRevealOpacity * config.cursorVisibilityStrength;",
+        "        }",
+        "",
+        "        if (distance >= radius) return 0;",
+        "",
+        "        const normalized = 1 - (distance - innerRadius) / Math.max(radius - innerRadius, 0.0001);",
+        "        return easeInOut(clamp(normalized, 0, 1)) * cursorRevealOpacity * config.cursorVisibilityStrength;",
+        "    }",
+        "",
+        "    function getPulseReveal(distance, pulseState) {",
+        "        if (config.maskEnabled !== 'on' || !pulseState) return 0;",
+        "",
+        "        const distanceFromPulse = Math.abs(distance - pulseState.radius);",
+        "        let pulseStrength = Math.max(0, 1 - distanceFromPulse / Math.max(config.pulseRevealWidth, 0.0001));",
+        "        pulseStrength = easeInOut(pulseStrength);",
+        "",
+        "        let trail = 0;",
+        "        if (distance < pulseState.radius) {",
+        "            const trailDistance = pulseState.radius - distance;",
+        "            trail = Math.max(0, 1 - trailDistance / Math.max(config.pulseRevealWidth * 2.7, 0.0001));",
+        "            trail *= config.pulseRevealTrail;",
+        "        }",
+        "",
+        "        return clamp((pulseStrength * config.pulseRevealStrength + trail) * pulseState.lifeFade, 0, 1);",
+        "    }",
+        "",
+        "    function getPulseAppearance(distance, pulseState) {",
+        "        if (config.pulseEnabled !== 'on' || !pulseState) {",
+        "            return { brightness: 0, sizeBoost: 0, mix: 0 };",
+        "        }",
+        "",
+        "        const distanceFromPulse = Math.abs(distance - pulseState.radius);",
+        "        let pulseStrength = Math.max(0, 1 - distanceFromPulse / Math.max(config.pulseWidth, 0.0001));",
+        "        pulseStrength = easeInOut(pulseStrength);",
+        "",
+        "        const behindWave = distance < pulseState.radius",
+        "            ? Math.max(0, 1 - (pulseState.radius - distance) / Math.max(config.pulseWidth * 3, 0.0001))",
+        "            : 0;",
+        "        const trail = behindWave * config.pulseRevealTrail * 0.6 * pulseState.lifeFade;",
+        "        const strength = pulseStrength * pulseState.lifeFade;",
+        "",
+        "        return {",
+        "            brightness: strength * config.pulseBrightness + trail,",
+        "            sizeBoost: strength * config.pulseSizeBoost,",
+        "            mix: clamp(strength + trail, 0, 1)",
+        "        };",
+        "    }",
+        "",
+        "    function updateShellParticles(deltaMultiplier, currentTime) {",
+        "        const scene = getSceneMetrics();",
+        "        const pointerRadius = Math.max(config.minimumPointerRadius, scene.sceneWidth * config.pointerRadiusRatio);",
+        "        const pointerRadiusSquared = pointerRadius * pointerRadius;",
+        "        const frameFriction = Math.pow(config.friction, deltaMultiplier);",
+        "",
+        "        for (const particle of shellParticles) {",
+        "            const projection = getShellProjection(particle, currentTime);",
+        "            const renderX = projection.x + particle.offsetX;",
+        "            const renderY = projection.y + particle.offsetY;",
+        "",
+        "            if (pointerActive) {",
+        "                const deltaX = renderX - pointerX;",
+        "                const deltaY = renderY - pointerY;",
+        "                const distanceSquared = deltaX * deltaX + deltaY * deltaY;",
+        "",
+        "                if (distanceSquared > 0.001 && distanceSquared < pointerRadiusSquared) {",
+        "                    const distance = Math.sqrt(distanceSquared);",
+        "                    const influence = 1 - distance / pointerRadius;",
+        "                    const force = influence * influence * config.repulsionStrength * deltaMultiplier;",
+        "                    particle.velocityX += (deltaX / distance) * force;",
+        "                    particle.velocityY += (deltaY / distance) * force;",
+        "                }",
+        "            }",
+        "",
+        "            particle.velocityX += -particle.offsetX * config.springStrength * deltaMultiplier;",
+        "            particle.velocityY += -particle.offsetY * config.springStrength * deltaMultiplier;",
+        "            particle.velocityX *= frameFriction;",
+        "            particle.velocityY *= frameFriction;",
+        "            particle.offsetX += particle.velocityX * deltaMultiplier;",
+        "            particle.offsetY += particle.velocityY * deltaMultiplier;",
+        "        }",
+        "    }",
+        "",
+        "    function updateFlowParticles(deltaMultiplier) {",
+        "        for (const particle of flowParticles) {",
+        "            const acceleration = 1 + Math.pow(clamp((particle.progress - 0.62) / 0.38, 0, 1), 2) * config.flowAcceleration;",
+        "            particle.progress += particle.speed * acceleration * deltaMultiplier * 0.01;",
+        "",
+        "            if (particle.progress > 1.18) {",
+        "                resetFlowParticle(particle, false);",
+        "            }",
+        "        }",
+        "    }",
+        "",
+        "    function drawShellParticles(currentTime, pulseState, drawFront, shellRgb, pulseRgb) {",
+        "        const seconds = currentTime * 0.001;",
+        "",
+        "        for (const particle of shellParticles) {",
+        "            const projection = getShellProjection(particle, currentTime);",
+            "            const isFront = projection.frontFactor >= 0.5;",
+        "            if (isFront !== drawFront) continue;",
+        "",
+        "            const renderX = projection.x + particle.offsetX;",
+        "            const renderY = projection.y + particle.offsetY;",
+        "            const pulseDistance = getDistanceFromPulse(renderX, renderY);",
+        "            const cursorReveal = getCursorReveal(renderX, renderY);",
+        "            const pulseReveal = getPulseReveal(pulseDistance, pulseState);",
+        "            const reveal = Math.max(cursorReveal, pulseReveal);",
+        "            const visibility = config.maskEnabled === 'on' ? config.baseVisibility + (1 - config.baseVisibility) * reveal : 1;",
+        "            const flicker = 0.78 + (Math.sin(seconds * particle.flickerSpeed + particle.flickerPhase) + 1) * 0.18;",
+        "            const blinkWave = Math.max(0, Math.sin(seconds * particle.blinkSpeed + particle.blinkPhase));",
+        "            const blink = Math.pow(blinkWave, 24);",
+        "            const pulse = getPulseAppearance(pulseDistance, pulseState);",
+        "            const depthBrightness = lerp(0.5, 1.2, projection.frontFactor);",
+        "            const baseContribution = particle.alpha * flicker * depthBrightness + blink * 0.18;",
+        "            const pulseContribution = pulse.brightness;",
+        "            const alpha = Math.min(1, (baseContribution + pulseContribution) * visibility);",
+        "            const size = particle.size * projection.scale * lerp(0.8, 1.18, projection.frontFactor) * (1 + blink * 0.55) * (1 + pulse.sizeBoost);",
+        "            const pulseMix = alpha > 0 ? clamp((pulseContribution * visibility) / alpha, 0, 1) : 0;",
+        "            const rgb = {",
+        "                r: Math.round(lerp(shellRgb.r, pulseRgb.r, pulseMix)),",
+        "                g: Math.round(lerp(shellRgb.g, pulseRgb.g, pulseMix)),",
+        "                b: Math.round(lerp(shellRgb.b, pulseRgb.b, pulseMix))",
+        "            };",
+        "",
+        "            drawParticle(renderX, renderY, size, alpha, rgb);",
+        "        }",
+        "    }",
+        "",
+        "    function drawFlowParticles(currentTime, pulseState, flowRgb, pulseRgb) {",
+        "        for (const particle of flowParticles) {",
+        "            const projection = getFlowProjection(particle, currentTime);",
+        "            const pulseDistance = getDistanceFromPulse(projection.x, projection.y);",
+        "            const cursorReveal = getCursorReveal(projection.x, projection.y);",
+        "            const pulseReveal = getPulseReveal(pulseDistance, pulseState);",
+        "            const reveal = Math.max(cursorReveal, pulseReveal);",
+        "            const visibility = config.maskEnabled === 'on' ? 0.44 + reveal * 0.56 : 1;",
+        "            const pulse = getPulseAppearance(pulseDistance, pulseState);",
+        "            const depthBrightness = lerp(0.72, 1.22, projection.frontFactor);",
+        "            const entryFade = particle.progress < 0 ? easeInOut(clamp((particle.progress + 0.22) / 0.22, 0, 1)) : 1;",
+        "            const exitFade = particle.progress > 0.9 ? 1 - easeInOut(clamp((particle.progress - 0.9) / 0.28, 0, 1)) : 1;",
+        "            const streamFade = entryFade * exitFade;",
+        "            const baseContribution = particle.alpha * depthBrightness;",
+        "            const pulseContribution = pulse.brightness;",
+        "            const alpha = Math.min(1, (baseContribution + pulseContribution) * visibility * streamFade);",
+        "            const size = particle.size * projection.scale * lerp(0.86, 1.18, projection.frontFactor) * (1 + pulse.sizeBoost) * lerp(0.86, 1, streamFade);",
+        "            const pulseMix = alpha > 0 ? clamp((pulseContribution * visibility) / alpha, 0, 1) : 0;",
+        "            const rgb = {",
+        "                r: Math.round(lerp(flowRgb.r, pulseRgb.r, pulseMix)),",
+        "                g: Math.round(lerp(flowRgb.g, pulseRgb.g, pulseMix)),",
+        "                b: Math.round(lerp(flowRgb.b, pulseRgb.b, pulseMix))",
+        "            };",
+        "",
+        "            drawParticle(projection.x, projection.y, size, alpha, rgb);",
+        "        }",
+        "    }",
+        "",
+        "    function draw(currentTime, pulseState) {",
+        "        ctx.clearRect(0, 0, width, height);",
+        "        cursorRevealOpacity += (targetCursorRevealOpacity - cursorRevealOpacity) * config.cursorRevealFadeSpeed;",
+        "",
+        "        const shellRgb = hexToRgb(config.particleColor);",
+        "        const flowRgb = hexToRgb(config.flowColor);",
+        "        const pulseRgb = hexToRgb(config.pulseColor);",
+        "",
+        "        drawShellParticles(currentTime, pulseState, false, shellRgb, pulseRgb);",
+        "        drawFlowParticles(currentTime, pulseState, flowRgb, pulseRgb);",
+        "        drawShellParticles(currentTime, pulseState, true, shellRgb, pulseRgb);",
+        "    }",
+        "",
+        "    function animate(currentTime) {",
+        "        animationFrameId = requestAnimationFrame(animate);",
+        "        const elapsed = currentTime - lastFrameTime;",
+        "        lastFrameTime = currentTime;",
+        "        const deltaMultiplier = Math.min(elapsed / 16.667 || 1, 2);",
+        "",
+        "        updateRotation();",
+        "",
+        "        if (config.pulseEnabled === 'on' && pointerActive && currentTime >= nextPulseTime) {",
+        "            triggerPulse(currentTime);",
+        "        }",
+        "",
+        "        const pulseState = getPulseState(currentTime);",
+        "        updateShellParticles(deltaMultiplier, currentTime);",
+        "        updateFlowParticles(deltaMultiplier);",
+        "        draw(currentTime, pulseState);",
+        "    }",
+        "",
+        "    wrap.addEventListener('pointerenter', function (event) {",
+        "        updatePointer(event);",
+        "        pointerActive = true;",
+        "        targetCursorRevealOpacity = config.maskEnabled === 'on' ? 1 : 0;",
+        "        if (hoverPulseArmed) {",
+        "            triggerPulse(performance.now());",
+        "        }",
+        "    });",
+        "",
+        "    wrap.addEventListener('pointermove', function (event) {",
+        "        updatePointer(event);",
+        "        pointerActive = true;",
+        "        targetCursorRevealOpacity = config.maskEnabled === 'on' ? 1 : 0;",
+        "        if (hoverPulseArmed) {",
+        "            triggerPulse(performance.now());",
+        "        }",
+        "    });",
+        "",
+        "    wrap.addEventListener('pointerleave', function () {",
+        "        pointerActive = false;",
+        "        targetCursorRevealOpacity = 0;",
+        "        targetRotationX = 0;",
+        "        targetRotationY = 0;",
+        "        nextPulseTime = Infinity;",
+        "        hoverPulseArmed = true;",
+        "    });",
+        "",
+        "    wrap.addEventListener('pointerdown', function (event) {",
+        "        updatePointer(event);",
+        "        pointerActive = true;",
+        "        targetCursorRevealOpacity = config.maskEnabled === 'on' ? 1 : 0;",
+        "        triggerPulse(performance.now());",
+        "    });",
+        "",
+        "    function handleResize() {",
+        "        resizeCanvas();",
+        "    }",
+        "",
+        "    if (typeof ResizeObserver !== 'undefined') {",
+        "        const resizeObserver = new ResizeObserver(handleResize);",
+        "        resizeObserver.observe(wrap);",
+        "    } else {",
+        "        window.addEventListener('resize', handleResize);",
+        "    }",
+        "",
+        "    resizeCanvas();",
+        "    animationFrameId = requestAnimationFrame(animate);",
         "})();",
         "</script>"
     ].join("\n");

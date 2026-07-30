@@ -59,27 +59,50 @@
                     <h2 id="resolution-label">1920 x 1080</h2>
                 </div>
 
-                <div class="meta-chips">
-                    <span id="loop-label" class="chip">24.0s loop</span>
-                    <span class="chip">Minimal Dark UI</span>
+                <div class="preview-header-side">
+                    <div class="meta-chips">
+                        <span id="loop-label" class="chip">24.0s loop</span>
+                        <span class="chip">Minimal Dark UI</span>
+                    </div>
+
+                    <div class="preview-size-panel">
+                        <label class="preview-size-label" for="preview-size-range">
+                            Preview size
+                        </label>
+                        <div class="preview-size-row">
+                            <input
+                                id="preview-size-range"
+                                type="range"
+                                min="35"
+                                max="100"
+                                step="1"
+                                value="100"
+                            />
+                            <input
+                                id="preview-size-input"
+                                type="number"
+                                min="35"
+                                max="100"
+                                step="1"
+                                value="100"
+                            />
+                            <span class="preview-size-unit">%</span>
+                            <button
+                                id="preview-size-reset"
+                                class="ghost-button preview-size-button"
+                                type="button"
+                            >
+                                Fit
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </header>
 
-            <section class="preview-stage-wrap">
+            <section id="preview-stage-wrap" class="preview-stage-wrap">
                 <div id="preview-frame" class="preview-frame">
                     <div id="preview-mount" class="preview-mount"></div>
                 </div>
-            </section>
-
-            <section class="code-panel">
-                <div class="code-header">
-                    <div>
-                        <p class="eyebrow">Export</p>
-                    </div>
-                    <span id="copy-status" class="copy-status">Ready to copy</span>
-                </div>
-
-                <textarea id="code-output" readonly spellcheck="false"></textarea>
             </section>
         </main>
     </div>
