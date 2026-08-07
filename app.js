@@ -53,6 +53,8 @@ const DEFAULT_SETTINGS = {
     renderWidth: 1920,
     renderHeight: 1080,
     backgroundColor: "#000000",
+    backgroundEnabled: "on",
+    backgroundOpacity: 1,
     containerPosition: "relative",
     containerWidthValue: 1920,
     containerWidthUnit: "px",
@@ -107,6 +109,8 @@ const FOOTER_DEFAULT_SETTINGS = {
     renderWidth: 3840,
     renderHeight: 2160,
     backgroundColor: "#000000",
+    backgroundEnabled: "on",
+    backgroundOpacity: 1,
     containerPosition: "relative",
     containerWidthValue: 100,
     containerWidthUnit: "%",
@@ -114,6 +118,7 @@ const FOOTER_DEFAULT_SETTINGS = {
     containerHeightUnit: "%",
     particleColor: "#ffffff",
     pulseColor: "#ffffff",
+    pulseColorOpacity: 1,
     particleShape: "rectangle",
     twinkleSpeed: 0.6,
     minimumSpacing: 2,
@@ -134,6 +139,7 @@ const FOOTER_DEFAULT_SETTINGS = {
     maskEnabled: "off",
     maskSizePercent: 36,
     baseVisibility: 0.35,
+    backgroundDotsOpacity: 0.3,
     maskSoftness: 0.5,
     maskFadeSpeed: 0.11,
     pulseRevealWidth: 130,
@@ -153,6 +159,8 @@ const FUNNEL_DEFAULT_SETTINGS = {
     renderWidth: 1000,
     renderHeight: 760,
     backgroundColor: "#f2f0ef",
+    backgroundEnabled: "on",
+    backgroundOpacity: 1,
     containerPosition: "relative",
     containerWidthValue: 100,
     containerWidthUnit: "%",
@@ -161,6 +169,7 @@ const FUNNEL_DEFAULT_SETTINGS = {
     particleColor: "#000000",
     flowColor: "#000000",
     pulseColor: "#000000",
+    pulseColorOpacity: 1,
     particleShape: "circle",
     maskEnabled: "on",
     pulseEnabled: "on",
@@ -224,6 +233,8 @@ const FUNNEL_V2_DEFAULT_SETTINGS = {
     renderWidth: 1000,
     renderHeight: 760,
     backgroundColor: "#f2f0ef",
+    backgroundEnabled: "on",
+    backgroundOpacity: 1,
     containerPosition: "relative",
     containerWidthValue: 100,
     containerWidthUnit: "%",
@@ -231,6 +242,7 @@ const FUNNEL_V2_DEFAULT_SETTINGS = {
     containerHeightUnit: "%",
     particleColor: "#000000",
     pulseColor: "#000000",
+    pulseColorOpacity: 1,
     particleShape: "rectangle",
     pulseEnabled: "off",
     pulseDuration: 1200,
@@ -589,6 +601,8 @@ const BUILT_IN_PATTERNS = [
             renderWidth: 3840,
             renderHeight: 2160,
             backgroundColor: "#000000",
+            backgroundEnabled: "off",
+            backgroundOpacity: 1,
             containerPosition: "relative",
             containerWidthValue: 100,
             containerWidthUnit: "%",
@@ -596,14 +610,15 @@ const BUILT_IN_PATTERNS = [
             containerHeightUnit: "%",
             particleColor: "#ffffff",
             pulseColor: "#ffffff",
+            pulseColorOpacity: 0.1,
             particleShape: "rectangle",
             twinkleSpeed: 0.6,
             minimumSpacing: 2,
             spacingDivider: 209,
             minimumParticleSize: 0.32,
             maximumParticleSize: 1.01,
-            minimumAlpha: 0.31,
-            maximumAlpha: 0.36,
+            minimumAlpha: 0.06,
+            maximumAlpha: 0.11,
             pointerRadiusRatio: 0.15,
             minimumPointerRadius: 90,
             repulsionStrength: 1.45,
@@ -616,15 +631,16 @@ const BUILT_IN_PATTERNS = [
             maskEnabled: "off",
             maskSizePercent: 36,
             baseVisibility: 0.35,
+            backgroundDotsOpacity: 0.4,
             maskSoftness: 0.5,
             maskFadeSpeed: 0.11,
             pulseRevealWidth: 130,
             pulseRevealStrength: 0.85,
             pulseRevealTrail: 0.2,
-            logoSizePercent: 100,
+            logoSizePercent: 160,
             pulseDuration: 1270,
             pulseRepeatDelay: 5000,
-            pulseWidth: 70,
+            pulseWidth: 48,
             pulseBrightness: 0.72,
             pulseSizeBoost: 1.25,
             pulseTrailStrength: 1
@@ -666,6 +682,7 @@ const BUILT_IN_PATTERNS = [
             maskEnabled: "on",
             maskSizePercent: 30,
             baseVisibility: 0.2,
+            backgroundDotsOpacity: 0.3,
             maskSoftness: 0.5,
             maskFadeSpeed: 0.11,
             pulseRevealWidth: 130,
@@ -702,20 +719,21 @@ const BUILT_IN_PATTERNS = [
             spacingDivider: 260,
             minimumParticleSize: 0.22,
             maximumParticleSize: 0.5,
-            minimumAlpha: 0.35,
-            maximumAlpha: 0.35,
-            pointerRadiusRatio: 0.15,
+            minimumAlpha: 0.85,
+            maximumAlpha: 0.85,
+            pointerRadiusRatio: 0.14,
             minimumPointerRadius: 90,
-            repulsionStrength: 1.04,
+            repulsionStrength: 2.16,
             springStrength: 0.011,
             friction: 0.85,
             jitterAmount: 0.03,
             logoPaddingPercent: 10,
             pulseVariant: "border",
             pulseBorderThickness: 9.4,
-            maskEnabled: "on",
+            maskEnabled: "off",
             maskSizePercent: 30,
             baseVisibility: 0.35,
+            backgroundDotsOpacity: 0.45,
             maskSoftness: 0.5,
             maskFadeSpeed: 0.11,
             pulseRevealWidth: 130,
@@ -766,6 +784,7 @@ const BUILT_IN_PATTERNS = [
             maskEnabled: "on",
             maskSizePercent: 40,
             baseVisibility: 0.35,
+            backgroundDotsOpacity: 0.3,
             maskSoftness: 0.5,
             maskFadeSpeed: 0.11,
             pulseRevealWidth: 130,
@@ -1331,11 +1350,26 @@ const CONTROL_GROUPS = [
                 label: "Background color"
             },
             {
+                key: "backgroundEnabled",
+                type: "select",
+                label: "Background",
+                options: TOGGLE_OPTIONS
+            },
+            {
+                key: "backgroundOpacity",
+                type: "range",
+                label: "Background opacity",
+                min: 0,
+                max: 1,
+                step: 0.01,
+                precision: 2
+            },
+            {
                 key: "logoSizePercent",
                 type: "range",
                 label: "Logo size",
                 min: 40,
-                max: 140,
+                max: 200,
                 step: 1,
                 precision: 0,
                 unit: "%"
@@ -1822,11 +1856,26 @@ const FOOTER_CONTROL_GROUPS = [
                 label: "Background color"
             },
             {
+                key: "backgroundEnabled",
+                type: "select",
+                label: "Background",
+                options: TOGGLE_OPTIONS
+            },
+            {
+                key: "backgroundOpacity",
+                type: "range",
+                label: "Background opacity",
+                min: 0,
+                max: 1,
+                step: 0.01,
+                precision: 2
+            },
+            {
                 key: "logoSizePercent",
                 type: "range",
                 label: "Logo size",
                 min: 40,
-                max: 140,
+                max: 200,
                 step: 1,
                 precision: 0,
                 unit: "%"
@@ -1935,6 +1984,15 @@ const FOOTER_CONTROL_GROUPS = [
                 max: 1,
                 step: 0.01,
                 precision: 2
+            },
+            {
+                key: "backgroundDotsOpacity",
+                type: "range",
+                label: "Background dots opacity",
+                min: 0,
+                max: 1,
+                step: 0.01,
+                precision: 2
             }
         ]
     },
@@ -2013,6 +2071,15 @@ const FOOTER_CONTROL_GROUPS = [
                 label: "Pulse color"
             },
             {
+                key: "pulseColorOpacity",
+                type: "range",
+                label: "Pulse color opacity",
+                min: 0,
+                max: 1,
+                step: 0.01,
+                precision: 2
+            },
+            {
                 key: "pulseDuration",
                 type: "range",
                 label: "Pulse duration",
@@ -2025,9 +2092,9 @@ const FOOTER_CONTROL_GROUPS = [
             {
                 key: "pulseRepeatDelay",
                 type: "range",
-                label: "Pulse repeat",
-                min: 100,
-                max: 5000,
+                label: "Pulse delay",
+                min: 0,
+                max: 15000,
                 step: 10,
                 precision: 0,
                 unit: "ms"
@@ -2145,6 +2212,21 @@ const FUNNEL_CONTROL_GROUPS = [
                 key: "backgroundColor",
                 type: "color",
                 label: "Background color"
+            },
+            {
+                key: "backgroundEnabled",
+                type: "select",
+                label: "Background",
+                options: TOGGLE_OPTIONS
+            },
+            {
+                key: "backgroundOpacity",
+                type: "range",
+                label: "Background opacity",
+                min: 0,
+                max: 1,
+                step: 0.01,
+                precision: 2
             },
             {
                 key: "maximumPixelRatio",
@@ -2576,6 +2658,15 @@ const FUNNEL_CONTROL_GROUPS = [
                 label: "Pulse color"
             },
             {
+                key: "pulseColorOpacity",
+                type: "range",
+                label: "Pulse color opacity",
+                min: 0,
+                max: 1,
+                step: 0.01,
+                precision: 2
+            },
+            {
                 key: "pulseDuration",
                 type: "range",
                 label: "Pulse duration",
@@ -2717,6 +2808,21 @@ const FUNNEL_V2_CONTROL_GROUPS = [
                 key: "backgroundColor",
                 type: "color",
                 label: "Background color"
+            },
+            {
+                key: "backgroundEnabled",
+                type: "select",
+                label: "Background",
+                options: TOGGLE_OPTIONS
+            },
+            {
+                key: "backgroundOpacity",
+                type: "range",
+                label: "Background opacity",
+                min: 0,
+                max: 1,
+                step: 0.01,
+                precision: 2
             },
             {
                 key: "maximumPixelRatio",
@@ -3230,6 +3336,20 @@ const FUNNEL_V2_CONTROL_GROUPS = [
                 type: "select",
                 label: "Pulse",
                 options: TOGGLE_OPTIONS
+            },
+            {
+                key: "pulseColor",
+                type: "color",
+                label: "Pulse color"
+            },
+            {
+                key: "pulseColorOpacity",
+                type: "range",
+                label: "Pulse color opacity",
+                min: 0,
+                max: 1,
+                step: 0.01,
+                precision: 2
             },
             {
                 key: "pulseDuration",
@@ -4079,10 +4199,13 @@ class WavePatternPreview {
     applyRenderer() {
         this.camera.aspect = this.settings.renderWidth / this.settings.renderHeight;
         this.camera.updateProjectionMatrix();
-        this.renderer.setClearColor(this.settings.backgroundColor, 1);
+        this.renderer.setClearColor(
+            this.settings.backgroundColor,
+            getEffectiveBackgroundOpacity(this.settings)
+        );
         this.renderer.setPixelRatio(1);
         this.renderer.setSize(this.settings.renderWidth, this.settings.renderHeight, false);
-        this.mount.style.backgroundColor = this.settings.backgroundColor;
+        this.mount.style.backgroundColor = getEffectiveBackgroundStyle(this.settings);
     }
 
     applyMaterial() {
@@ -4173,7 +4296,7 @@ class FooterInteractionPreview {
         this.wrap.style.width = "100%";
         this.wrap.style.height = "100%";
         this.wrap.style.overflow = "hidden";
-        this.wrap.style.cursor = "crosshair";
+        this.wrap.style.cursor = "default";
         this.wrap.style.userSelect = "none";
 
         this.canvas = document.createElement("canvas");
@@ -4235,7 +4358,7 @@ class FooterInteractionPreview {
             Array.from(FOOTER_GEOMETRY_KEYS).some((key) => previous[key] !== nextSettings[key]);
 
         this.settings = { ...nextSettings };
-        this.wrap.style.backgroundColor = this.settings.backgroundColor;
+        this.wrap.style.backgroundColor = getEffectiveBackgroundStyle(this.settings);
         this.targetMaskOpacity =
             this.settings.maskEnabled === "on" && this.logoHoverActive ? 1 : 0;
 
@@ -4327,12 +4450,9 @@ class FooterInteractionPreview {
 
         for (let y = spacing / 2; y < this.canvasHeight; y += spacing) {
             for (let x = spacing / 2; x < this.canvasWidth; x += spacing) {
-                if (!this.isInsideLogo(x, y)) {
-                    continue;
-                }
-
                 const baseX = x + (Math.random() - 0.5) * jitter;
                 const baseY = y + (Math.random() - 0.5) * jitter;
+                const isInteractive = this.isInsideLogo(baseX, baseY);
 
                 this.particles.push({
                     baseX,
@@ -4355,7 +4475,8 @@ class FooterInteractionPreview {
                     blinkPhase: Math.random() * Math.PI * 2,
                     blinkSpeed: 0.6 + Math.random() * 1.4,
                     blinkStrength: 0.08 + Math.random() * 0.16,
-                    isBorder: this.isOnLogoBorder(baseX, baseY),
+                    isInteractive,
+                    isBorder: isInteractive && this.isOnLogoBorder(baseX, baseY),
                     pulseDistance: 0
                 });
             }
@@ -4385,10 +4506,7 @@ class FooterInteractionPreview {
 
         if (insideLogo && triggerPulseOnEnter) {
             this.triggerPulse(currentTime);
-            return;
         }
-
-        this.nextPulseTime = Infinity;
     }
 
     handlePointerEnter(event) {
@@ -4407,7 +4525,6 @@ class FooterInteractionPreview {
         this.pointerActive = false;
         this.logoHoverActive = false;
         this.targetMaskOpacity = 0;
-        this.nextPulseTime = Infinity;
     }
 
     calculateMaximumPulseDistance(originX = this.pointerX, originY = this.pointerY) {
@@ -4431,7 +4548,11 @@ class FooterInteractionPreview {
 
     triggerPulse(currentTime) {
         if (this.settings.pulseVariant === "none") {
-            return;
+            return false;
+        }
+
+        if (Number.isFinite(this.nextPulseTime) && currentTime < this.nextPulseTime) {
+            return false;
         }
 
         this.activePulses.push({
@@ -4441,6 +4562,7 @@ class FooterInteractionPreview {
             maximumDistance: this.calculateMaximumPulseDistance(this.pointerX, this.pointerY)
         });
         this.nextPulseTime = currentTime + this.settings.pulseRepeatDelay;
+        return true;
     }
 
     updateParticles(deltaMultiplier) {
@@ -4451,7 +4573,7 @@ class FooterInteractionPreview {
         const pointerRadiusSquared = pointerRadius * pointerRadius;
 
         for (const particle of this.particles) {
-            if (this.logoHoverActive) {
+            if (particle.isInteractive && this.logoHoverActive) {
                 const deltaX = particle.x - this.pointerX;
                 const deltaY = particle.y - this.pointerY;
                 const distanceSquared = deltaX * deltaX + deltaY * deltaY;
@@ -4659,14 +4781,18 @@ class FooterInteractionPreview {
         const pulseRgb = hexToRgb(this.settings.pulseColor);
 
         for (const particle of this.particles) {
-            const cursorReveal = this.getCursorMask(particle);
-            const pulseReveal = this.getPulseReveal(particle, pulseStates);
+            const cursorReveal = particle.isInteractive ? this.getCursorMask(particle) : 0;
+            const pulseReveal = particle.isInteractive
+                ? this.getPulseReveal(particle, pulseStates)
+                : 0;
             const reveal = Math.max(cursorReveal, pulseReveal);
             const visibility =
-                this.settings.maskEnabled === "on"
-                    ? this.settings.baseVisibility +
-                      (1 - this.settings.baseVisibility) * reveal
-                    : 1;
+                particle.isInteractive
+                    ? this.settings.maskEnabled === "on"
+                        ? this.settings.baseVisibility +
+                          (1 - this.settings.baseVisibility) * reveal
+                        : 1
+                    : this.settings.backgroundDotsOpacity;
             const flickerWave =
                 (Math.sin(seconds * particle.flickerSpeed + particle.flickerPhase) + 1) * 0.5;
             const flickerMultiplier =
@@ -4676,10 +4802,15 @@ class FooterInteractionPreview {
                 Math.sin(seconds * particle.blinkSpeed + particle.blinkPhase)
             );
             const sharpBlink = Math.pow(blinkWave, 22) * particle.blinkStrength;
-            const pulse = this.getPulseValues(particle, pulseStates);
+            const pulse = particle.isInteractive
+                ? this.getPulseValues(particle, pulseStates)
+                : { brightness: 0, sizeBoost: 0 };
             const baseContribution =
                 (particle.baseAlpha * flickerMultiplier + sharpBlink) * visibility;
-            const pulseContribution = pulse.brightness * visibility;
+            const pulseContribution =
+                pulse.brightness *
+                this.settings.pulseColorOpacity *
+                visibility;
             const alpha = Math.min(
                 1,
                 baseContribution + pulseContribution
@@ -4703,14 +4834,6 @@ class FooterInteractionPreview {
         const elapsed = currentTime - this.lastFrameTime;
         this.lastFrameTime = currentTime;
         const deltaMultiplier = Math.min(elapsed / 16.667 || 1, 2);
-
-        if (
-            this.settings.pulseVariant !== "none" &&
-            this.logoHoverActive &&
-            currentTime >= this.nextPulseTime
-        ) {
-            this.triggerPulse(currentTime);
-        }
 
         this.updateParticles(deltaMultiplier);
         this.drawParticles(currentTime);
@@ -4738,7 +4861,7 @@ class FunnelInteractionPreview {
         this.wrap.style.width = "100%";
         this.wrap.style.height = "100%";
         this.wrap.style.overflow = "hidden";
-        this.wrap.style.cursor = "crosshair";
+        this.wrap.style.cursor = "default";
         this.wrap.style.userSelect = "none";
 
         this.canvas = document.createElement("canvas");
@@ -4812,7 +4935,7 @@ class FunnelInteractionPreview {
             Array.from(FUNNEL_REBUILD_KEYS).some((key) => previous[key] !== nextSettings[key]);
 
         this.settings = { ...nextSettings };
-        this.wrap.style.backgroundColor = this.settings.backgroundColor;
+        this.wrap.style.backgroundColor = getEffectiveBackgroundStyle(this.settings);
         this.targetCursorRevealOpacity =
             this.settings.maskEnabled === "on" && this.pointerActive ? 1 : 0;
         this.updateSceneGeometry();
@@ -5424,7 +5547,8 @@ class FunnelInteractionPreview {
             const pulse = this.getPulseAppearance(pulseDistance, pulseState);
             const depthBrightness = lerp(0.5, 1.2, projection.frontFactor);
             const baseContribution = particle.alpha * flicker * depthBrightness + blink * 0.18;
-            const pulseContribution = pulse.brightness;
+            const pulseContribution =
+                pulse.brightness * this.settings.pulseColorOpacity;
             const alpha = Math.min(1, (baseContribution + pulseContribution) * visibility);
             const size =
                 particle.size *
@@ -5464,7 +5588,8 @@ class FunnelInteractionPreview {
                     : 1;
             const streamFade = entryFade * exitFade;
             const baseContribution = particle.alpha * depthBrightness;
-            const pulseContribution = pulse.brightness;
+            const pulseContribution =
+                pulse.brightness * this.settings.pulseColorOpacity;
             const alpha = Math.min(
                 1,
                 (baseContribution + pulseContribution) * visibility * streamFade
@@ -5560,7 +5685,7 @@ class FunnelInteractionV2Preview {
         this.mount.appendChild(this.wrap);
 
         this.ctx = this.canvas.getContext("2d", {
-            alpha: false,
+            alpha: true,
             desynchronized: true
         });
         this.settings = sanitizeSettings({ ...FUNNEL_V2_DEFAULT_SETTINGS }, FUNNEL_V2_ANIMATION);
@@ -5622,8 +5747,9 @@ class FunnelInteractionV2Preview {
             window.addEventListener("resize", this.handleResize);
         }
 
-        this.wrap.style.backgroundColor = this.settings.backgroundColor;
-        this.canvas.style.backgroundColor = this.settings.backgroundColor;
+        const backgroundStyle = getEffectiveBackgroundStyle(this.settings);
+        this.wrap.style.backgroundColor = backgroundStyle;
+        this.canvas.style.backgroundColor = backgroundStyle;
         this.resizeCanvas();
         this.resetCamera();
         this.animationFrameId = window.requestAnimationFrame(this.animate);
@@ -5644,8 +5770,9 @@ class FunnelInteractionV2Preview {
             );
 
         this.settings = { ...nextSettings };
-        this.wrap.style.backgroundColor = this.settings.backgroundColor;
-        this.canvas.style.backgroundColor = this.settings.backgroundColor;
+        const backgroundStyle = getEffectiveBackgroundStyle(this.settings);
+        this.wrap.style.backgroundColor = backgroundStyle;
+        this.canvas.style.backgroundColor = backgroundStyle;
 
         if (cameraResetChanged) {
             this.resetCamera();
@@ -6054,8 +6181,7 @@ class FunnelInteractionV2Preview {
     }
 
     drawBackground() {
-        this.ctx.fillStyle = this.settings.backgroundColor;
-        this.ctx.fillRect(0, 0, this.canvasWidth, this.canvasHeight);
+        this.ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
     }
 
     drawParticle(particle) {
@@ -6217,8 +6343,11 @@ class FunnelInteractionV2Preview {
                 projected.y - this.pulseOriginY
             );
             const pulse = this.getPulseAppearance(pulseDistance, pulseState);
-            const alpha = clamp(baseAlpha + pulse.brightness, 0.02, 1);
-            const pulseMix = alpha > 0 ? clamp(pulse.brightness / alpha, 0, 1) : 0;
+            const pulseContribution =
+                pulse.brightness * this.settings.pulseColorOpacity;
+            const alpha = clamp(baseAlpha + pulseContribution, 0.02, 1);
+            const pulseMix =
+                alpha > 0 ? clamp(pulseContribution / alpha, 0, 1) : 0;
             const color = `rgb(${Math.round(
                 lerp(particleRgb.r, pulseRgb.r, pulseMix)
             )}, ${Math.round(lerp(particleRgb.g, pulseRgb.g, pulseMix))}, ${Math.round(
@@ -6621,6 +6750,12 @@ function sanitizeCommonSettings(input) {
             ? settings.containerHeightUnit
             : "px";
     settings.backgroundColor = normalizeHexColor(settings.backgroundColor);
+    settings.backgroundEnabled = TOGGLE_OPTIONS.some(
+        (option) => option.value === settings.backgroundEnabled
+    )
+        ? settings.backgroundEnabled
+        : "on";
+    settings.backgroundOpacity = clamp(settings.backgroundOpacity, 0, 1);
     settings.particleColor = normalizeHexColor(settings.particleColor);
     settings.particleShape =
         SHAPE_OPTIONS.some((option) => option.value === settings.particleShape)
@@ -6682,6 +6817,7 @@ function sanitizeFooterSettings(input) {
 
     settings.twinkleSpeed = clamp(settings.twinkleSpeed, 0, 6);
     settings.pulseColor = normalizeHexColor(settings.pulseColor);
+    settings.pulseColorOpacity = clamp(settings.pulseColorOpacity, 0, 1);
     settings.minimumSpacing = clampInt(settings.minimumSpacing, 2, 24);
     settings.spacingDivider = clampInt(settings.spacingDivider, 20, 260);
     settings.minimumParticleSize = clamp(settings.minimumParticleSize, 0.05, 2.5);
@@ -6709,15 +6845,16 @@ function sanitizeFooterSettings(input) {
         : "off";
     settings.maskSizePercent = clamp(settings.maskSizePercent, 8, 80);
     settings.baseVisibility = clamp(settings.baseVisibility, 0, 1);
+    settings.backgroundDotsOpacity = clamp(settings.backgroundDotsOpacity, 0, 1);
     settings.maskSoftness = clamp(settings.maskSoftness, 0.05, 0.95);
     settings.maskFadeSpeed = clamp(settings.maskFadeSpeed, 0.01, 0.5);
     settings.pulseRevealWidth = clamp(settings.pulseRevealWidth, 20, 320);
     settings.pulseRevealStrength = clamp(settings.pulseRevealStrength, 0, 1);
     settings.pulseRevealTrail = clamp(settings.pulseRevealTrail, 0, 1);
-    settings.logoSizePercent = clamp(settings.logoSizePercent, 40, 140);
+    settings.logoSizePercent = clamp(settings.logoSizePercent, 40, 200);
     settings.pulseBorderThickness = clamp(settings.pulseBorderThickness, 0.5, 24);
     settings.pulseDuration = clampInt(settings.pulseDuration, 100, 4000);
-    settings.pulseRepeatDelay = clampInt(settings.pulseRepeatDelay, 100, 5000);
+    settings.pulseRepeatDelay = clampInt(settings.pulseRepeatDelay, 0, 15000);
     settings.pulseWidth = clamp(settings.pulseWidth, 10, 300);
     settings.pulseBrightness = clamp(settings.pulseBrightness, 0, 2);
     settings.pulseSizeBoost = clamp(settings.pulseSizeBoost, 0, 4);
@@ -6731,6 +6868,7 @@ function sanitizeFunnelSettings(input) {
 
     settings.flowColor = normalizeHexColor(settings.flowColor);
     settings.pulseColor = normalizeHexColor(settings.pulseColor);
+    settings.pulseColorOpacity = clamp(settings.pulseColorOpacity, 0, 1);
     settings.maskEnabled = TOGGLE_OPTIONS.some((option) => option.value === settings.maskEnabled)
         ? settings.maskEnabled
         : "on";
@@ -6798,6 +6936,7 @@ function sanitizeFunnelV2Settings(input) {
     const settings = sanitizeCommonSettings(input);
 
     settings.pulseColor = normalizeHexColor(settings.pulseColor);
+    settings.pulseColorOpacity = clamp(settings.pulseColorOpacity, 0, 1);
     settings.pulseEnabled = TOGGLE_OPTIONS.some((option) => option.value === settings.pulseEnabled)
         ? settings.pulseEnabled
         : "off";
@@ -6961,6 +7100,7 @@ function generateEmbedCode(settings, animationType = HERO_ANIMATION) {
 function generateHeroEmbedCode(settings) {
     const color = normalizeHexColor(settings.particleColor);
     const backgroundColor = normalizeHexColor(settings.backgroundColor);
+    const backgroundOpacity = getEffectiveBackgroundOpacity(settings);
     const containerStyle = getEmbedContainerStyle(settings, "none");
 
     return [
@@ -6988,6 +7128,7 @@ function generateHeroEmbedCode(settings) {
         `        particleShape: ${JSON.stringify(settings.particleShape)},`,
         `        particleColor: ${JSON.stringify(color)},`,
         `        backgroundColor: ${JSON.stringify(backgroundColor)},`,
+        `        backgroundOpacity: ${formatNumber(backgroundOpacity, 2)},`,
         `        cameraFov: ${formatNumber(settings.cameraFov)},`,
         `        cameraX: ${formatNumber(settings.cameraX, 1)},`,
         `        cameraY: ${formatNumber(settings.cameraY, 1)},`,
@@ -7036,7 +7177,7 @@ function generateHeroEmbedCode(settings) {
         "    camera.lookAt(config.lookAtX, config.lookAtY, config.lookAtZ);",
         "",
         "    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });",
-        "    renderer.setClearColor(config.backgroundColor, 1);",
+        "    renderer.setClearColor(config.backgroundColor, config.backgroundOpacity);",
         "    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));",
         "    renderer.setSize(width, height, false);",
         "    renderer.domElement.style.width = '100%';",
@@ -7238,6 +7379,7 @@ function generateFunnelV2EmbedCode(settings) {
     const particleColor = normalizeHexColor(settings.particleColor);
     const pulseColor = normalizeHexColor(settings.pulseColor);
     const backgroundColor = normalizeHexColor(settings.backgroundColor);
+    const backgroundStyle = getEffectiveBackgroundStyle(settings);
     const containerStyle = getEmbedContainerStyle(settings, "auto");
 
     return `<!-- ============================================================ -->
@@ -7248,7 +7390,7 @@ function generateFunnelV2EmbedCode(settings) {
 <div id="funnel-interaction-v2-wrap" style="${containerStyle}">
     <canvas
         id="funnel-interaction-v2-canvas"
-        style="display:block;width:100%;height:100%;background:${backgroundColor};cursor:grab;touch-action:none;"
+        style="display:block;width:100%;height:100%;background:${backgroundStyle};cursor:grab;touch-action:none;"
     ></canvas>
 </div>
 
@@ -7258,15 +7400,17 @@ function generateFunnelV2EmbedCode(settings) {
     const canvas = document.getElementById("funnel-interaction-v2-canvas");
     if (!wrap || !canvas) return;
 
-    const ctx = canvas.getContext("2d", { alpha: false, desynchronized: true });
+    const ctx = canvas.getContext("2d", { alpha: true, desynchronized: true });
     if (!ctx) return;
 
     const config = {
         renderWidth: ${formatNumber(settings.renderWidth)},
         renderHeight: ${formatNumber(settings.renderHeight)},
         backgroundColor: ${JSON.stringify(backgroundColor)},
+        backgroundStyle: ${JSON.stringify(backgroundStyle)},
         particleColor: ${JSON.stringify(particleColor)},
         pulseColor: ${JSON.stringify(pulseColor)},
+        pulseColorOpacity: ${formatNumber(settings.pulseColorOpacity, 2)},
         particleShape: ${JSON.stringify(settings.particleShape)},
         pulseEnabled: ${JSON.stringify(settings.pulseEnabled)},
         pulseDuration: ${formatNumber(settings.pulseDuration)},
@@ -7618,8 +7762,7 @@ function generateFunnelV2EmbedCode(settings) {
     }
 
     function drawBackground() {
-        ctx.fillStyle = config.backgroundColor;
-        ctx.fillRect(0, 0, width, height);
+        ctx.clearRect(0, 0, width, height);
     }
 
     function drawParticle(particle) {
@@ -7779,8 +7922,10 @@ function generateFunnelV2EmbedCode(settings) {
             );
             const pulseDistance = Math.hypot(projected.x - pulseOriginX, projected.y - pulseOriginY);
             const pulse = getPulseAppearance(pulseDistance, pulseState);
-            const alpha = clamp(baseAlpha + pulse.brightness, 0.02, 1);
-            const pulseMix = alpha > 0 ? clamp(pulse.brightness / alpha, 0, 1) : 0;
+            const pulseContribution = pulse.brightness * config.pulseColorOpacity;
+            const alpha = clamp(baseAlpha + pulseContribution, 0.02, 1);
+            const pulseMix =
+                alpha > 0 ? clamp(pulseContribution / alpha, 0, 1) : 0;
             const color =
                 "rgb(" +
                 Math.round(lerp(particleRgb.r, pulseRgb.r, pulseMix)) +
@@ -7920,8 +8065,8 @@ function generateFunnelV2EmbedCode(settings) {
         window.addEventListener("resize", resizeCanvas);
     }
 
-    wrap.style.backgroundColor = config.backgroundColor;
-    canvas.style.backgroundColor = config.backgroundColor;
+    wrap.style.backgroundColor = config.backgroundStyle;
+    canvas.style.backgroundColor = config.backgroundStyle;
 
     resizeCanvas();
     resetCamera();
@@ -7935,6 +8080,7 @@ function generateFunnelEmbedCode(settings) {
     const flowColor = normalizeHexColor(settings.flowColor);
     const pulseColor = normalizeHexColor(settings.pulseColor);
     const backgroundColor = normalizeHexColor(settings.backgroundColor);
+    const backgroundStyle = getEffectiveBackgroundStyle(settings);
     const containerStyle = getEmbedContainerStyle(settings, "auto");
 
     return [
@@ -7961,9 +8107,11 @@ function generateFunnelEmbedCode(settings) {
         `        renderWidth: ${formatNumber(settings.renderWidth)},`,
         `        renderHeight: ${formatNumber(settings.renderHeight)},`,
         `        backgroundColor: ${JSON.stringify(backgroundColor)},`,
+        `        backgroundStyle: ${JSON.stringify(backgroundStyle)},`,
         `        particleColor: ${JSON.stringify(particleColor)},`,
         `        flowColor: ${JSON.stringify(flowColor)},`,
         `        pulseColor: ${JSON.stringify(pulseColor)},`,
+        `        pulseColorOpacity: ${formatNumber(settings.pulseColorOpacity, 2)},`,
         `        particleShape: ${JSON.stringify(settings.particleShape)},`,
         `        maskEnabled: ${JSON.stringify(settings.maskEnabled)},`,
         `        pulseEnabled: ${JSON.stringify(settings.pulseEnabled)},`,
@@ -8018,9 +8166,9 @@ function generateFunnelEmbedCode(settings) {
         `        pulseRevealTrail: ${formatNumber(settings.pulseRevealTrail, 2)}`,
         "    };",
         "",
-        "    wrap.style.backgroundColor = config.backgroundColor;",
+        "    wrap.style.backgroundColor = config.backgroundStyle;",
         "    wrap.style.overflow = 'hidden';",
-        "    wrap.style.cursor = 'crosshair';",
+        "    wrap.style.cursor = 'default';",
         "    wrap.style.userSelect = 'none';",
         "",
         "    let width = 0;",
@@ -8489,7 +8637,7 @@ function generateFunnelEmbedCode(settings) {
         "            const pulse = getPulseAppearance(pulseDistance, pulseState);",
         "            const depthBrightness = lerp(0.5, 1.2, projection.frontFactor);",
         "            const baseContribution = particle.alpha * flicker * depthBrightness + blink * 0.18;",
-        "            const pulseContribution = pulse.brightness;",
+        "            const pulseContribution = pulse.brightness * config.pulseColorOpacity;",
         "            const alpha = Math.min(1, (baseContribution + pulseContribution) * visibility);",
         "            const size = particle.size * projection.scale * lerp(0.8, 1.18, projection.frontFactor) * (1 + blink * 0.55) * (1 + pulse.sizeBoost);",
         "            const pulseMix = alpha > 0 ? clamp((pulseContribution * visibility) / alpha, 0, 1) : 0;",
@@ -8517,7 +8665,7 @@ function generateFunnelEmbedCode(settings) {
         "            const exitFade = particle.progress > 0.9 ? 1 - easeInOut(clamp((particle.progress - 0.9) / 0.28, 0, 1)) : 1;",
         "            const streamFade = entryFade * exitFade;",
         "            const baseContribution = particle.alpha * depthBrightness;",
-        "            const pulseContribution = pulse.brightness;",
+        "            const pulseContribution = pulse.brightness * config.pulseColorOpacity;",
         "            const alpha = Math.min(1, (baseContribution + pulseContribution) * visibility * streamFade);",
         "            const size = particle.size * projection.scale * lerp(0.86, 1.18, projection.frontFactor) * (1 + pulse.sizeBoost) * lerp(0.86, 1, streamFade);",
         "            const pulseMix = alpha > 0 ? clamp((pulseContribution * visibility) / alpha, 0, 1) : 0;",
@@ -8618,6 +8766,7 @@ function generateFooterEmbedCode(settings) {
     const color = normalizeHexColor(settings.particleColor);
     const pulseColor = normalizeHexColor(settings.pulseColor);
     const backgroundColor = normalizeHexColor(settings.backgroundColor);
+    const backgroundStyle = getEffectiveBackgroundStyle(settings);
     const containerStyle = getEmbedContainerStyle(settings, "auto");
 
     return [
@@ -8647,8 +8796,10 @@ function generateFooterEmbedCode(settings) {
         `        renderWidth: ${formatNumber(settings.renderWidth)},`,
         `        renderHeight: ${formatNumber(settings.renderHeight)},`,
         `        backgroundColor: ${JSON.stringify(backgroundColor)},`,
+        `        backgroundStyle: ${JSON.stringify(backgroundStyle)},`,
         `        particleColor: ${JSON.stringify(color)},`,
         `        pulseColor: ${JSON.stringify(pulseColor)},`,
+        `        pulseColorOpacity: ${formatNumber(settings.pulseColorOpacity, 2)},`,
         `        particleShape: ${JSON.stringify(settings.particleShape)},`,
         `        twinkleSpeed: ${formatNumber(settings.twinkleSpeed, 1)},`,
         `        minimumSpacing: ${formatNumber(settings.minimumSpacing)},`,
@@ -8670,6 +8821,7 @@ function generateFooterEmbedCode(settings) {
         `        maskEnabled: ${JSON.stringify(settings.maskEnabled)},`,
         `        maskSizePercent: ${formatNumber(settings.maskSizePercent, 0)},`,
         `        baseVisibility: ${formatNumber(settings.baseVisibility, 2)},`,
+        `        backgroundDotsOpacity: ${formatNumber(settings.backgroundDotsOpacity, 2)},`,
         `        maskSoftness: ${formatNumber(settings.maskSoftness, 2)},`,
         `        maskFadeSpeed: ${formatNumber(settings.maskFadeSpeed, 2)},`,
         `        pulseRevealWidth: ${formatNumber(settings.pulseRevealWidth)},`,
@@ -8683,9 +8835,9 @@ function generateFooterEmbedCode(settings) {
         `        pulseTrailStrength: ${formatNumber(settings.pulseTrailStrength, 2)}`,
         "    };",
         "",
-        "    wrap.style.backgroundColor = config.backgroundColor;",
+        "    wrap.style.backgroundColor = config.backgroundStyle;",
         "    wrap.style.overflow = 'hidden';",
-        "    wrap.style.cursor = 'crosshair';",
+        "    wrap.style.cursor = 'default';",
         "    wrap.style.userSelect = 'none';",
         "",
         "    let canvasWidth = 0;",
@@ -8781,10 +8933,9 @@ function generateFooterEmbedCode(settings) {
         "",
         "        for (let y = spacing / 2; y < canvasHeight; y += spacing) {",
         "            for (let x = spacing / 2; x < canvasWidth; x += spacing) {",
-        "                if (!isInsideLogo(x, y)) continue;",
-        "",
         "                const baseX = x + (Math.random() - 0.5) * jitter;",
         "                const baseY = y + (Math.random() - 0.5) * jitter;",
+        "                const isInteractive = isInsideLogo(baseX, baseY);",
         "",
         "                particles.push({",
         "                    baseX,",
@@ -8801,7 +8952,8 @@ function generateFooterEmbedCode(settings) {
         "                    blinkPhase: Math.random() * Math.PI * 2,",
         "                    blinkSpeed: 0.6 + Math.random() * 1.4,",
         "                    blinkStrength: 0.08 + Math.random() * 0.16,",
-        "                    isBorder: isOnLogoBorder(baseX, baseY),",
+        "                    isInteractive,",
+        "                    isBorder: isInteractive && isOnLogoBorder(baseX, baseY),",
         "                    pulseDistance: 0",
         "                });",
         "            }",
@@ -8823,7 +8975,8 @@ function generateFooterEmbedCode(settings) {
         "    }",
         "",
         "    function triggerPulse(currentTime) {",
-        "        if (config.pulseVariant === 'none') return;",
+        "        if (config.pulseVariant === 'none') return false;",
+        "        if (Number.isFinite(nextPulseTime) && currentTime < nextPulseTime) return false;",
         "        activePulses.push({",
         "            startTime: currentTime,",
         "            originX: pointerX,",
@@ -8831,6 +8984,7 @@ function generateFooterEmbedCode(settings) {
         "            maximumDistance: calculateMaximumPulseDistance(pointerX, pointerY)",
         "        });",
         "        nextPulseTime = currentTime + config.pulseRepeatDelay;",
+        "        return true;",
         "    }",
         "",
         "    function updateParticles(deltaMultiplier) {",
@@ -8841,7 +8995,7 @@ function generateFooterEmbedCode(settings) {
         "        const pointerRadiusSquared = pointerRadius * pointerRadius;",
         "",
         "        for (const particle of particles) {",
-        "            if (logoHoverActive) {",
+        "            if (particle.isInteractive && logoHoverActive) {",
         "                const deltaX = particle.x - pointerX;",
         "                const deltaY = particle.y - pointerY;",
         "                const distanceSquared = deltaX * deltaX + deltaY * deltaY;",
@@ -8984,17 +9138,17 @@ function generateFooterEmbedCode(settings) {
         "        const pulseStates = getPulseStates(currentTime);",
         "",
         "        for (const particle of particles) {",
-        "            const cursorReveal = getCursorMask(particle);",
-        "            const pulseReveal = getPulseReveal(particle, pulseStates);",
+        "            const cursorReveal = particle.isInteractive ? getCursorMask(particle) : 0;",
+        "            const pulseReveal = particle.isInteractive ? getPulseReveal(particle, pulseStates) : 0;",
         "            const reveal = Math.max(cursorReveal, pulseReveal);",
-        "            const visibility = config.maskEnabled === 'on' ? config.baseVisibility + (1 - config.baseVisibility) * reveal : 1;",
+        "            const visibility = particle.isInteractive ? (config.maskEnabled === 'on' ? config.baseVisibility + (1 - config.baseVisibility) * reveal : 1) : config.backgroundDotsOpacity;",
         "            const flickerWave = (Math.sin(seconds * particle.flickerSpeed + particle.flickerPhase) + 1) * 0.5;",
         "            const flickerMultiplier = 1 - particle.flickerDepth + flickerWave * particle.flickerDepth * 2;",
         "            const blinkWave = Math.max(0, Math.sin(seconds * particle.blinkSpeed + particle.blinkPhase));",
         "            const sharpBlink = Math.pow(blinkWave, 22) * particle.blinkStrength;",
-        "            const pulse = getPulseValues(particle, pulseStates);",
+        "            const pulse = particle.isInteractive ? getPulseValues(particle, pulseStates) : { brightness: 0, sizeBoost: 0 };",
         "            const baseContribution = (particle.baseAlpha * flickerMultiplier + sharpBlink) * visibility;",
-        "            const pulseContribution = pulse.brightness * visibility;",
+        "            const pulseContribution = pulse.brightness * config.pulseColorOpacity * visibility;",
         "            const alpha = Math.min(1, baseContribution + pulseContribution);",
         "            const blinkSizeMultiplier = 1 + Math.pow(blinkWave, 22) * 0.7;",
         "            const pulseSizeMultiplier = 1 + pulse.sizeBoost;",
@@ -9029,10 +9183,6 @@ function generateFooterEmbedCode(settings) {
         "        lastFrameTime = currentTime;",
         "        const deltaMultiplier = Math.min(elapsed / 16.667 || 1, 2);",
         "",
-        "        if (config.pulseVariant !== 'none' && logoHoverActive && currentTime >= nextPulseTime) {",
-        "            triggerPulse(currentTime);",
-        "        }",
-        "",
         "        updateParticles(deltaMultiplier);",
         "        drawParticles(currentTime);",
         "    }",
@@ -9058,10 +9208,7 @@ function generateFooterEmbedCode(settings) {
         "",
         "        if (insideLogo && triggerPulseOnEnter) {",
         "            triggerPulse(currentTime);",
-        "            return;",
         "        }",
-        "",
-        "        nextPulseTime = Infinity;",
         "    }",
         "",
         "    wrap.addEventListener('pointerenter', function (event) {",
@@ -9080,7 +9227,6 @@ function generateFooterEmbedCode(settings) {
         "        pointerActive = false;",
         "        logoHoverActive = false;",
         "        targetMaskOpacity = 0;",
-        "        nextPulseTime = Infinity;",
         "    });",
         "",
         "    function handleResize() {",
@@ -9121,7 +9267,30 @@ function loadSavedPatterns() {
             .map((pattern, index) => sanitizePatternRecord(pattern, index, "user"))
             .filter(Boolean);
 
-        return [...builtInPatterns, ...savedPatterns];
+        let migratedFooterPresets = false;
+        const normalizedSavedPatterns = savedPatterns.map((pattern) => {
+            if (
+                pattern.animationType === FOOTER_ANIMATION &&
+                Number(pattern.settings.backgroundDotsOpacity) === 1
+            ) {
+                migratedFooterPresets = true;
+                return {
+                    ...pattern,
+                    settings: {
+                        ...pattern.settings,
+                        backgroundDotsOpacity: 0.3
+                    }
+                };
+            }
+
+            return pattern;
+        });
+
+        if (migratedFooterPresets) {
+            persistPatterns(normalizedSavedPatterns);
+        }
+
+        return [...builtInPatterns, ...normalizedSavedPatterns];
     } catch (error) {
         return builtInPatterns;
     }
@@ -9290,7 +9459,7 @@ function getEmbedContainerStyle(settings, pointerEvents = "none") {
         "top: 0",
         "left: 0",
         "overflow: hidden",
-        `background-color: ${normalizeHexColor(settings.backgroundColor)}`,
+        `background-color: ${getEffectiveBackgroundStyle(settings)}`,
         "z-index: 0",
         `pointer-events: ${pointerEvents}`,
         "display: block"
@@ -9470,6 +9639,29 @@ function hexToRgb(value) {
         g: parseInt(normalized.slice(2, 4), 16),
         b: parseInt(normalized.slice(4, 6), 16)
     };
+}
+
+function formatColorWithAlpha(value, alpha = 1) {
+    const rgb = hexToRgb(value);
+    return `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${formatNumber(clamp(alpha, 0, 1), 2)})`;
+}
+
+function getEffectiveBackgroundOpacity(settings) {
+    if (!settings || settings.backgroundEnabled === "off") {
+        return 0;
+    }
+
+    return clamp(settings.backgroundOpacity, 0, 1);
+}
+
+function getEffectiveBackgroundStyle(settings) {
+    const alpha = getEffectiveBackgroundOpacity(settings);
+
+    if (alpha <= 0.0001) {
+        return "transparent";
+    }
+
+    return formatColorWithAlpha(settings.backgroundColor, alpha);
 }
 
 function randomBetween(min, max) {
